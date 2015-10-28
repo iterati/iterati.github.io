@@ -58,7 +58,7 @@ This section is for experimental colors and a bright white
 
 **Note** that the image your monitor shows you differs from the color your LED will display. This is an approximation than exact. Anything grey will look more white on your light.
 
-![Palette](imgs/palette.png)
+![Palette](/images/palette.png)
 
 ## Strobe Animations
 There are 16 Strobe animations to chose from for each of your modes. The images below to demonstrate each mode are also the defaults modes stored on Hex.
@@ -66,52 +66,52 @@ There are 16 Strobe animations to chose from for each of your modes. The images 
 **Note** that as with the palette image, all colors are estimations. The colors on your lights will vary from the images.
 
 ### Strobe - Mode 1
-![Strobe](imgs/anim01.png)
+![Strobe](/images/anim01.png)
 
 ### Hyper - Mode 2
-![Hyper](imgs/anim02.png)
+![Hyper](/images/anim02.png)
 
 ### Dops - Mode 3
-![Dops](imgs/anim03.png)
+![Dops](/images/anim03.png)
 
 ### Strobie - Mode 4
-![Strobie](imgs/anim04.png)
+![Strobie](/images/anim04.png)
 
 ### Pulse - Mode 5
-![Pulse](imgs/anim05.png)
+![Pulse](/images/anim05.png)
 
 ### Seizure - Mode 6
-![Seizure](imgs/anim06.png)
+![Seizure](/images/anim06.png)
 
 ### Tracer - Mode 7
-![Tracer](imgs/anim07.png)
+![Tracer](/images/anim07.png)
 
 ### Dash dops - Mode 8
-![Dash dops](imgs/anim08.png)
+![Dash dops](/images/anim08.png)
 
 ### Blink-E - Mode 9
-![Blink-E](imgs/anim09.png)
+![Blink-E](/images/anim09.png)
 
 ### Edge - Mode 10
-![Edge](imgs/anim10.png)
+![Edge](/images/anim10.png)
 
 ### Lego - By Andrew Suchan - Mode 11
-![Lego](imgs/anim11.png)
+![Lego](/images/anim11.png)
 
 ### Chase - Mode 12
-![Chase](imgs/anim12.png)
+![Chase](/images/anim12.png)
 
 ### Morph - Mode 13
-![Morph](imgs/anim13.png)
+![Morph](/images/anim13.png)
 
 ### Ribbon - Mode 14
-![Ribbon](imgs/anim14.png)
+![Ribbon](/images/anim14.png)
 
 ### Comet - Based on "Ember" by Andrew Suchan - Mode 15
-![Comet](imgs/anim15.png)
+![Comet](/images/anim15.png)
 
 ### Candy - Mode 16
-![Candy](imgs/anim16.png)
+![Candy](/images/anim16.png)
 
 ## Accelerometer Triggers
 Primer has 4 different accelerometer triggers that switch between variants. Each trigger has 3 sensitivity levels. Accelerometer triggers and sensitivities are configurable on-chip.
@@ -132,40 +132,40 @@ Flip Z triggers when the button faces up to the sky or down to the floor. When t
 The 12 Primer defaults include one mode for each accelerometer trigger and sensitivity. This can easily be changed through the configuration interface, but you can use them to get a handle on how each mode feels.
 
 ### Mode 1
-![Mode 1](imgs/mode01.png)
+![Mode 1](/images/mode01.png)
 
 ### Mode 2
-![Mode 2](imgs/mode02.png)
+![Mode 2](/images/mode02.png)
 
 ### Mode 3
-![Mode 3](imgs/mode03.png)
+![Mode 3](/images/mode03.png)
 
 ### Mode 4
-![Mode 4](imgs/mode04.png)
+![Mode 4](/images/mode04.png)
 
 ### Mode 5
-![Mode 5](imgs/mode05.png)
+![Mode 5](/images/mode05.png)
 
 ### Mode 6
-![Mode 6](imgs/mode06.png)
+![Mode 6](/images/mode06.png)
 
 ### Mode 7
-![Mode 7](imgs/mode07.png)
+![Mode 7](/images/mode07.png)
 
 ### Mode 8
-![Mode 8](imgs/mode08.png)
+![Mode 8](/images/mode08.png)
 
 ### Mode 9
-![Mode 9](imgs/mode09.png)
+![Mode 9](/images/mode09.png)
 
 ### Mode 10
-![Mode 10](imgs/mode10.png)
+![Mode 10](/images/mode10.png)
 
 ### Mode 11
-![Mode 11](imgs/mode11.png)
+![Mode 11](/images/mode11.png)
 
 ### Mode 12
-![Mode 12](imgs/mode12.png)
+![Mode 12](/images/mode12.png)
 
 # Controls
 Most of the controls are shared between Hex and Primer, but Primer has a config menu to help select between the 6 configuration states.
