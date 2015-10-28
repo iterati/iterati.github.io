@@ -10,3 +10,7 @@ github_username:  iterati
 
 # Build settings
 markdown: kramdown
+
+prose:
+    siteurl: "http://iterati.github.io"
+    media: "/images"
