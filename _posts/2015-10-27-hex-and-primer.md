@@ -1,13 +1,17 @@
 ---
 layout: post
-title:  "Meet Hex and Primer!"
-date:   2015-10-27
-categories: hex primer osm firmware
+title: "Meet Hex and Primer!"
+date: 2015-10-27T00:00:00.000Z
+categories: osm
+published: true
 ---
+
 # Meet Hex and Primer!
-[Hex](http://github.com/iterati/hex) and [Primer](http://github.com/iterati/primer) are glover-focused firmwares for the Open Source Microlight (OSM). The goal of these firmwares is to maximize customization with an easy to use interface allowing glovers to truly leverage their creativity. The two share their palettes, strobe animations, the ability to select between and customize 4 bundles (mode playlists), conjuration mode, and the color and prime configuration control methods. They differ in their core concept that they try to perfect. Hex is an attempt to perfect the classic programmable microlight design. Primer uses the accelerometer to trigger a shift between two different strobe patterns and palettes based on speed or orientation and is also fully customizable on chip.
+[Hex](http://github.com/iterati/hex) and [Primer](http://github.com/iterati/primer) are glover-focused firmwares for the Open Source Microlight (OSM). The goal of these firmwares is to maximize customization with an easy to use interface allowing glovers to truly leverage their creativity. The two share their palettes, strobe animations, the ability to select between and customize 4 bundles (mode playlists), conjuration mode, and the color and prime configuration control methods. They differ in their core concept that they try to perfect.
 
 ## Hex
+Hex is the most customizable classic microlight firmware on the market today. Featuring:
+
 * 16 Strobe Animations
 * 16 Mode Slots
 * 16 Color Slots per Mode
@@ -15,9 +19,13 @@ categories: hex primer osm firmware
 * 4 Shades per Color
 * 4 16-slot Bundles
 * Conjuring Mode
-* Easy to Use Configuration Interface
+* and an Easy to Use Configuration Interface
+
+Hex allows you to not only express your  possibilities, it lets you experiment with mode playlists to take every show down a different journey. The 16 color slots per mode allow you to use blanks to create new patterns and timings without sacraficing color variety.
 
 ## Primer
+Primer is an attempt to perfect the "accelerometer as a switch", 2 variant light. Featuring:
+
 * 16 Strobe Animations
 * 12 Mode Slots with 2 Variations per Mode
 * 12 Color Slots per Variation
@@ -29,8 +37,9 @@ categories: hex primer osm firmware
 * Conjuring Mode
 * Easy to Use Configuration Interface
 
-# Features
+Primer gives your shows a different dimension with the accelerometer triggers allowing for instant transitions mid-show.
 
+# Features
 ## Bundles
 Bundles represent mode playlists. Both Hex and Primer come with 4 bundles that can be selected and reconfigured through a simple menu. Bundles can include 1 to 12 (16 for Hex) modes.
 
