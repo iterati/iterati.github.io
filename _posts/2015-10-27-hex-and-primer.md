@@ -5,8 +5,6 @@ date: 2015-10-27T00:00:00.000Z
 categories: osm
 published: true
 ---
-
-# Meet Hex and Primer!
 [Hex](http://github.com/iterati/hex) and [Primer](http://github.com/iterati/primer) are glover-focused firmwares for the Open Source Microlight (OSM). The goal of these firmwares is to maximize customization with an easy to use interface allowing glovers to truly leverage their creativity. The two share their palettes, strobe animations, the ability to select between and customize 4 bundles (mode playlists), conjuration mode, and the color and prime configuration control methods. They differ in their core concept that they try to perfect.
 
 ## Hex
