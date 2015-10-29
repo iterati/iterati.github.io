@@ -6,7 +6,7 @@ categories: osm
 published: true
 ---
 
-[Impact](http://github.com/iterati/impact/) is a new OSM firmware geared to light functions that are more geared for impact effects. As of now, it only supports an iNova-like mode with configurable colors. Other non-standard microlights such as the Photon Freedoms are candidates for addition.
+[Impact](http://github.com/iterati/impact/) is a new OSM firmware made for light functions that are more geared for impact effects. As of now, it only supports an iNova-like mode with configurable colors. Other non-standard microlights such as the Photon Freedoms are candidates for addition.
 
 ## iNova Mode
 
