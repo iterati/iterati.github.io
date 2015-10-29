@@ -32,4 +32,4 @@ prose:
                 placeholder: "Chose Category"
                 options:
                   - name: "OSM"
-                    value: "osm
+                    value: "osm"
