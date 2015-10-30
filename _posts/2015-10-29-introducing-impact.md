@@ -6,8 +6,10 @@ categories: osm
 published: true
 ---
 **Note** Due to a bug in v0.1, I've updated Impact to v0.1.1 to fix the behavior when the button is held.
+
 * [.hex file](/firmwares/impact_v0_1_1_11.hex)
 * [.dmg file](/firmwares/Impact%20v0.1.1%2011.dmg)
+
 
 [Impact](http://github.com/iterati/impact/) is a new OSM firmware made for light functions that are more geared for impact effects. As of now, it only supports an iNova-like mode with configurable colors. Other non-standard microlights such as the Photon Freedoms are candidates for addition.
 
@@ -40,8 +42,8 @@ iNova mode emulates classic iNovas while providing multiple colors and live conf
 * Press and hold - Flashes yellow.
   * If last color, flashes white and saves. Goes to **Off**.
   * Otherwise, goes to next color.
-  
-  
+
+
 ## Palette
 Impact has 25 colors and a blank to chose from.
 
@@ -69,6 +71,3 @@ Both Hex and Lumino are open source, but due to the nature of Arduino software d
  3. Plug in your OSM and run the command:
      `avrdude -v -patmega328p -carduino -P[path to programmer] -b115200 -D -Uflash:w:[path to .hex file]:i`
 (OSX users, your path to programmer is /dev/cu.SLAB_USBtoUART)
-
-Prose
-
