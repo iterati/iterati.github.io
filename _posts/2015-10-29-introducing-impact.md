@@ -55,17 +55,17 @@ Both Hex and Lumino are open source, but due to the nature of Arduino software d
 **Note** If you are comfortable with the terminal, you can use the command line as described in the Linux Installation guide if you prefer.
 
  1. Install the [Arduino 1.6.5](https://www.arduino.cc/Main/Software) IDE to you /Applications directory.
- 2. Download and mount either the [Impact v0.1 .dmg file](/firmwares/Impact%20v0.1%2010.dmg).
+ 2. Download and mount either the [Impact v0.1.1 .dmg file](/firmwares/Impact%20v0.1.1%2011.dmg).
  3. Plug in your OSM via USB and double-click the **Upload .hex** application.
 
 ## Windows
 1. Download the [XLoader](http://russemotto.com/xloader/) software.
-2. Download [Impact v0.1 .hex file](/firmwares/impact_v0_1_10.hex).
+2. Download [Impact v0.1.1 .hex file](/firmwares/impact_v0_1_1_11.hex).
 3. Plug in your OSM and program according to [this tutorial](https://liudr.wordpress.com/2013/03/03/load-compiled-binary-to-arduino-with-xloader/). Be sure to select **Uno(ATmega328)** from the *Device* dropdown.
 
 ## Linux
  1. Install [avrdude](http://www.nongnu.org/avrdude/). The Arduino IDE comes with avrdude bundled. (OSX users, the location of avrdude is Arduino.app/Contents/Java/hardware/tools/avr/bin/avrdude).
- 2. Download [Impact v0.1 .hex file](/firmwares/impact_v0_1_10.hex).
+ 2. Download [Impact v0.11 .hex file](/firmwares/impact_v0_1_1_11.hex).
  3. Plug in your OSM and run the command:
      `avrdude -v -patmega328p -carduino -P[path to programmer] -b115200 -D -Uflash:w:[path to .hex file]:i`
 (OSX users, your path to programmer is /dev/cu.SLAB_USBtoUART)
