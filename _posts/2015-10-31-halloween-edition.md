@@ -8,10 +8,11 @@ published: true
 Both [Hex](http://github.com/iterati/hex) and [Primer](http://github.com/iterati/primer) have been updated with a few new features for Halloween.
 
 You can grab the files here:
-  * [Hex .hex](/firmwares/hex_halloween.hex)
-  * [Hex .dmg](/firmwares/Hex Halloween Edition.dmg)
-  * [Primer .hex](/firmwares/primer_halloween.hex)
-  * [Primer .dmg](/firmwares/Primer Halloween Edition.dmg)
+
+* [Hex .hex](/firmwares/hex_halloween.hex)
+* [Hex .dmg](/firmwares/Hex Halloween Edition.dmg)
+* [Primer .hex](/firmwares/primer_halloween.hex)
+* [Primer .dmg](/firmwares/Primer Halloween Edition.dmg)
 
 
 ## No Longer NEO Compatible
