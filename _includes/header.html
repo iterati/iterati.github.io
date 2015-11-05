@@ -12,6 +12,17 @@
                     <a href="/index.html">home</a>
                 </li>
             {% endif %}
+            {% if page.path == "primer.html" %}
+            <span class="title">
+                <li>
+                    <a href="/primer.html">primer</a>
+                </li>
+            </span>
+            {% else %}
+                <li>
+                    <a href="/primer.html">primer</a>
+                </li>
+            {% endif %}
             {% if page.path == "archive.html" %}
             <span class="title">
                 <li>
@@ -21,17 +32,6 @@
             {% else %}
                 <li>
                     <a href="/archive.html">archive</a>
-                </li>
-            {% endif %}
-            {% if page.path == "category.html" %}
-            <span class="title">
-                <li>
-                    <a href="/category.html">category</a>
-                </li>
-            </span>
-            {% else %}
-                <li>
-                    <a href="/category.html">category</a>
                 </li>
             {% endif %}
             {% if page.path == "about.html" %}
