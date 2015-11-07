@@ -23,7 +23,7 @@ Primer is a fully customizable firmware for the Open Source Microlight OSMxyz.
 
 ### Packaged release (for PC)
 
-* Download the latest [primer.hex](/firmwares/primer_v0_3.hex)
+* Download the latest (0.5) [primer.hex](/firmwares/primer_v0_5.hex)
 * Using XLoader, follow this tutorial on how to install.
   * Make sure to use 115200 for the speed.
   * Make sure to select "Uno(ATMega328)" from the Device dropdown.
