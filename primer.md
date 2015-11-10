@@ -23,7 +23,7 @@ Primer is a fully customizable firmware for the Open Source Microlight OSMxyz.
 
 ### Auto Installer (for OS X)
 
-* Download the latest (0.5) [Primer 0.5.dmg](/firmwares/Primer%200.5)
+* Download the latest (0.5) [Primer 0.5.dmg](/firmwares/Primer%200.5.dmg)
 * Plug in your light
 * Open the .dmg and double-click the Upload .hex file
 
