@@ -31,9 +31,9 @@ For this you need three things (with maybe a few odds and ends):
 * Tekton binary:
   * [Windows 32bit](/firmwares/tekton.0.1.win32.zip)
   * [Windows 64bit](/firmwares/tekton.0.1.win64.zip)
+  * [Mac OS X](/firmwares/tekton.0.1.osx.zip)
   * [Linux 32bit](/firmwares/tekton.0.1.linux32.zip) (Untested)
   * [Linux 64bit](/firmwares/tekton.0.1.linux64.zip) (Untested)
-  * Max OS X coming soon
 * [Primer](/primer.html) 0.5+ installed on your light
 
 
