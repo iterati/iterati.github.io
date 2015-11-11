@@ -3,42 +3,80 @@ layout: default
 ---
 # Primer
 
-Primer is a fully customizable firmware for the Open Source Microlight OSMxyz.
-
+Primer is a fully customizable firmware for the Open Source Microlight OSMxyz. It comes with a GUI called Tekton.
 
 ## Features
 
-* 16 selectable strobe animation patterns
-* 16 color slots per animation pattern
-* 31 color + blank palette with 4 shading levels per color
-* 16 fully customizable mode slots with 2 patterns per slot
-* 4 accelerometer actions with 3 sensitivity levels for switching between patterns
-* 4 bundles for customizing mode play order
-* Tap-to-set BPM trigger for auto cycling of modes
-* Conjuring mode (single-press on/off) configurable for every mode slot
-* Easy to use customization interface
+* 48 selectable strobe animation patterns
+* 16 preset slots with 2 variations per slot
+* 16 color slots per variation
+* 31 color + blank customizable palette with 4 shading levels per color
+* 4 accelerometer triggering actions with 3 sensitivity levels for pattern and color changes without button pressing
+* 4 fully custimizable preset playlists with 16 slots each
+* Tap-to-set BPM trigger for auto cycling through playlist
+* Toggle Conjuring Mode (single-press on/off) for any preset
+* Easy to use on-chip customization
+* Easy to use GUI customization
+* Save, load, and share your custom palettes, modes, and preset playlists
+
+
+## Demo Videos
+
+{% youtube Er1jPPomNIE %}
+
+{% youtube v2upG3cOBYU %}
+
+{% youtube qS2SrhG0WTs %}
 
 
 ##  Installation
 
 ### Auto Installer (for OS X)
 
-* Download the latest (0.5) [Primer 0.5.dmg](/firmwares/Primer%200.5.dmg)
-* Plug in your light
-* Open the .dmg and double-click the Upload .hex file
+* Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
+* Download the latest (0.6) [Primer 0.6.dmg](/firmwares/Primer%200.6.dmg)
+* Open the .dmg 
+* Plug in one OSM light
+* Double-click the **Upload primer.hex** app to install the firmware.
+* Repeat previous step for all OSM lights.
+* Drag **Tekton** app to your */Applications* directory.
+* Double-Click **Tekton** app to begin configuration app.
+
 
 ### Packaged release (for PC)
 
-* Download the latest (0.5) [primer.hex](/firmwares/primer_v0_5.hex)
-* Plug in your light
-* Using XLoader, follow this tutorial on how to install.
+* Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
+* Download the latest (0.6) zip file for your platform:
+  * [Windows 32bit](/firmwares/primer.0.6.win32.zip)
+  * [Windows 64bit](/firmwares/primer.0.6.win64.zip)
+* Download the [XLoader](http://russemotto.com/xloader/) app.
+* Plug in one OSM light
+* Using XLoader, follow [this tutorial](https://liudr.wordpress.com/2013/03/03/load-compiled-binary-to-arduino-with-xloader/) to install the firmware.
   * Make sure to use 115200 for the speed.
   * Make sure to select "Uno(ATMega328)" from the Device dropdown.
   * Be sure to select the correct .hex file.
+* Repeat previous step for all OSM lights.
+* Drag **Tekton** exe to your computer.
+* Double-Click the **Tekton** exe to begin configuration app.
+
+
+### Packaged release (for Linux)
+
+* Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
+* Install [avrdude](http://www.nongnu.org/avrdude/).
+* Download the latest (0.6) zip file for your platform:
+  * [Linux 32bit](/firmwares/primer.0.6.linux32.zip) (Untested)
+  * [Linux 64bit](/firmwares/primer.0.6.linux64.zip) (Untested)
+* Plug in one OSM light and run the command:
+     `avrdude -v -patmega328p -carduino -P[path to programmer] -b115200 -D -Uflash:w:[path to .hex file]:i`
+* Repeat previous step for all OSM lights.
+* Run the included "tekton" executable to begin configuration app.
+
 
 ### Source
 
-* Source code can be found at http://github.com/iterati/primer
+* Source code can be found at [http://github.com/iterati/primer](http://github.com/iterati/primer)
+* You must use Arduino 1.6.4 or greater for the firmware and Processing 3.0.1 for the GUI.
 
 
 ## Controls
@@ -47,7 +85,8 @@ Primer is a fully customizable firmware for the Open Source Microlight OSMxyz.
 
 * Press - Turn on. Go to **Play**.
 * Hold 1.0s - Go to **Bundle Select**. Flashes blue.
-* Hold 4.0s - **Master Reset** (restore factory settings) and go to **Play**. Flashes red.
+* Hold 3.0s - Lock light. Locked light needs to be held for 3s to turn on. Flashes green.
+* Hold 5.0s - **Master Reset** (restore factory settings) and go to **Play**. Flashes red.
 
 ### Bundle Select
 
@@ -135,15 +174,9 @@ Primer is a fully customizable firmware for the Open Source Microlight OSMxyz.
 * Hold 1.0s - Accept, save, and go to **Play**. Flashes white.
 
 
-## Palette
-
-**NOTE**: Colors displayed on the monitor differ from colors displayed on the light. These colors are approximations. Anything grey tends more to white than grey when shown on the LED.
-
-![Palette](/images/palette.png)
-
 ## Animations
 
-These images represent the default mode set of animations. 1 pixel represents 0.5s of animation.
+These images represent a selection of animations. 1 horizontal pixel represents 0.5s of animation time.
 
 **NOTE**: Colors displayed on the monitor differ from colors displayed on the light. These colors are approximations. Anything grey tends more to white than grey when shown on the LED.
 
