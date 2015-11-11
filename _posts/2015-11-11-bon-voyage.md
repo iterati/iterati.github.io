@@ -13,7 +13,7 @@ Here's Primer 0.6 - now with Pocket Protection for all of you tired of drained b
 
 It has a lot packed into it. So I've created a video to explain the various features. For all the details, you should refer to [Primer's home](/primer.html) here on this site.
 
-{% youtube v2upG3cOBYU %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/v2upG3cOBYU" frameborder="0" allowfullscreen></iframe>
 
 ### Special B: Tekton Complete (until that next Primer update, at least)
 
@@ -23,12 +23,12 @@ I mentioned in the initial announcement that Gregory Roberts's [Slider Pro](http
 
 Tekton is second app behind Slider Pro to offer control of a microlight through a computer. It is a cross-platform app that allows you configure all aspects of your light from a Mac, Windows, or Linux computer. It's simple to use interface is demonstrated below. Note that the preset editor demo is of the initial release and is slightly out of date. The functionality of the preset editor remains unchanged, but there are 2 additional interfaces for palette and bundle customization that are demonstrated in the second video as well as full-light backup and loading.
 
-{% youtube Er1jPPomNIE %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Er1jPPomNIE" frameborder="0" allowfullscreen></iframe>
 
-{% youtube qS2SrhG0WTs %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qS2SrhG0WTs" frameborder="0" allowfullscreen></iframe>
 
 ### Save, Load, Share
 
 So download, create, share. Now you can make your own set of colors and send it to your friends for those double-team shows. Now you can sync your colors and your presets, or share the framework and mutate as desired to have a unique flair but a shared base. The possibilities are open now that your lights are. I hope you enjoy my creations and have a great Thanksgiving. Enjoy a stable Primer while it lasts :-)
 
-{% youtube CdqoNKCCt7A %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/CdqoNKCCt7A" frameborder="0" allowfullscreen></iframe>

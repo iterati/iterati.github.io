@@ -22,11 +22,11 @@ Primer is a fully customizable firmware for the Open Source Microlight OSMxyz. I
 
 ## Demo Videos
 
-{% youtube Er1jPPomNIE %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/v2upG3cOBYU" frameborder="0" allowfullscreen></iframe>
 
-{% youtube v2upG3cOBYU %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Er1jPPomNIE" frameborder="0" allowfullscreen></iframe>
 
-{% youtube qS2SrhG0WTs %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qS2SrhG0WTs" frameborder="0" allowfullscreen></iframe>
 
 
 ##  Installation
