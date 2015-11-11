@@ -5,7 +5,7 @@ date: 2015-11-11T00:00:00.000Z
 categories: osm
 published: true
 ---
-I'm headed on vacation for the holiday and won't be back until the end of December. Since I have no Black Friday deal to offer, I'm offering an 11-11 special as a going away present.
+I'm headed on vacation for the holiday and won't be back until the end of November. Since I have no Black Friday deal to offer, I'm offering an 11-11 special as a going away present.
 
 ### Special A: Primer Final (well, for a month or so)
 
