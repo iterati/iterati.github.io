@@ -37,7 +37,7 @@ layout: default
 ## Palette
 Impact has 25 colors and a blank to chose from.
 
-![Impact's Palette](/images/impact_palette.png)
+![Impact's Palette](/images/impact/palette.png)
 
 # Installation
 
