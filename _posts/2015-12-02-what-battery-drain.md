@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "What Battery Drain?"
-date: 2015-12-02:00:00.000Z
+date: 2015-12-02
 categories: osm
 published: true
 ---
