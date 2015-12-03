@@ -34,7 +34,7 @@ Primer is a fully customizable firmware for the Open Source Microlight OSMxyz. I
 ### Auto Installer (for OS X)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (0.6) [Primer 0.6.dmg](/firmwares/Primer%200.6.dmg)
+* Download the latest (0.7) [Primer 0.7.dmg](/firmwares/Primer%200.7.dmg)
 * Open the .dmg 
 * Plug in one OSM light
 * Double-click the **Upload primer.hex** app to install the firmware.
@@ -46,9 +46,9 @@ Primer is a fully customizable firmware for the Open Source Microlight OSMxyz. I
 ### Packaged release (for PC)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (0.6) zip file for your platform:
-  * [Windows 32bit](/firmwares/primer0.6.windows32.zip)
-  * [Windows 64bit](/firmwares/primer0.6.windows64.zip)
+* Download the latest (0.7) zip file for your platform:
+  * [Windows 32bit](/firmwares/primer0.7.windows32.zip)
+  * [Windows 64bit](/firmwares/primer0.7.windows64.zip)
 * Download the [XLoader](http://russemotto.com/xloader/) app.
 * Plug in one OSM light
 * Using XLoader, follow [this tutorial](https://liudr.wordpress.com/2013/03/03/load-compiled-binary-to-arduino-with-xloader/) to install the firmware.
@@ -64,9 +64,9 @@ Primer is a fully customizable firmware for the Open Source Microlight OSMxyz. I
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 * Install [avrdude](http://www.nongnu.org/avrdude/).
-* Download the latest (0.6) zip file for your platform:
-  * [Linux 32bit](/firmwares/primer0.6.linux32.zip) (Untested)
-  * [Linux 64bit](/firmwares/primer0.6.linux64.zip) (Untested)
+* Download the latest (0.7) zip file for your platform:
+  * [Linux 32bit](/firmwares/primer0.7.linux32.zip) (Untested)
+  * [Linux 64bit](/firmwares/primer0.7.linux64.zip) (Untested)
 * Plug in one OSM light and run the command:
      `avrdude -v -patmega328p -carduino -P[path to programmer] -b115200 -D -Uflash:w:[path to .hex file]:i`
 * Repeat previous step for all OSM lights.
