@@ -1,9 +1,6 @@
 ---
-layout: post
+layout: page
 title: "Pattern Theory"
-date: 2015-12-11
-categories: osm
-published: false
 ---
 ![Ribbon](/images/upstream/00.png)
 ![Strobe](/images/upstream/01.png)
