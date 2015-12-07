@@ -1,5 +1,6 @@
 <header class="header">
     <div class="header-container">
+        <div class="description"> {{ site.motto }} </div>
         <div class="nav">
             {% if page.path == "index.html" %}
             <span class="title">
@@ -45,35 +46,6 @@
                     <a href="/about.html">about</a>
                 </li>
             {% endif %}
-            <br />
-            <span class="title">
-                <li>Firmwares: </li>
-            </span>
-            {% if page.path == "primer.html" %}
-            <span class="title">
-                <li>
-                    <a href="/primer.html">Primer</a>
-                </li>
-            </span>
-            {% else %}
-                <li>
-                    <a href="/primer.html">Primer</a>
-                </li>
-            {% endif %}
-            {% if page.path == "impact.html" %}
-            <span class="title">
-                <li>
-                    <a href="/impact.html">Impact</a>
-                </li>
-            </span>
-            {% else %}
-                <li>
-                    <a href="/impact.html">Impact</a>
-                </li>
-            {% endif %}
-        </div>
-        <div class="description"> {{ site.motto }} </div>
-        <ul class="social-links">
             <li>
                 <a href="https://github.com/{{ site.github_username }}" title="Github">
                     <img width="19px" height="19px" src="/images/github.png"/>
@@ -84,6 +56,13 @@
                     <img width="19px" height="19px" src="/images/rss.png"/>
                 </a>
             </li>
-        </ul>
+        </div>
+        <br />
+        <br />
+        <div class="nav">
+            <li><a href="/primer.html">Primer + Tekton</a></li>
+            <br />
+            <li><a href="/impact.html">Impact</a></li>
+        </div>
     </div>
 </header>
