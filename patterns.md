@@ -57,6 +57,7 @@ title: "Pattern Theory"
 
 ## Strobe variants
 These are all strobes. Strobe takes 3 time values and 3 arguments:
+
 * **strobe** - how long to show the color
 * **blank** - how long to show blank
 * **long blank** - after strobing all colors, show blank for this long
