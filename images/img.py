@@ -388,7 +388,7 @@ functions = {
 }
 
 
-def make_pattern(i, name, colors, func_name, args, length=1000):
+def make_pattern(i, name, colors, func_name, args, length=750):
     canvas = Image.new("RGB", (length + 8, 48), (0, 0, 0))
     pixel_gen = functions[func_name](colors, *args)
 
