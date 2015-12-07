@@ -388,19 +388,19 @@ functions = {
 }
 
 
-def make_pattern(i, name, colors, func_name, args, length=1000):
-    canvas = Image.new("RGB", (length + 8, 48), (0, 0, 0))
+def make_pattern(title, colors, func_name, args, length=1000):
+    canvas = Image.new("RGB", (length + 8, 72), (0, 0, 0))
     pixel_gen = functions[func_name](colors, *args)
 
     d = ImageDraw.Draw(canvas)
     d.fontmode = "1"
-    d.text((4, 4), "%02d. %s" % (i, name), font=font)
+    d.text((4, 4), title, font=font)
 
     for i, color in enumerate(colors):
-        canvas.paste(make_color(color, 12, 12), (200 + (i * 20), 6))
+        canvas.paste(make_color(color, 12, 12), (4 + (i * 20), 26))
 
     for i in range(length):
-        canvas.paste(pixel_gen.next(), (i + 4, 24))
+        canvas.paste(pixel_gen.next(), (i + 4, 48))
 
     return canvas
 
@@ -467,24 +467,46 @@ patterns = [
 ]
 
 
-if __name__ == "__main__":
-    import sys
-    if len(sys.argv) == 2:
-        for i in range(int(sys.argv[1])):
-            pat = patterns[i]
-            img = make_pattern(i, pat.name, pat.colors, pat.func_name, pat.args)
-            img.save("upstream/%02d.png" % i)
-    elif len(sys.argv) == 3:
-        for i in range(int(sys.argv[1]), int(sys.argv[2])):
-            pat = patterns[i]
-            img = make_pattern(i, pat.name, pat.colors, pat.func_name, pat.args)
-            img.save("upstream/%02d.png" % i)
-    else:
-        md = []
-        for i, pat in enumerate(patterns):
-            img = make_pattern(i, pat.name, pat.colors, pat.func_name, pat.args)
-            img.save("upstream/%02d.png" % i)
-            md.append("![%s](/images/upstream/%02d.png)\n" % (pat.name, i))
+strobes = [
+    (25, 0, 0, 0, 0, 0),
+    (10, 15, 0, 0, 0, 0),
 
-        with open("imgs.md", "w") as f:
-            f.writelines(md)
+    (10, 0, 50, 0, 0, 0),
+    (5, 5, 50, 0, 0, 0),
+
+    (10, 0, 50, 2, 0, 0),
+    (5, 5, 50, 3, 0, 0),
+
+    (10, 15, 0, 2, 1, 4),
+    (10, 15, 0, 3, 1, 4),
+    (10, 15, 0, 3, 2, 4),
+]
+
+if __name__ == "__main__":
+    # import sys
+    # if len(sys.argv) == 2:
+    #     it = enumerate(patterns[:int(sys.argv[1])])
+    # elif len(sys.argv) == 3:
+    #     it = enumerate(patterns[int(sys.argv[1]):int(sys.argv[2])])
+    # else:
+    #     it = enumerate(patterns)
+
+    # md = []
+    # for i, pat in it:
+    #     img = make_pattern("%02d. %s" % (i, pat.name), pat.colors, pat.func_name, pat.args)
+    #     img.save("upstream/%02d.png" % i)
+    #     md.append("![%s](/images/upstream/%02d.png)\n" % (pat.name, i))
+
+    # with open("imgs.md", "w") as f:
+    #     f.writelines(md)
+
+    md = []
+    for i, args in enumerate(strobes):
+        title = "strobe: %s, blank: %s, tail blank: %s, set: %s, skip: %s, repeat: %s" % args
+        filename = "upstream/strobe_%02d.png" % i
+        img = make_pattern(title, palette_06, "strobe", args)
+        img.save(filename)
+        md.append("![%s](/images/%s)\n" % (title, filename))
+
+    with open("imgs.md", "w") as f:
+        f.writelines(md)

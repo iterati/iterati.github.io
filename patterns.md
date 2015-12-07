@@ -54,3 +54,22 @@ title: "Pattern Theory"
 ![Pursuit](/images/upstream/49.png)
 ![Lego](/images/upstream/50.png)
 ![Micros](/images/upstream/51.png)
+
+## Strobe variants
+These are all strobes. Strobe takes 3 time values and 3 arguments:
+ - **strobe** - how long to show the color
+ - **blank** - how long to show blank
+ - **long blank** - after strobing all colors, show blank for this long
+ - **pick** - if >0 and < number of colors, pick a set this large to show
+ - **skip** - if >0 and < number of colors, after repeating the picked set (or all), skip this many slots before picking next set
+ - **repeat** - repeat picked set this many times, minimum is 1
+
+![strobe: 25, blank: 0, tail blank: 0, set: 0, skip: 0, repeat: 0](/images/upstream/strobe_00.png)
+![strobe: 10, blank: 15, tail blank: 0, set: 0, skip: 0, repeat: 0](/images/upstream/strobe_01.png)
+![strobe: 10, blank: 0, tail blank: 50, set: 0, skip: 0, repeat: 0](/images/upstream/strobe_02.png)
+![strobe: 5, blank: 5, tail blank: 50, set: 0, skip: 0, repeat: 0](/images/upstream/strobe_03.png)
+![strobe: 10, blank: 0, tail blank: 50, set: 2, skip: 0, repeat: 0](/images/upstream/strobe_04.png)
+![strobe: 5, blank: 5, tail blank: 50, set: 3, skip: 0, repeat: 0](/images/upstream/strobe_05.png)
+![strobe: 10, blank: 15, tail blank: 0, set: 2, skip: 1, repeat: 4](/images/upstream/strobe_06.png)
+![strobe: 10, blank: 15, tail blank: 0, set: 3, skip: 1, repeat: 4](/images/upstream/strobe_07.png)
+![strobe: 10, blank: 15, tail blank: 0, set: 3, skip: 2, repeat: 4](/images/upstream/strobe_08.png)
