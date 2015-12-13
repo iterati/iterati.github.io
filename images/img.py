@@ -100,19 +100,18 @@ def make_strobe(colors, ct, bt, lt, pick, skip, repeat):
                 cnt0 = 0
                 cur_color = (cur_color + skip) % len(colors)
 
-        if tick < sT:
-            if tick % (ct + bt) < ct:
-                c = ((tick / (ct + bt)) + cur_color) % len(colors)
-                yield make_frame(*unpack(colors[c]))
+        if tick < sT and tick % (ct + bt) < ct:
+            if pick == skip:
+                yield ((tick / (ct + bt)) + cur_color)
             else:
-                yield make_frame(0, 0, 0)
+                yield ((tick / (ct + bt)) + cur_color) % len(colors)
         else:
-            yield make_frame(0, 0, 0)
+            yield -1
 
         tick += 1
 
 
-def make_tracer(colors, ct0, bt0, ct1, bt1, pick, skip, repeat):
+def make_tracer(colors, cst, cbt, tst, tbt, tr, pick, skip):
     cur_color = tick = cnt0 = 0
     if pick == 0 or pick > (len(colors) - 1):
         pick = len(colors) - 1
@@ -120,11 +119,11 @@ def make_tracer(colors, ct0, bt0, ct1, bt1, pick, skip, repeat):
     if skip == 0 or skip > pick:
         skip = pick
 
-    aTT = bt0 + ((ct0 + bt0) * pick)
+    aTT = cbt + ((cst + cbt) * pick)
     if repeat == 0:
-        tTT = bt1 + ct1
+        tTT = tbt + tct
     else:
-        tTT = bt1 + ((ct1 + bt1) * repeat)
+        tTT = tbt + ((tct + tbt) * pick)
 
     while True:
         if tick >= tTT + aTT:
@@ -132,17 +131,15 @@ def make_tracer(colors, ct0, bt0, ct1, bt1, pick, skip, repeat):
             cur_color = (cur_color + skip) % (len(colors) - 1)
 
         if tick < tTT:
-            if tick % (bt1 + ct1) < bt1:
-                yield make_frame(0, 0, 0)
+            if tick % (tbt + tst) < tbt:
+                yield -1
             else:
-                yield make_frame(*unpack(colors[0]))
-
+                yield 0
         else:
-            if (tick - tTT) % (bt0 + ct0) < bt0:
-                yield make_frame(0, 0, 0)
+            if (tick - tTT) % (cbt + cst) < cbt:
+                yield -1
             else:
-                c = ((((tick - tTT) / (bt0 + ct0)) + cur_color) % (len(colors) - 1)) + 1
-                yield make_frame(*unpack(colors[c]))
+                yield ((((tick - tTT) / (cbt + cst)) + cur_color) % (len(colors) - 1)) + 1
 
         tick += 1
 
@@ -388,9 +385,19 @@ functions = {
 }
 
 
+def make_pixel_gen(colors, func):
+    while True:
+        c = func.next()
+        if c == -1:
+            yield make_frame(0, 0, 0)
+        else:
+            yield make_frame(*unpack(colors[c]))
+
+
 def make_pattern(title, colors, func_name, args, length=1000):
     canvas = Image.new("RGB", (length + 8, 72), (0, 0, 0))
-    pixel_gen = functions[func_name](colors, *args)
+    func = functions[func_name](colors, *args)
+    pixel_gen = make_pixel_gen(colors, func)
 
     d = ImageDraw.Draw(canvas)
     d.fontmode = "1"
@@ -400,7 +407,13 @@ def make_pattern(title, colors, func_name, args, length=1000):
         canvas.paste(make_color(color, 12, 12), (4 + (i * 20), 26))
 
     for i in range(length):
-        canvas.paste(pixel_gen.next(), (i + 4, 48))
+        c = func.next()
+        if c == -1 or c >= len(colors)
+            f = make_frame(0, 0, 0)
+        else:
+            f = make_frame(*unpack(colors[c]))
+
+        canvas.paste(f, (i + 4, 48))
 
     return canvas
 
@@ -411,23 +424,55 @@ palette_07 = [1, 8, 12, 16, 20, 24, 28]
 palette_s2 = [8, 16, 24, 8, 16, 24]
 palette_s3 = [8, 10, 12, 16, 18, 20, 24, 26, 28]
 palette_s5 = [8, 9, 10, 11, 12, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28]
-patterns = [
+newpats = [
+    # Basic/Classic
     Pattern("Ribbon",           palette_03, "strobe", (20, 0, 0, 0, 0, 0)),
     Pattern("Strobe",           palette_03, "strobe", (9, 16, 0, 0, 0, 0)),
     Pattern("Nano",             palette_03, "strobe", (1, 24, 0, 0, 0, 0)),
     Pattern("Dops",             palette_03, "strobe", (3, 22, 0, 0, 0, 0)),
     Pattern("Spaz",             palette_03, "strobe", (5, 45, 0, 0, 0, 0)),
-    Pattern("Seizure",          palette_03, "strobe", (10, 190, 0, 0, 0, 0)),
-    Pattern("Hyper",            palette_03, "strobe", (25, 25, 0, 0, 0, 0)),
-    Pattern("Blink",            palette_07, "strobe", (5, 0, 85, 0, 0, 0)),
+    Pattern("Signal",           palette_03, "strobe", (10, 190, 0, 0, 0, 0)),
+    Pattern("Hyper",            palette_03, "strobe", (50, 50, 0, 0, 0, 0)),
+
+    # Blink-E variants
+    Pattern("Blaster",          palette_07, "strobe", (5, 0, 85, 0, 0, 0)),
+    Pattern("Blaster3",         palette_06, "strobe", (5, 0, 85, 3, 3, 1)),
     Pattern("Stutter",          palette_03, "strobe", (10, 5, 55, 0, 0, 0)),
+    Pattern("Stutter3",         palette_03, "strobe", (10, 5, 55, 3, 3, 1)),
     Pattern("Strib",            palette_06, "strobe", (10, 0, 70, 3, 1, 1)),
-    Pattern("Flicker",          palette_06, "strobe", (2, 1, 41, 3, 1, 1)),
+    Pattern("Flicker",          palette_06, "strobe", (5, 3, 41, 3, 1, 1)),
+
+    # Strobe2/Candy Strobe/Vortex
     Pattern("Strobe2",          palette_03, "strobe", (9, 16, 0, 2, 1, 8)),
     Pattern("Dops3",            palette_06, "strobe", (3, 22, 0, 3, 1, 8)),
-    Pattern("Blink2",           palette_s2, "strobe", (5, 0, 90, 2, 2, 1)),
-    Pattern("Blink3",           palette_s3, "strobe", (5, 0, 85, 3, 3, 1)),
-    Pattern("Stutter3",         palette_s3, "strobe", (10, 5, 55, 3, 3, 1)),
+]
+
+patterns = [
+    # Basic/Classic
+    Pattern("Ribbon",           palette_03, "strobe", (20, 0, 0, 0, 0, 0)),
+    Pattern("Strobe",           palette_03, "strobe", (9, 16, 0, 0, 0, 0)),
+    Pattern("Nano",             palette_03, "strobe", (1, 24, 0, 0, 0, 0)),
+    Pattern("Dops",             palette_03, "strobe", (3, 22, 0, 0, 0, 0)),
+    Pattern("Spaz",             palette_03, "strobe", (5, 45, 0, 0, 0, 0)),
+    Pattern("Signal",           palette_03, "strobe", (10, 190, 0, 0, 0, 0)),
+    Pattern("Hyper",            palette_03, "strobe", (50, 50, 0, 0, 0, 0)),
+
+    # Blink-E variants
+    Pattern("Blaster",          palette_07, "strobe", (5, 0, 85, 0, 0, 0)),
+    Pattern("Blaster3",         palette_06, "strobe", (5, 0, 85, 3, 3, 1)),
+    Pattern("Stutter",          palette_03, "strobe", (10, 5, 55, 0, 0, 0)),
+    Pattern("Stutter3",         palette_03, "strobe", (10, 5, 55, 3, 3, 1)),
+    Pattern("Strib",            palette_06, "strobe", (10, 0, 70, 3, 1, 1)),
+    Pattern("Flicker",          palette_06, "strobe", (5, 3, 41, 3, 1, 1)),
+
+    # Strobe2/Candy Strobe/Vortex
+    Pattern("Strobe2",          palette_03, "strobe", (9, 16, 0, 2, 1, 8)),
+    Pattern("Dops3",            palette_06, "strobe", (3, 22, 0, 3, 1, 8)),
+
+    # eMazing DashDops vs FL DashDops
+    Pattern("DashDops",         palette_07, "tracer", (5, 0, 3, 22, 0, 0, 7)),
+    Pattern("DashDops",         palette_07, "tracer", (3, 22, 3, 22, 0, 0, 1)),
+
     Pattern("Tracer",           palette_07, "tracer", (5, 0, 20, 0, 1, 0, 0)),
     Pattern("Sandwich",         palette_07, "tracer", (9, 16, 9, 0, 1, 0, 0)),
     Pattern("Hypenated",        palette_07, "tracer", (25, 25, 25, 0, 2, 1, 0)),
@@ -483,30 +528,30 @@ strobes = [
 ]
 
 if __name__ == "__main__":
-    # import sys
-    # if len(sys.argv) == 2:
-    #     it = enumerate(patterns[:int(sys.argv[1])])
-    # elif len(sys.argv) == 3:
-    #     it = enumerate(patterns[int(sys.argv[1]):int(sys.argv[2])])
-    # else:
-    #     it = enumerate(patterns)
-
-    # md = []
-    # for i, pat in it:
-    #     img = make_pattern("%02d. %s" % (i, pat.name), pat.colors, pat.func_name, pat.args)
-    #     img.save("upstream/%02d.png" % i)
-    #     md.append("![%s](/images/upstream/%02d.png)\n" % (pat.name, i))
-
-    # with open("imgs.md", "w") as f:
-    #     f.writelines(md)
+    import sys
+    if len(sys.argv) == 2:
+        it = enumerate(newpats[:int(sys.argv[1])])
+    elif len(sys.argv) == 3:
+        it = enumerate(newpats[int(sys.argv[1]):int(sys.argv[2])])
+    else:
+        it = enumerate(newpats)
 
     md = []
-    for i, args in enumerate(strobes):
-        title = "strobe: %s, blank: %s, tail blank: %s, set: %s, skip: %s, repeat: %s" % args
-        filename = "upstream/strobe_%02d.png" % i
-        img = make_pattern(title, palette_06, "strobe", args)
-        img.save(filename)
-        md.append("![%s](/images/%s)\n" % (title, filename))
+    for i, pat in it:
+        img = make_pattern("%02d. %s" % (i, pat.name), pat.colors, pat.func_name, pat.args)
+        img.save("upstream/%02d.png" % i)
+        md.append("![%s](/images/upstream/%02d.png)\n" % (pat.name, i))
 
     with open("imgs.md", "w") as f:
         f.writelines(md)
+
+    # md = []
+    # for i, args in enumerate(strobes):
+    #     title = "strobe: %s, blank: %s, tail blank: %s, set: %s, skip: %s, repeat: %s" % args
+    #     filename = "upstream/strobe_%02d.png" % i
+    #     img = make_pattern(title, palette_06, "strobe", args)
+    #     img.save(filename)
+    #     md.append("![%s](/images/%s)\n" % (title, filename))
+
+    # with open("imgs.md", "w") as f:
+    #     f.writelines(md)
