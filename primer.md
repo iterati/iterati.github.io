@@ -79,36 +79,47 @@ Primer is a Work In Progress firmware for the OSM Microlight ans Tekton is a GUI
 ## Controls
 
 ### Off
+
 Under normal operations:
+
 * Press - Turn on. Go to **Play** on release.
 * Hold 1.0s - Go to **Bundle Select** on release. Flashes blue.
 * Hold 4.0s - Go to **Master Reset** on release. Flashes red.
 * Hold 7.0s - Failsafe mode. Turns off when released.
 
 If light lock is enabled:
+
 * Press or hold < 3.0s - Do nothing.
 * Hold for 3.0s - Go to **Play** on release. Flashes green.
 
 ### Master Reset
+
 Light glows red.
+
 * Press - Go to sleep.
 * Hold 3.0s - Reset and go to **Play** on released.
 
 ### Bundle Select
+
 Light plays first mode of the bundle.
+
 * Press - Cycle bundle.
 * Hold 1.0s - Selects current bundle and go to **Play** on release. Flashes blue.
 * Hold 2.0s - Go to **Bundle Edit** on release. Flashes yellow.
 * Every second you hold after cycles through select and edit.
 
 ### Bundle Edit
+
 Plays the mode currently selected for the slot.
+
 * Press - Cycle bundle slot to next mode.
 * Hold 1.0s - Sets current bundle slot to selected mode. Cycles to next bundle slot. Flashes magenta.
 * Hold 2.0s - Saves bundle with current bundle slot as the end of the bundle. Go to **Play**. Flashes white.
 
 ### Play
+
 Under normal operation:
+
 * Press - Cycle to next mode.
 * Hold 0.5s - Put light to sleep on release. Flashes white.
 * Hold 1.5s - Go to **Config Select** on release. Flashes yellow.
@@ -117,9 +128,11 @@ Under normal operation:
 * Every second you hold after this will cycle through sleep, config, conjure, and light lock options.
 
 In conjure mode, if the light is off for 3 minutes, the light will go to sleep. This disabled conjure mode but will save your batteries.
+
 * Press - Toggle light on/off (processor still running).
 
 ### Config Select
+
 * Press - Cycle between configuration options. Color indicates what configuration mode will be selected.
   * Colors A - red
   * Colors B - blue
@@ -130,11 +143,13 @@ In conjure mode, if the light is off for 3 minutes, the light will go to sleep. 
 * Hold 2.0s - Go to **Play** on release. Flashes white.
 
 ### Color Select
+
 * Press - Cycle forward through palette options.
 * Hold 0.5s - Select color. Flashes white.
 * Every second you hold after, the shade will cycle. On release, go to **Confirm Color**.
 
 ### Confirm Color
+
 * Press - Accept color.
   * If last color slot, save and go to **Play**. Flashes white.
   * Otherwise, go to **Color Select** for the next color.
@@ -142,10 +157,12 @@ In conjure mode, if the light is off for 3 minutes, the light will go to sleep. 
 * Hold 2.0s - Accept, save, set current color slot as last color, and go to **Play**. Flashes white.
 
 ### Pattern Select
+
 * Press - Cycles to next prime.
 * Hold 1.0s - Accept, save, and go to **Play**. Flashes white.
 
 ### Accelerometer Mode Select
+
 * Press - Cycle to next accelerometer mode. Color indicates what mode will be selected.
   * Off - dim white
   * Speed - red
