@@ -31,7 +31,7 @@ Primer is a Work In Progress firmware for the OSM Microlight ans Tekton is a GUI
 ### Auto Installer (for OS X)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (0.8) [Primer 0.8.dmg](/firmwares/Primer%200.81.dmg)
+* Download the latest (0.81) [Primer 0.81.dmg](/firmwares/Primer%200.81.dmg)
 * Open the .dmg 
 * Plug in one OSM light
 * Double-click the **Upload primer.hex** app to install the firmware.
@@ -43,7 +43,7 @@ Primer is a Work In Progress firmware for the OSM Microlight ans Tekton is a GUI
 ### Packaged release (for PC)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (0.8) zip file for your platform:
+* Download the latest (0.81) zip file for your platform:
   * [Windows 32bit](/firmwares/primer_0.81.windows32.zip)
   * [Windows 64bit](/firmwares/primer_0.81.windows64.zip)
 * Download the [XLoader](http://russemotto.com/xloader/) app.
@@ -61,7 +61,7 @@ Primer is a Work In Progress firmware for the OSM Microlight ans Tekton is a GUI
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 * Install [avrdude](http://www.nongnu.org/avrdude/).
-* Download the latest (0.8) zip file for your platform:
+* Download the latest (0.81) zip file for your platform:
   * [Linux 32bit](/firmwares/primer_0.81.linux32.zip) (Untested)
   * [Linux 64bit](/firmwares/primer_0.81.linux64.zip) (Untested)
 * Plug in one OSM light and run the command:
