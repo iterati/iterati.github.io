@@ -4,7 +4,7 @@ title: "Primer"
 ---
 # Primer and Tekton
 
-Primer is a Work In Progress firmware for the OSM Microlight ans Tekton is a GUI for configuring the light in real time.
+Primer is a Work In Progress firmware for the OSM Microlight and Tekton is a GUI for configuring the light in real time.
 
 * Primer requires Arduino 1.6.4 or higher
 * Tekton requires Processing 3.0.1 or higher
