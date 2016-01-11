@@ -10,6 +10,7 @@ Primer is a Work In Progress firmware for the OSM Microlight and Tekton is a GUI
 * Tekton requires Processing 3.0.1 or higher
 
 **Last Updated to 0.9 on January 11, 2016**
+
 * Fixes a sleep bug with both OSM versions
 * Fix to conjure mode not enabling properly
 * Fix for "Upload Light" button in Tekton
