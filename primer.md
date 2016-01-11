@@ -9,6 +9,12 @@ Primer is a Work In Progress firmware for the OSM Microlight and Tekton is a GUI
 * Primer requires Arduino 1.6.4 or higher
 * Tekton requires Processing 3.0.1 or higher
 
+**Last Updated to 0.9 on January 11, 2016**
+* Fixes a sleep bug with both OSM versions
+* Fix to conjure mode not enabling properly
+* Fix for "Upload Light" button in Tekton
+* Other various fixes
+
 
 ## Features
 
@@ -31,8 +37,8 @@ Primer is a Work In Progress firmware for the OSM Microlight and Tekton is a GUI
 ### Auto Installer (for OS X)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (0.81) [Primer 0.81.dmg](/firmwares/Primer%200.81.dmg)
-* Open the .dmg 
+* Download the latest (0.9) [Primer 0.9.dmg](/firmwares/Primer%200.9.dmg)
+* Open the .dmg
 * Plug in one OSM light
 * Double-click the **Upload primer.hex** app to install the firmware.
 * Repeat previous step for all OSM lights.
@@ -43,9 +49,9 @@ Primer is a Work In Progress firmware for the OSM Microlight and Tekton is a GUI
 ### Packaged release (for PC)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (0.81) zip file for your platform:
-  * [Windows 32bit](/firmwares/primer_0.81.windows32.zip)
-  * [Windows 64bit](/firmwares/primer_0.81.windows64.zip)
+* Download the latest (0.9) zip file for your platform:
+  * [Windows 32bit](/firmwares/primer_0.9.windows32.zip)
+  * [Windows 64bit](/firmwares/primer_0.9.windows64.zip)
 * Download the [XLoader](http://russemotto.com/xloader/) app.
 * Plug in one OSM light
 * Using XLoader, follow [this tutorial](https://liudr.wordpress.com/2013/03/03/load-compiled-binary-to-arduino-with-xloader/) to install the firmware.
@@ -61,9 +67,9 @@ Primer is a Work In Progress firmware for the OSM Microlight and Tekton is a GUI
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 * Install [avrdude](http://www.nongnu.org/avrdude/).
-* Download the latest (0.81) zip file for your platform:
-  * [Linux 32bit](/firmwares/primer_0.81.linux32.zip) (Untested)
-  * [Linux 64bit](/firmwares/primer_0.81.linux64.zip) (Untested)
+* Download the latest (0.9) zip file for your platform:
+  * [Linux 32bit](/firmwares/primer_0.9.linux32.zip) (Untested)
+  * [Linux 64bit](/firmwares/primer_0.9.linux64.zip) (Untested)
 * Plug in one OSM light and run the command:
      `avrdude -v -patmega328p -carduino -P[path to programmer] -b115200 -D -Uflash:w:[path to .hex file]:i`
 * Repeat previous step for all OSM lights.
