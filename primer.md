@@ -141,15 +141,16 @@ Plays the mode currently selected for the slot.
 Under normal operation:
 
 * Press - Cycle to next mode.
-* Hold 0.5s - Put light to sleep on release. Flashes white.
-* Hold 1.5s - Go to **Config Select** on release. Flashes yellow.
-* Hold 2.5s - Enables **Conjure Mode** on release. Flashes blue.
+* Hold 0.5s - Put light to sleep on release.
+* Hold 1.5s - Enables **Conjure Mode** on release. Flashes blue.
+* Hold 2.5s - Go to **Config Select** on release. Flashes yellow.
 * Hold 3.5s - Enables **Light Lock** on release. Flashes red.
 * Every second you hold after this will cycle through sleep, config, conjure, and light lock options.
 
 In conjure mode, if the light is off for 3 minutes, the light will go to sleep. This disabled conjure mode but will save your batteries.
 
 * Press - Toggle light on/off (processor still running).
+* Hold 3s - Disabled **Conjure Mode** on release. Flashes blue.
 
 ### Config Select
 
@@ -165,7 +166,7 @@ In conjure mode, if the light is off for 3 minutes, the light will go to sleep. 
 ### Color Select
 
 * Press - Cycle forward through palette options.
-* Hold 0.5s - Select color. Flashes white.
+* Hold 0.5s - Select color.
 * Every second you hold after, the shade will cycle. On release, go to **Confirm Color**.
 
 ### Confirm Color
