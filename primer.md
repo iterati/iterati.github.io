@@ -4,12 +4,25 @@ title: "Primer"
 ---
 # Primer and Tekton
 
-Primer is a Work In Progress firmware for the OSM Microlight and Tekton is a GUI for configuring the light in real time.
+Primer is a Work In Progress firmware for the OSM Microlight and Tekton is a GUI for configuring the light in real time. It works for both the OSM1 and 2s.
 
 * Primer requires Arduino 1.6.4 or higher
 * Tekton requires Processing 3.0.1 or higher
 
-**Last Updated to 0.9 on January 11, 2016**
+## Changelog
+
+**0.91 Update (01-12-2016)**
+
+* **IMPORTANT** No longer disabling the *Brown Out Detector* during low power mode
+* Fix for Conjure mode not disabling
+* Fix for bundle selection not being saved properly
+* Fix for various timing issues that caused lights to desync (particularly with morphing and fading modes)
+* Removed white flash when light goes to sleep
+* Reordered conjuring and configuration sentinels (conjure first after sleep now)
+* Fixed a few inconsistencies with patterns
+* OSM1 and OSM2 speed sensitivies are now matched
+
+**0.9 Update (01-11-2016)**
 
 * Fixes a sleep bug with both OSM versions
 * Fix to conjure mode not enabling properly
@@ -38,7 +51,7 @@ Primer is a Work In Progress firmware for the OSM Microlight and Tekton is a GUI
 ### Auto Installer (for OS X)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (0.9) [Primer 0.9.dmg](/firmwares/Primer%200.9.dmg)
+* Download the latest (0.91) [Primer 0.91.dmg](/firmwares/Primer%200.91.dmg)
 * Open the .dmg
 * Plug in one OSM light
 * Double-click the **Upload primer.hex** app to install the firmware.
@@ -50,9 +63,9 @@ Primer is a Work In Progress firmware for the OSM Microlight and Tekton is a GUI
 ### Packaged release (for PC)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (0.9) zip file for your platform:
-  * [Windows 32bit](/firmwares/primer_0.9.windows32.zip)
-  * [Windows 64bit](/firmwares/primer_0.9.windows64.zip)
+* Download the latest (0.91) zip file for your platform:
+  * [Windows 32bit](/firmwares/primer_0.91.windows32.zip)
+  * [Windows 64bit](/firmwares/primer_0.91.windows64.zip)
 * Download the [XLoader](http://russemotto.com/xloader/) app.
 * Plug in one OSM light
 * Using XLoader, follow [this tutorial](https://liudr.wordpress.com/2013/03/03/load-compiled-binary-to-arduino-with-xloader/) to install the firmware.
@@ -68,9 +81,9 @@ Primer is a Work In Progress firmware for the OSM Microlight and Tekton is a GUI
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 * Install [avrdude](http://www.nongnu.org/avrdude/).
-* Download the latest (0.9) zip file for your platform:
-  * [Linux 32bit](/firmwares/primer_0.9.linux32.zip) (Untested)
-  * [Linux 64bit](/firmwares/primer_0.9.linux64.zip) (Untested)
+* Download the latest (0.91) zip file for your platform:
+  * [Linux 32bit](/firmwares/primer_0.91.linux32.zip) (Untested)
+  * [Linux 64bit](/firmwares/primer_0.91.linux64.zip) (Untested)
 * Plug in one OSM light and run the command:
      `avrdude -v -patmega328p -carduino -P[path to programmer] -b115200 -D -Uflash:w:[path to .hex file]:i`
 * Repeat previous step for all OSM lights.
