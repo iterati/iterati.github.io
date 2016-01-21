@@ -62,21 +62,19 @@ In conjure mode:
 ### Auto Installer (for OS X)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (0.91) [Primer 0.91.dmg](/firmwares/Vectr%2001-21-16.dmg)
+* Download the latest (01-21-2016) [Vectr](/firmwares/Vectr%2001-21-16.dmg)
 * Open the .dmg
 * Plug in one OSM light
 * Double-click the **Upload primer.hex** app to install the firmware.
 * Repeat previous step for all OSM lights.
-* Drag **Tekton** app to your */Applications* directory.
-* Double-Click **Tekton** app to begin configuration app.
 
 
 ### Packaged release (for PC)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (0.91) zip file for your platform:
-  * [Windows 32bit](/firmwares/primer_0.91.windows32.zip)
-  * [Windows 64bit](/firmwares/primer_0.91.windows64.zip)
+* Download the latest (01-21-2016) zip file for your platform:
+  * [Windows 32bit](/firmwares/vectr.012116.win32.zip)
+  * [Windows 64bit](/firmwares/vectr.012116.win64.zip)
 * Download the [XLoader](http://russemotto.com/xloader/) app.
 * Plug in one OSM light
 * Using XLoader, follow [this tutorial](https://liudr.wordpress.com/2013/03/03/load-compiled-binary-to-arduino-with-xloader/) to install the firmware.
@@ -84,5 +82,3 @@ In conjure mode:
   * Make sure to select "Uno(ATMega328)" from the Device dropdown.
   * Be sure to select the correct .hex file.
 * Repeat previous step for all OSM lights.
-* Drag **Tekton** exe to your computer.
-* Double-Click the **Tekton** exe to begin configuration app.
