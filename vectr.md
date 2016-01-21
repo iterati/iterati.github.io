@@ -9,9 +9,9 @@ Vectr is a motion-reactive firmware for the OSM2 Microlight. It is configured us
 * Vectr requires [Arduino 1.6.4 or higher](https://www.arduino.cc/en/Main/Software)
 * VectrUI requires the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 
-{% youtube x4SEo5d1pDM %}
-{% youtube T_lSN6L7dbM %}
-
+<iframe src="http://www.youtube.com/embed/x4SEo5d1pDM" height="576" width="1024"></iframe>
+<br />
+<iframe src="http://www.youtube.com/embed/T_lSN6L7dbM" height="576" width="1024"></iframe>
 
 ## Installation
 
