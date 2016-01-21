@@ -62,7 +62,7 @@ In conjure mode:
 ### Auto Installer (for OS X)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (01-21-2016) [Vectr](/firmwares/Vectr%2001-21-16.dmg)
+* Download the latest (01-21-2016) [Vectr](/firmwares/Vectr%2001-21-2016.dmg)
 * Open the .dmg
 * Plug in one OSM light
 * Double-click the **Upload primer.hex** app to install the firmware.
