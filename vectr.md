@@ -11,7 +11,12 @@ Vectr is a motion-reactive firmware for the OSM2 Microlight. It is configured us
 
 <iframe src="http://www.youtube.com/embed/x4SEo5d1pDM" height="576" width="1024"></iframe>
 <br />
+<iframe src="http://www.youtube.com/embed/zWKSnkBVufc" height="576" width="1024"></iframe>
+<br />
 <iframe src="http://www.youtube.com/embed/T_lSN6L7dbM" height="576" width="1024"></iframe>
+<br />
+<iframe src="http://www.youtube.com/embed/kIh4US2ba78" height="576" width="1024"></iframe>
+
 
 ## Controls
 
