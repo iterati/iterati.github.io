@@ -62,7 +62,7 @@ In conjure mode:
 ### Auto Installer (for OS X)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (01-21-2016) [Vectr](/firmwares/Vectr%2001-21-2016.dmg)
+* Download the latest (02-09-2016) [Vectr](/firmwares/Vectr%2002-09-2016.dmg)
 * Open the .dmg
 * Plug in one OSM light
 * Double-click the **Upload primer.hex** app to install the firmware.
@@ -72,9 +72,7 @@ In conjure mode:
 ### Packaged release (for PC)
 
 * Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (01-21-2016) zip file for your platform:
-  * [Windows 32bit](/firmwares/vectr.012116.win32.zip)
-  * [Windows 64bit](/firmwares/vectr.012116.win64.zip)
+* Download the latest (02-09-2016) zip file [Vectr.zip](/firmwares/vectr.020916.zip)
 * Download the [XLoader](http://russemotto.com/xloader/) app.
 * Plug in one OSM light
 * Using XLoader, follow [this tutorial](https://liudr.wordpress.com/2013/03/03/load-compiled-binary-to-arduino-with-xloader/) to install the firmware.
