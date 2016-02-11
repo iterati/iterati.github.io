@@ -4,18 +4,22 @@ title: "Vectr"
 ---
 # Vectr
 
-Vectr is a motion-reactive firmware for the OSM2 Microlight. It is configured using VectrUI and has no on-chip programming capabilities.
+Vectr is a motion-reactive firmware for the OSM2 Microlight.
+
+It is configured using VectrUI and has no on-chip programming capabilities.
 
 * Vectr requires [Arduino 1.6.4 or higher](https://www.arduino.cc/en/Main/Software)
 * VectrUI requires the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 
-<iframe src="http://www.youtube.com/embed/x4SEo5d1pDM" height="576" width="1024"></iframe>
-<br />
-<iframe src="http://www.youtube.com/embed/zWKSnkBVufc" height="576" width="1024"></iframe>
-<br />
-<iframe src="http://www.youtube.com/embed/T_lSN6L7dbM" height="576" width="1024"></iframe>
-<br />
-<iframe src="http://www.youtube.com/embed/kIh4US2ba78" height="576" width="1024"></iframe>
+
+## Mac Download
+
+[Vectr Beta 1](/firmwares/Vectr%20Beta%201.dmg)
+
+
+## Windows Download
+
+[Vectr Beta 1](/firmwares/vectr.b1.zip)
 
 
 ## Controls
@@ -60,28 +64,3 @@ In conjure mode:
 
 * Press - Toggle light on/off.
 * Hold 3.0s - Disable **Conjure Mode** on release. Flashes blue.
-
-
-## Installation
-
-### Auto Installer (for OS X)
-
-* Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (02-09-2016) [Vectr](/firmwares/Vectr%2002-09-2016.dmg)
-* Open the .dmg
-* Plug in one OSM light
-* Double-click the **Upload primer.hex** app to install the firmware.
-* Repeat previous step for all OSM lights.
-
-
-### Packaged release (for PC)
-
-* Install the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-* Download the latest (02-09-2016) zip file [Vectr.zip](/firmwares/vectr.020916.zip)
-* Download the [XLoader](http://russemotto.com/xloader/) app.
-* Plug in one OSM light
-* Using XLoader, follow [this tutorial](https://liudr.wordpress.com/2013/03/03/load-compiled-binary-to-arduino-with-xloader/) to install the firmware.
-  * Make sure to use 115200 for the speed.
-  * Make sure to select "Uno(ATMega328)" from the Device dropdown.
-  * Be sure to select the correct .hex file.
-* Repeat previous step for all OSM lights.
