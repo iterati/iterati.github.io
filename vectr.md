@@ -8,18 +8,32 @@ Vectr is a motion-reactive firmware for the OSM2 Microlight.
 
 It is configured using VectrUI and has no on-chip programming capabilities.
 
-* Vectr requires [Arduino 1.6.4 or higher](https://www.arduino.cc/en/Main/Software)
-* VectrUI requires the latest [Java Runtime Environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PL2-rlIDsAnb5hCKwbkAIAeSQNEVPjpVWo" frameborder="0" allowfullscreen></iframe>
 
 
 ## Mac Download
 
-[Vectr Beta 1](/firmwares/Vectr%20Beta%201.dmg)
+* Install the drivers: https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
+* Install the Arduino.app to your /Applications directory: https://www.arduino.cc/en/Main/Software
+* Install the latest Java Runtime Environment: http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
+* Plug in your chips one at a time and run "Upload .hex" for each one
+* Use VectrUI
+
+Download Link: [Vectr Beta 1](/firmwares/Vectr%20Beta%201.dmg)
 
 
 ## Windows Download
 
-[Vectr Beta 1](/firmwares/vectr.b1.zip)
+* Install the drivers: https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
+* Download XLoader: http://russemotto.com/xloader/
+* Install the latest Java Runtime Environment: http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
+* Plug in your chips one at a time and follow the XLoader tutorial: http://www.hobbytronics.co.uk/arduino-xloader
+  * Use ATMega(328p) for the board
+  * Use 115200 for Baud rate
+  * Select the vectr.b1.hex file to upload
+* Use VectrUI
+
+Download Link: [Vectr Beta 1](/firmwares/vectr.b1.zip)
 
 
 ## Controls
