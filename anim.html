@@ -1,0 +1,143 @@
+<html>
+
+<head>
+<style>
+input[type='range'] {
+    width: 500px;
+}
+</style>
+</head>
+
+<body>
+<span style="display: inline-block; width: 100px;">Pick</span>
+<input id="l_pick" type="text" value="0" size="4" onchange="updateSlider('s_pick', this.value);" />
+<input id="s_pick" type="range" min="0" max="9" value="0" onchange="updateTextField('l_pick', this.value);" />
+<br />
+
+<span style="display: inline-block; width: 100px;">Skip</span>
+<input id="l_skip" type="text" value="0" size="4" onchange="updateSlider('s_skip', this.value);" />
+<input id="s_skip" type="range" min="0" max="9" value="0" onchange="updateTextField('l_skip', this.value);" />
+<br />
+
+<span style="display: inline-block; width: 100px;">Repeat</span>
+<input id="l_repeat" type="text" value="1" size="4" onchange="updateSlider('s_repeat', this.value);" />
+<input id="s_repeat" type="range" min="1" max="250" value="1" onchange="updateTextField('l_repeat', this.value);" />
+<br />
+<br />
+
+<span style="display: inline-block; width: 100px;">Strobe</span>
+<input id="l_st" type="text" value="5" size="4" onchange="updateSlider('s_st', this.value);" />
+<input id="s_st" type="range" min="0" max="250" value="5" onchange="updateTextField('l_st', this.value);" />
+<br />
+
+<span style="display: inline-block; width: 100px;">Blank</span>
+<input id="l_bt" type="text" value="8" size="4" onchange="updateSlider('s_bt', this.value);" />
+<input id="s_bt" type="range" min="0" max="250" value="8" onchange="updateTextField('l_bt', this.value);" />
+<br />
+
+<span style="display: inline-block; width: 100px;">Trailing Blank</span>
+<input id="l_tt" type="text" value="0" size="4" onchange="updateSlider('s_tt', this.value);" />
+<input id="s_tt" type="range" min="0" max="250" value="0" onchange="updateTextField('l_tt', this.value);" />
+<br />
+<br />
+
+<canvas id="ex1" width="800" height="20" style="background: #000;"></canvas>
+
+
+<script>
+
+var canvas = document.getElementById("ex1");
+var ctx = canvas.getContext("2d");
+var colors = ["#f00", "#0f0", "#00f"];
+
+function draw_rect(s, w, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(s, 5, w + 1, 10);
+}
+
+function strobe(pick, skip, repeat, st, bt, tt) {
+    ctx.clearRect(0, 0, 800, 20);
+
+    var i = 5;
+    var numc = colors.length;
+    var segm = -1;
+    var cntr = 0;
+    var cidx = 0;
+
+    pick = (pick == 0 || pick > numc) ? numc : pick;
+    skip = (skip == 0 || skip > numc) ? pick : skip;
+    repeat = (repeat == 0) ? 1 : repeat;
+
+    if (st + bt + tt == 0) {
+        tt = 1;
+    }
+
+    while (i < 790) {
+        var trip = 0;
+        while (trip == 0) {
+            segm++;
+            if (segm >= (2 * pick) + 1) {
+                segm = 0;
+                cntr++;
+                if (cntr >= repeat) {
+                    cntr = 0;
+                    cidx = cidx + skip;
+                    if (cidx >= numc) {
+                        if (pick == skip) {
+                            cidx = 0;
+                        } else {
+                            cidx = cidx % numc;
+                        }
+                    }
+                }
+            }
+
+            if (segm == 2 * pick) {
+                trip = tt;
+            } else if (segm % 2 == 1) {
+                trip = st;
+            } else {
+                trip = bt;
+            }
+        }
+
+        if (segm % 2 == 1) {
+            var c = Math.floor(segm / 2) + cidx;
+            if (pick == skip) {
+                if (c >= numc) {
+                } else {
+                    draw_rect(i, trip, colors[c]);
+                }
+            } else {
+                draw_rect(i, trip, colors[c % numc]);
+            }
+        }
+
+        i = i + trip;
+    }
+}
+
+function updateSlider(id, val) {
+    document.getElementById(id).value = val;
+    doStrobe();
+}
+
+function updateTextField(id, val) {
+    document.getElementById(id).value = val;
+    doStrobe();
+}
+
+function doStrobe() {
+    strobe(parseInt(document.getElementById('l_pick').value),
+           parseInt(document.getElementById('l_skip').value),
+           parseInt(document.getElementById('l_repeat').value),
+           parseInt(document.getElementById('l_st').value),
+           parseInt(document.getElementById('l_bt').value),
+           parseInt(document.getElementById('l_tt').value));
+}
+
+doStrobe();
+</script>
+
+</body>
+</html>
