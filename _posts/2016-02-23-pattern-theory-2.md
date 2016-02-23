@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Pattern Theory Volume 2"
-date: 2016-02-22
+date: 2016-02-23
 categories: osm
 published: true
 ---
