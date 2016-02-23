@@ -1,0 +1,73 @@
+<script>
+var colors = ["#f00", "#ff0", "#0f0", "#0ff", "#00f", "#f0f"];
+
+function draw_rect(ctx, s, w, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(s, 5, w, 10);
+}
+
+function strobe(id, pick, skip, repeat, st, bt, tt) {
+    var c = document.getElementById(id);
+    var ctx = c.getContext("2d");
+
+    ctx.clearRect(0, 0, 800, 20);
+
+    var i = 0;
+    var numc = colors.length;
+    var segm = -1;
+    var cntr = 0;
+    var cidx = 0;
+
+    pick = (pick == 0 || pick > numc) ? numc : pick;
+    skip = (skip == 0 || skip > numc) ? pick : skip;
+    repeat = (repeat == 0) ? 1 : repeat;
+
+    if (st + bt + tt == 0) {
+        tt = 1;
+    }
+
+    while (i < 800) {
+        var trip = 0;
+        while (trip == 0) {
+            segm++;
+            if (segm >= (2 * pick) + 1) {
+                segm = 0;
+                cntr++;
+                if (cntr >= repeat) {
+                    cntr = 0;
+                    cidx = cidx + skip;
+                    if (cidx >= numc) {
+                        if (pick == skip) {
+                            cidx = 0;
+                        } else {
+                            cidx = cidx % numc;
+                        }
+                    }
+                }
+            }
+
+            if (segm == 2 * pick) {
+                trip = tt;
+            } else if (segm % 2 == 1) {
+                trip = st;
+            } else {
+                trip = bt;
+            }
+        }
+
+        if (segm % 2 == 1) {
+            var c = Math.floor(segm / 2) + cidx;
+            if (pick == skip) {
+                if (c >= numc) {
+                } else {
+                    draw_rect(ctx, i, trip, colors[c]);
+                }
+            } else {
+                draw_rect(ctx, i, trip, colors[c % numc]);
+            }
+        }
+
+        i = i + trip;
+    }
+}
+</script>
