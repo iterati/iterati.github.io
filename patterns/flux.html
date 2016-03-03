@@ -1,0 +1,137 @@
+<span style="display: inline-block; width: 200px;">Steps</span>
+<input id="l_steps" type="text" size="4" value="4" name="l_steps" for="s_steps" oninput="s_steps.value = l_steps.value; doFlux('toy');" />
+<input id="s_steps" type="range" min="1" max="10" value="4" name="s_steps" for="l_steps" oninput="l_steps.value = s_steps.value; doFlux('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Strobe or Blank</span>
+<input id="l_sorb" type="text" size="4" value="1" name="l_sorb" for="s_sorb" oninput="s_sorb.value = l_sorb.value; doFlux('toy');" />
+<input id="s_sorb" type="range" min="0" max="1" value="1" name="s_sorb" for="l_sorb" oninput="l_sorb.value = s_sorb.value; doFlux('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Direction</span>
+<input id="l_direc" type="text" size="4" value="2" name="l_direc" for="s_direc" oninput="s_direc.value = l_direc.value; doFlux('toy');" />
+<input id="s_direc" type="range" min="0" max="2" value="2" name="s_direc" for="l_direc" oninput="l_direc.value = s_direc.value; doFlux('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Wave, Shapeshift, or Comet</span>
+<input id="l_mode" type="text" size="4" value="0" name="l_mode" for="s_direc" oninput="s_mode.value = l_mode.value; doFlux('toy');" />
+<input id="s_mode" type="range" min="0" max="2" value="0" name="s_mode" for="l_direc" oninput="l_mode.value = s_mode.value; doFlux('toy');" />
+<br />
+<br />
+
+<span style="display: inline-block; width: 200px;">Strobe</span>
+<input id="l_st" type="text" size="4" value="1" name="l_st" for="s_st" oninput="s_st.value = l_st.value; doFlux('toy');" />
+<input id="s_st" type="range" min="0" max="25" value="1" name="s_st" for="l_st" oninput="l_st.value = s_st.value; doFlux('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Blank</span>
+<input id="l_bt" type="text" size="4" value="1" name="l_bt" for="s_bt" oninput="s_bt.value = l_bt.value; doFlux('toy');" />
+<input id="s_bt" type="range" min="0" max="25" value="1" name="s_bt" for="l_bt" oninput="l_bt.value = s_bt.value; doFlux('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Flux Chunk</span>
+<input id="l_ft" type="text" size="4" value="1" name="l_ft" for="s_ft" oninput="s_ft.value = l_ft.value; doFlux('toy');" />
+<input id="s_ft" type="range" min="0" max="25" value="1" name="s_ft" for="l_ft" oninput="l_ft.value = s_ft.value; doFlux('toy');" />
+<br />
+<br />
+
+
+<canvas id="toy" width="800" height="20" style="background: #000;"></canvas>
+
+<script>
+var colors = ["#f00", "#ff0", "#0f0", "#0ff", "#00f", "#f0f"];
+
+function draw_rect(ctx, s, w, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(s, 5, w, 10);
+}
+
+function flux(id, steps, s_or_b, direc, mode, st, bt, ft) {
+  var c = document.getElementById(id);
+  var ctx = c.getContext("2d");
+
+  ctx.clearRect(0, 0, 800, 20);
+
+  var i = 0;
+  var numc = colors.length;
+  var segm = -1;
+  var cntr = 0;
+  var cidx = 0;
+  var t_steps = (direc > 1) ? 2 * steps : steps + 1;
+
+  if (st + bt == 0) {
+    bt = 1;
+  }
+
+  while (i < 800) {
+    var trip = 0;
+    while (trip == 0) {
+      segm++;
+      if (segm >= 3) {
+        segm = 0;
+        if (mode == 0) {
+          cidx = (cidx + 1) % numc;
+          cntr = (cntr + 1) % t_steps;
+        } else if (mode == 1) {
+          cidx++;
+          if (cidx >= numc) {
+            cidx = 0;
+            cntr = (cntr + 1) % t_steps;
+          }
+        } else {
+          cntr++;
+          if (cntr >= t_steps) {
+            cntr = 0;
+            cidx = (cidx + 1) % numc;
+          }
+        }
+      }
+
+      if (segm == 0) {
+        trip = bt;
+      } else if (segm == 1) {
+        if (direc == 0) {
+          trip = cntr * ft;
+        } else if (direc == 1) {
+          trip = (steps - cntr) * ft;
+        } else {
+          if (cntr < steps) {
+            trip = cntr * ft;
+          } else {
+            trip = (steps - (cntr - steps)) * ft;
+          }
+        }
+      } else {
+        trip = st;
+      }
+    }
+
+    if (segm == 0) {
+      // noop blank
+    } else if (segm == 1) {
+      if (s_or_b == 0) {
+        draw_rect(ctx, i, trip, colors[cidx]);
+      } else {
+        // noop blank
+      }
+    } else {
+      draw_rect(ctx, i, trip, colors[cidx]);
+    }
+
+    i = i + trip;
+  }
+}
+
+function doFlux(id) {
+    flux(id,
+         parseInt(document.getElementById('l_steps').value),
+         parseInt(document.getElementById('l_sorb').value),
+         parseInt(document.getElementById('l_direc').value),
+         parseInt(document.getElementById('l_mode').value),
+         parseInt(document.getElementById('l_st').value),
+         parseInt(document.getElementById('l_bt').value),
+         parseInt(document.getElementById('l_ft').value));
+}
+
+doFlux("toy");
+</script>

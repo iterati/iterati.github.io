@@ -1,0 +1,134 @@
+<span style="display: inline-block; width: 200px;">Repeat Color</span>
+<input id="l_repeatc" type="text" size="4" value="1" name="l_repeatc" for="s_repeatc" oninput="s_repeatc.value = l_repeatc.value; doVexer('toy');" />
+<input id="s_repeatc" type="range" min="1" max="10" value="1" name="s_repeatc" for="l_repeatc" oninput="l_repeatc.value = s_repeatc.value; doVexer('toy');" />
+<br />
+
+<!-- <span style="display: inline-block; width: 200px;">Pick</span> -->
+<!-- <input id="l_pick" type="text" size="4" value="0" name="l_pick" for="s_pick" oninput="s_pick.value = l_pick.value; doStrobe('toy');" /> -->
+<!-- <input id="s_pick" type="range" min="0" max="9" value="0" name="s_pick" for="l_pick" oninput="l_pick.value = s_pick.value; doStrobe('toy');" /> -->
+<!-- <br /> -->
+
+<!-- <span style="display: inline-block; width: 200px;">Skip</span> -->
+<!-- <input id="l_skip" type="text" size="4" value="0" name="l_skip" for="s_skip" oninput="s_skip.value = l_skip.value; doStrobe('toy');" /> -->
+<!-- <input id="s_skip" type="range" min="0" max="9" value="0" name="s_skip" for="l_skip" oninput="l_skip.value = s_skip.value; doStrobe('toy');" /> -->
+<!-- <br /> -->
+
+<span style="display: inline-block; width: 200px;">Repeat Tracer</span>
+<input id="l_repeatt" type="text" size="4" value="1" name="l_repeatt" for="s_direc" oninput="s_repeatt.value = l_repeatt.value; doVexer('toy');" />
+<input id="s_repeatt" type="range" min="1" max="10" value="1" name="s_repeatt" for="l_direc" oninput="l_repeatt.value = s_repeatt.value; doVexer('toy');" />
+<br />
+<br />
+
+
+<span style="display: inline-block; width: 200px;">Color Strobe</span>
+<input id="l_cst" type="text" size="4" value="2" name="l_cst" for="s_cst" oninput="s_cst.value = l_cst.value; doVexer('toy');" />
+<input id="s_cst" type="range" min="0" max="25" value="2" name="s_cst" for="l_cst" oninput="l_cst.value = s_st.value; doVexer('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Color Blank</span>
+<input id="l_cbt" type="text" size="4" value="0" name="l_cbt" for="s_cbt" oninput="s_cbt.value = l_cbt.value; doVexer('toy');" />
+<input id="s_cbt" type="range" min="0" max="25" value="0" name="s_cbt" for="l_cbt" oninput="l_cbt.value = s_cbt.value; doVexer('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Tracer Strobe</span>
+<input id="l_tst" type="text" size="4" value="5" name="l_tst" for="s_tst" oninput="s_tst.value = l_tst.value; doVexer('toy');" />
+<input id="s_tst" type="range" min="0" max="25" value="5" name="s_tst" for="l_tst" oninput="l_tst.value = s_tst.value; doVexer('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Tracer Blank</span>
+<input id="l_tbt" type="text" size="4" value="0" name="l_tbt" for="s_tbt" oninput="s_tbt.value = l_tbt.value; doVexer('toy');" />
+<input id="s_tbt" type="range" min="0" max="25" value="0" name="s_tbt" for="l_tbt" oninput="l_tbt.value = s_tbt.value; doVexer('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Split Blank</span>
+<input id="l_sbt" type="text" size="4" value="0" name="l_sbt" for="s_sbt" oninput="s_sbt.value = l_sbt.value; doVexer('toy');" />
+<input id="s_sbt" type="range" min="0" max="25" value="0" name="s_sbt" for="l_sbt" oninput="l_sbt.value = s_sbt.value; doVexer('toy');" />
+<br />
+<br />
+
+
+<canvas id="toy" width="800" height="20" style="background: #000;"></canvas>
+
+<script>
+var colors = ["#f00", "#ff0", "#0f0", "#0ff", "#00f", "#f0f"];
+
+function draw_rect(ctx, s, w, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(s, 5, w, 10);
+}
+
+function vexer(id, repeat_c, repeat_t, cst, cbt, tst, tbt, sbt) {
+  var c = document.getElementById(id);
+  var ctx = c.getContext("2d");
+
+  ctx.clearRect(0, 0, 800, 20);
+
+  var i = 0;
+  var numc = colors.length - 1;
+  var segm = -1;
+  var cntr = 0;
+  var cidx = 0;
+  repeat_c = (repeat_c == 0) ? 1 : repeat_c;
+  repeat_t = (repeat_t == 0) ? 1 : repeat_t;
+
+  if (cst + cbt + tst + tbt + sbt == 0) {
+    sbt = 1;
+  }
+
+  while (i < 800) {
+    var trip = 0;
+    while (trip == 0) {
+      segm++;
+      if (segm >= 2) {
+        segm = 0;
+        cntr++;
+        if (cntr >= repeat_c + repeat_t) {
+          cntr = 0;
+          cidx = (cidx + 1) % numc;
+        }
+      }
+
+      if (segm == 0) {
+        if (cntr == 0 || cntr == repeat_c) {
+          trip = sbt;
+        } else if (cntr < repeat_c) {
+          trip = cbt;
+        } else {
+          trip = tbt;
+        }
+      } else {
+        if (cntr < repeat_c) {
+          trip = cst;
+        } else {
+          trip = tst;
+        }
+      }
+    }
+
+    if (segm == 0) {
+      // noop blank
+    } else {
+      if (cntr < repeat_c) {
+        draw_rect(ctx, i, trip, colors[cidx + 1]);
+      } else {
+        draw_rect(ctx, i, trip, colors[0]);
+      }
+    }
+
+    i = i + trip;
+  }
+}
+
+function doVexer(id) {
+    vexer(id,
+         parseInt(document.getElementById('l_repeatc').value),
+         parseInt(document.getElementById('l_repeatt').value),
+         parseInt(document.getElementById('l_cst').value),
+         parseInt(document.getElementById('l_cbt').value),
+         parseInt(document.getElementById('l_tst').value),
+         parseInt(document.getElementById('l_tbt').value),
+         parseInt(document.getElementById('l_sbt').value));
+}
+
+doVexer("toy");
+</script>

@@ -1,0 +1,114 @@
+<span style="display: inline-block; width: 100px;">Pick</span>
+<input id="l_pick" type="text" size="4" value="0" name="l_pick" for="s_pick" oninput="s_pick.value = l_pick.value; doEdge('toy');" />
+<input id="s_pick" type="range" min="0" max="9" value="0" name="s_pick" for="l_pick" oninput="l_pick.value = s_pick.value; doEdge('toy');" />
+<br />
+<br />
+
+<span style="display: inline-block; width: 100px;">Color Strobe</span>
+<input id="l_cst" type="text" size="4" value="5" name="l_cst" for="s_cst" oninput="s_cst.value = l_cst.value; doEdge('toy');" />
+<input id="s_cst" type="range" min="0" max="25" value="5" name="s_cst" for="l_cst" oninput="l_cst.value = s_cst.value; doEdge('toy');" />
+<br />
+
+<span style="display: inline-block; width: 100px;">Color Blank</span>
+<input id="l_cbt" type="text" size="4" value="8" name="l_cbt" for="s_cbt" oninput="s_cbt.value = l_cbt.value; doEdge('toy');" />
+<input id="s_cbt" type="range" min="0" max="25" value="8" name="s_cbt" for="l_cbt" oninput="l_cbt.value = s_cbt.value; doEdge('toy');" />
+<br />
+
+<span style="display: inline-block; width: 100px;">Edge Strobe</span>
+<input id="l_est" type="text" size="4" value="5" name="l_est" for="s_est" oninput="s_est.value = l_est.value; doEdge('toy');" />
+<input id="s_est" type="range" min="0" max="25" value="5" name="s_est" for="l_est" oninput="l_est.value = s_est.value; doEdge('toy');" />
+<br />
+
+<span style="display: inline-block; width: 100px;">Edge Blank</span>
+<input id="l_ebt" type="text" size="4" value="8" name="l_ebt" for="s_ebt" oninput="s_ebt.value = l_ebt.value; doEdge('toy');" />
+<input id="s_ebt" type="range" min="0" max="25" value="8" name="s_ebt" for="l_ebt" oninput="l_ebt.value = s_ebt.value; doEdge('toy');" />
+<br />
+<br />
+
+<canvas id="toy" width="800" height="20" style="background: #000;"></canvas>
+
+
+<script>
+var colors = ["#f00", "#ff0", "#0f0", "#0ff", "#00f", "#f0f"];
+
+function draw_rect(ctx, s, w, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(s, 5, w, 10);
+}
+
+function edge(id, pick, cst, cbt, est, ebt) {
+  var c = document.getElementById(id);
+  var ctx = c.getContext("2d");
+
+  ctx.clearRect(0, 0, 800, 20);
+
+  var i = 0;
+  var numc = colors.length;
+  var segm = -1;
+  var cntr = 0;
+  var cidx = 0;
+  if (pick == 0) {
+    pick = numc;
+  }
+
+  if (cst + cbt + est + ebt == 0) {
+    ebt = 1;
+  }
+
+  while (i < 800) {
+    var trip = 0;
+    while (trip == 0) {
+      segm++;
+      if (segm >= 2) {
+        segm = 0;
+        cntr++;
+        if (cntr >= (2 * pick) - 1) {
+          cntr = 0;
+          cidx = cidx + pick;
+          if (cidx >= numc) {
+            cidx = 0;
+          }
+        }
+      }
+
+      if (segm == 0) {
+        if (cntr == 0) {
+          trip = ebt;
+        } else {
+          trip = cbt;
+        }
+      } else {
+        if (cntr == (pick - 1)) {
+          trip = est;
+        } else {
+          trip = cst;
+        }
+      }
+    }
+
+    if (segm == 0) {
+      // noop blank
+    } else {
+      var c = Math.abs((pick - 1) - cntr) + cidx;
+      if (c >= numc) {
+        // noop
+      } else {
+        draw_rect(ctx, i, trip, colors[c]);
+      }
+    }
+
+    i = i + trip;
+  }
+}
+
+function doEdge(id) {
+    edge(id,
+           parseInt(document.getElementById('l_pick').value),
+           parseInt(document.getElementById('l_cst').value),
+           parseInt(document.getElementById('l_cbt').value),
+           parseInt(document.getElementById('l_est').value),
+           parseInt(document.getElementById('l_ebt').value));
+}
+
+doEdge("toy");
+</script>
