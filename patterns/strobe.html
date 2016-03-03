@@ -2,6 +2,8 @@
 layout: default
 ---
 
+<h1>Strobe</h1>
+
 <span style="display: inline-block; width: 100px;">Pick</span>
 <input id="l_pick" type="text" size="4" value="0" name="l_pick" for="s_pick" oninput="s_pick.value = l_pick.value; doStrobe('toy');" />
 <input id="s_pick" type="range" min="0" max="9" value="0" name="s_pick" for="l_pick" oninput="l_pick.value = s_pick.value; doStrobe('toy');" />
