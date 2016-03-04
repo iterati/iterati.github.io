@@ -1,0 +1,117 @@
+---
+layout: default
+title: Shifter Pattern Visualizer
+---
+
+<h1>Shifter</h1>
+
+<span style="display: inline-block; width: 200px;">Steps</span>
+<input id="l_steps" type="text" size="4" value="4" name="l_steps" for="s_steps" oninput="s_steps.value = l_steps.value; doShifter('toy');" />
+<input id="s_steps" type="range" min="1" max="10" value="4" name="s_steps" for="l_steps" oninput="l_steps.value = s_steps.value; doShifter('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Direction</span>
+<input id="l_direc" type="text" size="4" value="2" name="l_direc" for="s_direc" oninput="s_direc.value = l_direc.value; doShifter('toy');" />
+<input id="s_direc" type="range" min="0" max="2" value="2" name="s_direc" for="l_direc" oninput="l_direc.value = s_direc.value; doShifter('toy');" />
+<br />
+<br />
+
+<span style="display: inline-block; width: 200px;">Strobe</span>
+<input id="l_st" type="text" size="4" value="2" name="l_st" for="s_st" oninput="s_st.value = l_st.value; doShifter('toy');" />
+<input id="s_st" type="range" min="0" max="25" value="2" name="s_st" for="l_st" oninput="l_st.value = s_st.value; doShifter('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Blank</span>
+<input id="l_bt" type="text" size="4" value="2" name="l_bt" for="s_bt" oninput="s_bt.value = l_bt.value; doShifter('toy');" />
+<input id="s_bt" type="range" min="0" max="25" value="2" name="s_bt" for="l_bt" oninput="l_bt.value = s_bt.value; doShifter('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Trailing Blank</span>
+<input id="l_tt" type="text" size="4" value="10" name="l_tt" for="s_tt" oninput="s_tt.value = l_tt.value; doShifter('toy');" />
+<input id="s_tt" type="range" min="0" max="25" value="10" name="s_tt" for="l_tt" oninput="l_tt.value = s_tt.value; doShifter('toy');" />
+<br />
+<br />
+
+<canvas id="toy" width="800" height="20" style="background: #000;"></canvas>
+
+<script>
+var colors = ["#f00", "#ff0", "#0f0", "#0ff", "#00f", "#f0f"];
+
+function draw_rect(ctx, s, w, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(s, 5, w, 10);
+}
+
+function shifter(id, steps, direc, st, bt, tt) {
+  var c = document.getElementById(id);
+  var ctx = c.getContext("2d");
+
+  ctx.clearRect(0, 0, 800, 20);
+
+  var i = 0;
+  var numc = colors.length;
+  var segm = -1;
+  var cntr = 0;
+  var cidx = 0;
+  var t_steps = (direc > 1) ? 2 * (steps - 1) : steps;
+
+  if (st + bt + tt == 0) {
+    tt = 1;
+  }
+
+  while (i < 800) {
+    var trip = 0;
+    while (trip == 0) {
+      segm++;
+      if (segm >= 2) {
+        segm = 0;
+        cidx++;
+        if (cidx >= numc) {
+          cidx = 0;
+          cntr = (cntr + 1) % t_steps;
+        }
+      }
+
+      if (segm == 0) {
+        if (cidx == 0) {
+          trip = tt;
+        } else {
+          trip = bt;
+        }
+      } else {
+        if (direc == 0) {
+          trip = st * (cntr + 1);
+        } else if (direc == 1) {
+          trip = st * (t_steps - cntr);
+        } else {
+          if (cntr < steps) {
+            console.log(cntr + 1);
+            trip = st * (cntr + 1);
+          } else {
+            console.log((t_steps - cntr) + 1);
+            trip = st * ((t_steps - cntr) + 1);
+          }
+        }
+      }
+    }
+
+    if (segm == 0) {
+    } else {
+      draw_rect(ctx, i, trip, colors[cidx]);
+    }
+
+    i = i + trip;
+  }
+}
+
+function doShifter(id) {
+    shifter(id,
+         parseInt(document.getElementById('l_steps').value),
+         parseInt(document.getElementById('l_direc').value),
+         parseInt(document.getElementById('l_st').value),
+         parseInt(document.getElementById('l_bt').value),
+         parseInt(document.getElementById('l_tt').value));
+}
+
+doShifter("toy");
+</script>

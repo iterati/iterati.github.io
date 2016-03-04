@@ -1,0 +1,159 @@
+---
+layout: default
+title: Morph Pattern Visualizer
+---
+
+<h1>Morph</h1>
+
+<span style="display: inline-block; width: 100px;">Steps</span>
+<input id="l_steps" type="text" size="4" value="1" name="l_steps" for="s_steps" oninput="s_steps.value = l_steps.value; doMorph('toy');" />
+<input id="s_steps" type="range" min="1" max="10" value="1" name="s_steps" for="l_steps" oninput="l_steps.value = s_steps.value; doMorph('toy');" />
+<br />
+
+<span style="display: inline-block; width: 100px;">Morph or Fuse</span>
+<input id="l_mode" type="text" size="4" value="1" name="l_mode" for="s_mode" oninput="s_mode.value = l_mode.value; doMorph('toy');" />
+<input id="s_mode" type="range" min="0" max="1" value="1" name="s_mode" for="l_mode" oninput="l_mode.value = s_mode.value; doMorph('toy');" />
+<br />
+<br />
+
+<span style="display: inline-block; width: 100px;">Strobe</span>
+<input id="l_st" type="text" size="4" value="5" name="l_st" for="s_st" oninput="s_st.value = l_st.value; doMorph('toy');" />
+<input id="s_st" type="range" min="0" max="25" value="5" name="s_st" for="l_st" oninput="l_st.value = s_st.value; doMorph('toy');" />
+<br />
+
+<span style="display: inline-block; width: 100px;">Blank</span>
+<input id="l_bt" type="text" size="4" value="8" name="l_bt" for="s_bt" oninput="s_bt.value = l_bt.value; doMorph('toy');" />
+<input id="s_bt" type="range" min="0" max="25" value="8" name="s_bt" for="l_bt" oninput="l_bt.value = s_bt.value; doMorph('toy');" />
+<br />
+
+<span style="display: inline-block; width: 100px;">Color</span>
+<input id="l_cst" type="text" size="4" value="0" name="l_cst" for="s_cst" oninput="s_cst.value = l_cst.value; doMorph('toy');" />
+<input id="s_cst" type="range" min="0" max="25" value="0" name="s_cst" for="l_cst" oninput="l_cst.value = s_cst.value; doMorph('toy');" />
+<br />
+
+<span style="display: inline-block; width: 100px;">Trailing Blank</span>
+<input id="l_cbt" type="text" size="4" value="0" name="l_cbt" for="s_cbt" oninput="s_cbt.value = l_cbt.value; doMorph('toy');" />
+<input id="s_cbt" type="range" min="0" max="25" value="0" name="s_cbt" for="l_cbt" oninput="l_cbt.value = s_cbt.value; doMorph('toy');" />
+<br />
+<br />
+
+<canvas id="toy" width="800" height="20" style="background: #000;"></canvas>
+
+
+<script>
+var colors = ["#ff0000", "#ffff00", "#00ff00", "#00ffff", "#0000ff", "#ff00ff"];
+
+function draw_rect(ctx, s, w, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(s, 5, w, 10);
+}
+
+function interp(m, n, d, D) {
+  return m + (((n - m) * d) / D);
+}
+
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
+function rgb(red, green, blue) {
+    var decColor =0x1000000+ blue + 0x100 * green + 0x10000 *red ;
+    return '#'+decColor.toString(16).substr(1);
+}
+
+function morph(id, steps, mode, st, bt, cst, cbt) {
+  console.log(id);
+  var c = document.getElementById(id);
+  var ctx = c.getContext("2d");
+
+  ctx.clearRect(0, 0, 800, 20);
+
+  var i = 0;
+  var numc = colors.length;
+  var segm = -1;
+  var cntr = 0;
+  var cidx = 0;
+
+  steps = (steps == 0) ? 1 : steps;
+
+  if (st + bt + cst + cbt == 0) cbt = 1;
+
+  while (i < 800) {
+    var trip = 0;
+    while (trip == 0) {
+      segm++;
+      if (segm >= 2) {
+        segm = 0;
+        cntr++;
+        if (cntr >= steps + 1) {
+          cntr = 0;
+          cidx = (cidx + 1) % numc;
+        }
+      }
+
+      if (segm == 0) {
+        if (cntr == steps) {
+          trip = cst;
+        } else {
+          trip = st;
+        }
+      } else {
+        if (cntr == steps) {
+          trip = cbt;
+        } else {
+          trip = bt;
+        }
+      }
+    }
+
+    if (segm == 0) {
+      if (cntr == steps) {
+        if (mode == 0) {
+          draw_rect(ctx, i, trip, colors[(cidx + 1) % numc]);
+        } else {
+          draw_rect(ctx, i, trip, colors[cidx]);
+        }
+      } else {
+        // blend
+        if (mode == 0) {
+          var c1 = hexToRgb(colors[cidx]);
+          var c2 = hexToRgb(colors[(cidx + 1) % numc]);
+        } else {
+          var c1 = hexToRgb(colors[(cidx + 1) % numc]);
+          var c2 = hexToRgb(colors[cidx]);
+        }
+        var d = (st + bt) * cntr;
+        var D = (st + bt) * steps;
+        for (j = 0; j < trip; j++) {
+          var c = rgb(
+              Math.floor(interp(c1.r, c2.r, d + j, D)),
+              Math.floor(interp(c1.g, c2.g, d + j, D)),
+              Math.floor(interp(c1.b, c2.b, d + j, D)));
+          draw_rect(ctx, i + j, 1, c);
+        }
+      }
+    } else {
+      // noop
+    }
+
+    i = i + trip;
+  }
+}
+
+function doMorph(id) {
+  morph(id,
+         parseInt(document.getElementById('l_steps').value),
+         parseInt(document.getElementById('l_mode').value),
+         parseInt(document.getElementById('l_st').value),
+         parseInt(document.getElementById('l_bt').value),
+         parseInt(document.getElementById('l_cst').value),
+         parseInt(document.getElementById('l_cbt').value));
+}
+
+doMorph("toy");
+</script>
