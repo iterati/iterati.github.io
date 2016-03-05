@@ -4,7 +4,7 @@ title: "Vectr"
 ---
 # Vectr
 
-Vectr is a motion-reactive firmware for the OSM2 Microlight.
+Vectr is a motion-reactive firmware for the OSM 2.0 and OSM 2.1 Microlights.
 
 It is configured using VectrUI and has no on-chip programming capabilities.
 
@@ -19,7 +19,7 @@ It is configured using VectrUI and has no on-chip programming capabilities.
 * Plug in your chips one at a time and run "Upload .hex" for each one
 * Use VectrUI
 
-Download Link: [Vectr Beta 1](/firmwares/Vectr%20Beta%201.dmg)
+Download Link: [Vectr](/firmwares/Vectr.dmg)
 
 
 ## Windows Download
@@ -33,7 +33,7 @@ Download Link: [Vectr Beta 1](/firmwares/Vectr%20Beta%201.dmg)
   * Select the vectr.b1.hex file to upload
 * Use VectrUI
 
-Download Link: [Vectr Beta 1](/firmwares/vectr.b1.zip)
+Download Link: [Vectr](/firmwares/vectr.win64.zip)
 
 
 ## Controls

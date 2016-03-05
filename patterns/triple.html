@@ -1,0 +1,177 @@
+---
+layout: default
+title: Triple Pattern Visualizer
+---
+
+<h1>Triple</h1>
+
+<span style="display: inline-block; width: 200px;">Repeat A</span>
+<input id="l_repeata" type="text" size="4" value="1" name="l_repeata" for="s_repeata" oninput="s_repeata.value = l_repeata.value; doTriple('toy');" />
+<input id="s_repeata" type="range" min="1" max="10" value="1" name="s_repeata" for="l_repeata" oninput="l_repeata.value = s_repeata.value; doTriple('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Repeat B</span>
+<input id="l_repeatb" type="text" size="4" value="2" name="l_repeatb" for="s_repeatb" oninput="s_repeatb.value = l_repeatb.value; doTriple('toy');" />
+<input id="s_repeatb" type="range" min="1" max="10" value="2" name="s_repeatb" for="l_repeatb" oninput="l_repeatb.value = s_repeatb.value; doTriple('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Repeat C</span>
+<input id="l_repeatc" type="text" size="4" value="3" name="l_repeatc" for="s_repeatc" oninput="s_repeatc.value = l_repeatc.value; doTriple('toy');" />
+<input id="s_repeatc" type="range" min="1" max="10" value="3" name="s_repeatc" for="l_repeatc" oninput="l_repeatc.value = s_repeatc.value; doTriple('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Skip</span>
+<input id="l_skip" type="text" size="4" value="1" name="l_skip" for="s_skip" oninput="s_skip.value = l_skip.value; doTriple('toy');" />
+<input id="s_skip" type="range" min="0" max="9" value="1" name="s_skip" for="l_skip" oninput="l_skip.value = s_skip.value; doTriple('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Use Third Timing</span>
+<input id="l_usec" type="text" size="4" value="1" name="l_usec" for="s_usec" oninput="s_usec.value = l_usec.value; doTriple('toy');" />
+<input id="s_usec" type="range" min="0" max="1" value="1" name="s_usec" for="l_usec" oninput="l_usec.value = s_usec.value; doTriple('toy');" />
+<br />
+<br />
+
+<span style="display: inline-block; width: 200px;">Strobe A</span>
+<input id="l_ast" type="text" size="4" value="1" name="l_ast" for="s_ast" oninput="s_ast.value = l_ast.value; doTriple('toy');" />
+<input id="s_ast" type="range" min="0" max="25" value="1" name="s_ast" for="l_ast" oninput="l_ast.value = s_ast.value; doTriple('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Blank A</span>
+<input id="l_abt" type="text" size="4" value="5" name="l_abt" for="s_abt" oninput="s_abt.value = l_abt.value; doTriple('toy');" />
+<input id="s_abt" type="range" min="0" max="25" value="5" name="s_abt" for="l_abt" oninput="l_abt.value = s_abt.value; doTriple('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Strobe B</span>
+<input id="l_bst" type="text" size="4" value="3" name="l_bst" for="s_bst" oninput="s_bst.value = l_bst.value; doTriple('toy');" />
+<input id="s_bst" type="range" min="0" max="25" value="3" name="s_bst" for="l_bst" oninput="l_bst.value = s_bst.value; doTriple('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Blank B</span>
+<input id="l_bbt" type="text" size="4" value="5" name="l_bbt" for="s_bbt" oninput="s_bbt.value = l_bbt.value; doTriple('toy');" />
+<input id="s_bbt" type="range" min="0" max="25" value="5" name="s_bbt" for="l_bbt" oninput="l_bbt.value = s_bbt.value; doTriple('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Strobe C</span>
+<input id="l_cst" type="text" size="4" value="5" name="l_cst" for="s_cst" oninput="s_cst.value = l_cst.value; doTriple('toy');" />
+<input id="s_cst" type="range" min="0" max="25" value="5" name="s_cst" for="l_cst" oninput="l_cst.value = s_cst.value; doTriple('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Blank C</span>
+<input id="l_cbt" type="text" size="4" value="5" name="l_cbt" for="s_cbt" oninput="s_cbt.value = l_cbt.value; doTriple('toy');" />
+<input id="s_cbt" type="range" min="0" max="25" value="5" name="s_cbt" for="l_cbt" oninput="l_cbt.value = s_cbt.value; doTriple('toy');" />
+<br />
+
+<span style="display: inline-block; width: 200px;">Split Blank</span>
+<input id="l_sbt" type="text" size="4" value="10" name="l_sbt" for="s_sbt" oninput="s_sbt.value = l_sbt.value; doTriple('toy');" />
+<input id="s_sbt" type="range" min="0" max="25" value="10" name="s_sbt" for="l_sbt" oninput="l_sbt.value = s_sbt.value; doTriple('toy');" />
+<br />
+<br />
+
+<canvas id="toy" width="800" height="20" style="background: #000;"></canvas>
+
+<script>
+var colors = ["#f00", "#ff0", "#0f0", "#0ff", "#00f", "#f0f"];
+
+function draw_rect(ctx, s, w, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(s, 5, w, 10);
+}
+
+function triple(id, repeata, repeatb, repeatc, skp, usec, ast, abt, bst, bbt, cst, cbt, sbt) {
+  var c = document.getElementById(id);
+  var ctx = c.getContext("2d");
+
+  ctx.clearRect(0, 0, 800, 20);
+
+  var i = 0;
+  var numc = colors.length;
+  var segm = -1;
+  var cntr = 0;
+  var cidx = 0;
+
+  repeata = (repeata == 0) ? 1 : repeata;
+  repeatb = (repeatb == 0) ? 1 : repeatb;
+  repeatc = (repeatc == 0) ? 1 : repeatc;
+  skp = (skp >= numc) ? numc - 1 : skp;
+
+  var repeats = repeata + repeatb + ((usec > 0) ? repeatc : 0);
+
+  if (ast + abt + bst + bbt + ((usec > 0) ? cst + cbt : 0) + sbt == 0) {
+    sbt = 1;
+  }
+
+  console.log(repeats);
+
+  while (i < 800) {
+    var trip = 0;
+    while (trip == 0) {
+      segm++;
+      if (segm >= 2) {
+        segm = 0;
+        cntr++;
+        if (cntr >= repeats) {
+          //console.log({'segm': segm, 'cntr': cntr, 'cidx': cidx});
+          cntr = 0;
+          cidx = (cidx + 1) % numc;
+        }
+      }
+
+      if (segm == 0) {
+        if (cntr == 0) {
+          trip = sbt;
+        } else if (cntr < repeata) {
+          trip = abt;
+        } else if (cntr == repeata) {
+          trip = sbt;
+        } else if (cntr < repeata + repeatb) {
+          trip = bbt;
+        } else if (cntr == repeata + repeatb) {
+          trip = sbt;
+        } else {
+          trip = cbt;
+        }
+      } else {
+        if (cntr < repeata) {
+          trip = ast;
+        } else if (cntr < repeata + repeatb) {
+          trip = bst;
+        } else {
+          trip = cst;
+        }
+      }
+    }
+
+    if (segm == 0) {
+    } else {
+      if (cntr < repeata) {
+        draw_rect(ctx, i, trip, colors[cidx]);
+      } else if (cntr < repeata + repeatb) {
+        console.log({'segm': segm, 'cntr': cntr, 'cidx': cidx});
+        draw_rect(ctx, i, trip, colors[(cidx + skp) % numc]);
+      } else {
+        draw_rect(ctx, i, trip, colors[(cidx + skp + skp) % numc]);
+      }
+    }
+
+    i = i + trip;
+  }
+}
+
+function doTriple(id) {
+    triple(id,
+           parseInt(document.getElementById('l_repeata').value),
+           parseInt(document.getElementById('l_repeatb').value),
+           parseInt(document.getElementById('l_repeatc').value),
+           parseInt(document.getElementById('l_skip').value),
+           parseInt(document.getElementById('l_usec').value),
+           parseInt(document.getElementById('l_ast').value),
+           parseInt(document.getElementById('l_abt').value),
+           parseInt(document.getElementById('l_bst').value),
+           parseInt(document.getElementById('l_bbt').value),
+           parseInt(document.getElementById('l_cst').value),
+           parseInt(document.getElementById('l_cbt').value),
+           parseInt(document.getElementById('l_sbt').value));
+}
+
+doTriple("toy");
+</script>
