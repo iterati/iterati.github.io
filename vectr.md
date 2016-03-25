@@ -16,10 +16,10 @@ It is configured using VectrUI and has no on-chip programming capabilities.
 * Install the drivers: https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
 * Install the Arduino.app to your /Applications directory: https://www.arduino.cc/en/Main/Software
 * Install the latest Java Runtime Environment: http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
-* Plug in your chips one at a time and run "Upload .hex" for each one
+* Plug in your chips one at a time and run "Upload vectr.20160325.hex" for each one
 * Use VectrUI
 
-Download Link: [Vectr](/firmwares/Vectr.dmg)
+Download Link: [Vectr](/firmwares/vectr.20160325.osx.dmg)
 
 
 ## Windows Download
@@ -30,10 +30,10 @@ Download Link: [Vectr](/firmwares/Vectr.dmg)
 * Plug in your chips one at a time and follow the XLoader tutorial: http://www.hobbytronics.co.uk/arduino-xloader
   * Use ATMega(328p) for the board
   * Use 115200 for Baud rate
-  * Select the vectr.b1.hex file to upload
+  * Select the vectr.20160325.hex file to upload
 * Use VectrUI
 
-Download Link: [Vectr](/firmwares/vectr.win64.zip)
+Download Link: [Vectr](/firmwares/vectr.20160325.win.zip)
 
 
 ## Controls
