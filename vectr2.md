@@ -57,7 +57,7 @@ To create a custom firmware with your modes:
 
 * Drag and drop modes from the mode library on the right to the two bundles immediately to the left in the order you wish.
 * When you have your bundles configured, type a name in the box above "Save Firmware" and click "Save Firmware". Typing the name of another firmware will overwrite the previous firmware.
-* Open the firmwares/<firmware name>/<firmware name>.ino file from your vectr directory in the Arduino IDE.
+* Open the firmwares/*firmware name*/*firmware name*.ino file from your vectr directory in the Arduino IDE.
 * Upload the firmware to all of your lights.
 
 
