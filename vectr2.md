@@ -91,4 +91,4 @@ In conjure mode:
 * Hold less than 0.5 seconds - Turns light off on release.
 * Hold between 0.5 and 2 seconds - Turns off light on release. Flashes white at 0.5 seconds.
 * Hold between 2 and 4 seconds - Disables conjure mode on release. Flashes blue at 2 seconds.
-* Hold between 4 seconds or more - Lock light and go to sleep on release. Flashes red at 4 seconds.
+* Hold 4 seconds or more - Lock light and go to sleep on release. Flashes red at 4 seconds.
