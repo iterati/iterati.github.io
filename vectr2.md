@@ -4,6 +4,8 @@ title: "Vectr"
 ---
 # Vectr
 
+![VectrUI](/images/vectr/sshot.png)
+
 Vectr is a motion-reactive firmware for the OSM 2.0 and OSM 2.1 Microlights.
 
 It is configured using VectrUI and has no on-chip programming capabilities.
