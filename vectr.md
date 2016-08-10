@@ -4,36 +4,65 @@ title: "Vectr"
 ---
 # Vectr
 
+![VectrUI](/images/vectr/sshot.png)
+
 Vectr is a motion-reactive firmware for the OSM 2.0 and OSM 2.1 Microlights.
 
 It is configured using VectrUI and has no on-chip programming capabilities.
 
-<iframe width="960" height="560" src="https://www.youtube.com/embed/B62LUWpwSpU" frameborder="0" allowfullscreen></iframe>
+<iframe width="860" height="560" src="https://www.youtube.com/embed/B62LUWpwSpU" frameborder="0" allowfullscreen></iframe>
 
 
-## Mac Download
+## Features
 
-* Install the drivers: https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
-* Install the Arduino.app to your /Applications directory: https://www.arduino.cc/en/Main/Software
-* Install the latest Java Runtime Environment: http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
-* Plug in your chips one at a time and run "Upload vectr.20160325.hex" for each one
-* Use VectrUI
+* Limitless customization (patterns, pattern timings, colors, etc)
+* 2 8-mode bundles
+* Up to 9 colors per mode
+* Light-lock
+* Conjuring (single-mode) operation
+* 32 levels (+ idle) of velocity tracking (Vectr modes)
+* 4 accelerometer triggers with custom thresholds (Primer modes)
 
-Download Link: [Vectr](/firmwares/vectr.20160325.osx.dmg)
+
+## Installation
+
+Vectr is a Chrome App (currently unsigned) and has a few steps for installation while we're still in beta.
+
+* Install the [Arduino IDE](https://www.arduino.cc/en/Main/Software) version 1.6.7 or higher.
+* Download the [Vectr Source](/firmwares/vectr.16.06.30b.zip) file and extract it to a directory somewhere on your computer.
+* In the Chrome address bar type in ```chrome://extensions```.
+* Make sure the "Developer Mode" checkbox is checked.
+    * ![Checkbox](/images/vectr/developermode.png)
+* Click "Load unpacked extension..." and load the directory you extracted in the first step.
+* Launch the app.
+* On first launch, the first thing you will be presented with is a file picker screen that allows you to pick a directory.
+You should create a new directory somewhere convenient (like on the desktop or in you documents folder) called "vectr".
+This is where modes and firmwares will be stored.
+* After the first launch, a default firmware is created in <your vectr dir>/firmwares/default/default.ino.
+* Open the default.ino file in the Arduino IDE.
+* Select Sketch/Upload or click the arrow pointint to the right in the upper left hand to flash a light.
+
+You are now ready to use Vectr.
 
 
-## Windows Download
+## Customization
 
-* Install the drivers: https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
-* Download XLoader: http://russemotto.com/xloader/
-* Install the latest Java Runtime Environment: http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
-* Plug in your chips one at a time and follow the XLoader tutorial: http://www.hobbytronics.co.uk/arduino-xloader
-  * Use ATMega(328p) for the board
-  * Use 115200 for Baud rate
-  * Select the vectr.20160325.hex file to upload
-* Use VectrUI
+The UI is used to generate source code - not to reprogram your light like previous versions of Primer and Vectr. This means
+that every Vectr user has a custom firmware that contains their modes - not the same firmware with some different values in
+EEPROM. As such, customizing modes uses the light as a display rather than reprograms it. To customize your modes:
 
-Download Link: [Vectr](/firmwares/vectr.20160325.win.zip)
+* Open the Vectr app in Chrome. You can click the "Apps" bookmark on the left of the Chrome bookmark bar.
+* With the light plugged in with the cable, click the "Refresh Ports" button and select the correct port from the dropdown then click "Connect".
+* Edit your modes and view how they work on the light.
+* When you're ready to save a mode, type a name in the text field above "Save Mode" and click "Save Mode". Typing the name of another mode will overwrite the previous mode.
+* Do this for all modes you want to create.
+
+To create a custom firmware with your modes:
+
+* Drag and drop modes from the mode library on the right to the two bundles immediately to the left in the order you wish.
+* When you have your bundles configured, type a name in the box above "Save Firmware" and click "Save Firmware". Typing the name of another firmware will overwrite the previous firmware.
+* Open the firmwares/*firmware name*/*firmware name*.ino file from your vectr directory in the Arduino IDE.
+* Upload the firmware to all of your lights.
 
 
 ## Controls
@@ -42,39 +71,28 @@ Download Link: [Vectr](/firmwares/vectr.20160325.win.zip)
 
 Under normal operations:
 
-* Press - Turn on. Go to **Play** on release.
-* Hold 1.0s - Go to **Brightness Select** on release. Flashes white.
-* Hold 4.0s - Go to **Master Reset** on release. Flashes red.
-* Hold 7.0s - Failsafe mode. Turns off when released.
+* Hold less than 2 seconds - Wakes on release.
+* Hold between 2 and 4 seconds - Switches bundles and wakes on release. Flashes white at 2 seconds.
+* Hold 4 seconds or more - Locks and turns off light on release. Flashes red at 4 seconds.
 
 If light lock is enabled:
 
-* Press or hold < 3.0s - Goes back to sleep. Flashes red.
-* Hold for 3.0s - Go to **Play** on release. Flashes green.
-
-### Brightness Select
-
-Light glows white at the current brightness.
-
-* Press - Cycle brightness (3 levels).
-* Hold 1.0s - Set current brightness and go to **Play** on release. Flashes white.
-
-### Master Reset
-
-* Press - Go to sleep.
-* Hold 3.0s - Reset and go to **Play** on released.
+* Hold less than 2 seconds - Goes back to sleep. Flashes red on release.
+* Hold between 2 and 4 seconds - Wakes on release. Flashes green at 2 seconds.
+* Hold 4 seconds or more - Goes back to sleep on release. Flashes red on release.
 
 ### Play
 
 Under normal operation:
 
-* Press - Cycle to next mode.
-* Hold 0.5s - Put light to sleep on release.
-* Hold 1.5s - Enables **Conjure Mode** on release. Flashes blue.
-* Hold 2.5s - Enables **Light Lock** on release. Flashes red.
-* Every second you hold after this will cycle through sleep (flashes white), conjure, and light lock options.
+* Hold less than 0.5 seconds - Cycle to next mode.
+* Hold between 0.5 and 2 seconds - Turns off light on release. Flashes white at 0.5 seconds.
+* Hold between 2 and 4 seconds - Enables conjure mode on release. Flashes blue at 2 seconds.
+* Hold 4 seconds or more - Locks and turns off light on release. Flashes red at 4 seconds.
 
 In conjure mode:
 
-* Press - Toggle light on/off.
-* Hold 3.0s - Disable **Conjure Mode** on release. Flashes blue.
+* Hold less than 0.5 seconds - Turns light off on release.
+* Hold between 0.5 and 2 seconds - Turns off light on release. Flashes white at 0.5 seconds.
+* Hold between 2 and 4 seconds - Disables conjure mode on release. Flashes blue at 2 seconds.
+* Hold 4 seconds or more - Lock light and go to sleep on release. Flashes red at 4 seconds.
