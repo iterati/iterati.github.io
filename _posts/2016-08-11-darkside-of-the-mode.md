@@ -8,6 +8,8 @@ published: true
 
 This is the first volume of my Vectr preset breakdown. In these posts I will be breaking down all elements of my presets to better explain the intricacies of Vectr.
 
+![Darkside of the Mode](/images/darkside_of_the_mode.png)
+
 # Darkside of the Mode
 
 Darkside is one of my favorite modes because it shows off some of the optical illusionesque things you can do with an LED that blinks fast enough. While the idle blinke-like pattern appears white, there is no white used in any of the palettes. As the light moves faster, the blinke turns into a rainbow stribbon before splitting apart into it's component colors in a half-time dops. The effect is similar to how a prism breaks apart white light.
@@ -37,8 +39,6 @@ So during this transition, the gap time decreases down to nothing while the blan
 As mentioned, Darkside's an attempt to show off some of the optical illusion created by strobing very quickly. Our eyes cannot discern 0.5ms strobes stacked back-to-back. Instead they average the color over time. The colors used in Darkside are the 3 primary additive colors (red, green, and blue) and the 3 secondary colors in between those (yellow - red + green, cyan - green + blue, and magenta - blue + red). The secondary colors use values less than half the primary color. Brightness on an LED is not linear, so halving the value (e.g. red = 255, 0, 0 and yellow = 128, 128, 0) would cause the secondary colors to appear brighter than the primaries. I've found that a value around 1/3 approximates the same brightness across all colors. Strobing these colors back-to-back very quickly results in the eye seeing white rather than color.
 
 The final effect is to brighten the colors as you speed up. I've disabled the third color set by setting the last two color threshold values to 64. Setting the last 2 to 64 effectively disables that set. Setting all 4 to 64 would make the mode function without color blending. The second color set is twice as bright as the first and is set to blend from 0 (1G) to 56 (4.5G) to match the timing blend.
-
-![Darkside of the Mode](/images/darkside_of_the_mode.png)
 
 ## Conclusion
 
