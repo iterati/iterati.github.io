@@ -38,6 +38,8 @@ As mentioned, Darkside's an attempt to show off some of the optical illusion cre
 
 The final effect is to brighten the colors as you speed up. I've disabled the third color set by setting the last two color threshold values to 64. Setting the last 2 to 64 effectively disables that set. Setting all 4 to 64 would make the mode function without color blending. The second color set is twice as bright as the first and is set to blend from 0 (1G) to 56 (4.5G) to match the timing blend.
 
+![Darkside of the Mode](/images/darkside_of_the_mode.png)
+
 ## Conclusion
 
 Darkside is a relatively simple mode that's mostly conceptual rather than technical. If you find yourself not a fan of rainbow presets in general, it's very easy to mix up the color palette and find colors that are more suitable for your sets. Play around with the colors but take care to keep the brightnesses somewhat even through the stribbon. If you'd like to use dim colors, either move to three color sets with the thresholds matching the timings and only use the dim colors in the third set. Dim colors during the blinke or stribbon parts is damaging to the effect and makes a weird flickering that I've found undesireable.
