@@ -8,11 +8,11 @@ published: true
 
 This is the first volume of my Vectr preset breakdown. In these posts I will be breaking down all elements of my presets to better explain the intricacies of Vectr.
 
-![Darkside of the Mode](/images/darkside_of_the_mode.png)
-
 # Darkside of the Mode
 
 Darkside is one of my favorite modes because it shows off some of the optical illusionesque things you can do with an LED that blinks fast enough. While the idle blinke-like pattern appears white, there is no white used in any of the palettes. As the light moves faster, the blinke turns into a rainbow stribbon before splitting apart into it's component colors in a half-time dops. The effect is similar to how a prism breaks apart white light.
+
+![Darkside of the Mode](/images/darkside_of_the_mode.png)
 
 ## Pattern and Arguments
 
