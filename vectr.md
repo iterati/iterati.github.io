@@ -16,11 +16,11 @@ It is configured using VectrUI and has no on-chip programming capabilities.
 ## Features
 
 * Limitless customization (patterns, pattern timings, colors, etc)
-* 2 8-mode bundles
+* 2 16-mode bundles
 * Up to 9 colors per mode
 * Light-lock
 * Conjuring (single-mode) operation
-* 32 levels (+ idle) of velocity tracking (Vectr modes)
+* 64 levels (+ idle) of velocity tracking (Vectr modes)
 * 4 accelerometer triggers with custom thresholds (Primer modes)
 
 
@@ -28,8 +28,8 @@ It is configured using VectrUI and has no on-chip programming capabilities.
 
 Vectr is a Chrome App (currently unsigned) and has a few steps for installation while we're still in beta.
 
-* Install the Arduino IDE version 1.6.7. [Windows](http://arduino.cc/download_handler.php?f=/arduino-1.6.7-windows.exe) and [Mac OS X](http://arduino.cc/download_handler.php?f=/arduino-1.6.7-macosx.zip)
-* Download the [Vectr Source](/firmwares/vectr.16.06.30b.zip) file and extract it to a directory somewhere on your computer.
+* Install the Arduino IDE version 1.6.7+. [Windows](http://arduino.cc/download_handler.php?f=/arduino-1.6.7-windows.exe) and [Mac OS X](http://arduino.cc/download_handler.php?f=/arduino-1.6.7-macosx.zip)
+* Download the [Vectr Source](/firmwares/vectr.16.08.12.zip) file and extract it to a directory somewhere on your computer.
 * In the Chrome address bar type in ```chrome://extensions```.
 * Make sure the "Developer Mode" checkbox is checked.
     * ![Checkbox](/images/vectr/developermode.png)
