@@ -4,6 +4,8 @@ title: "Vectr"
 ---
 # Vectr
 
+(Latest release: 2016-08-20 @ 14:30EST)
+
 ![VectrUI](/images/vectr/sshot.png)
 
 Vectr is a motion-reactive firmware for the OSM 2.0 and OSM 2.1 Microlights.
@@ -29,7 +31,7 @@ It is configured using VectrUI and has no on-chip programming capabilities.
 Vectr is a Chrome App (currently unsigned) and has a few steps for installation while we're still in beta.
 
 * Install the Arduino IDE version 1.6.7+. [Windows](http://arduino.cc/download_handler.php?f=/arduino-1.6.7-windows.exe) and [Mac OS X](http://arduino.cc/download_handler.php?f=/arduino-1.6.7-macosx.zip)
-* Download the [Vectr Source](/firmwares/vectr.16.08.14.zip) file and extract it to a directory somewhere on your computer.
+* Download the [Vectr Source](/firmwares/vectr.16.08.20.zip) file and extract it to a directory somewhere on your computer.
 * In the Chrome address bar type in ```chrome://extensions```.
 * Make sure the "Developer Mode" checkbox is checked.
     * ![Checkbox](/images/vectr/developermode.png)
