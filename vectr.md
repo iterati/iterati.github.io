@@ -4,7 +4,7 @@ title: "Vectr"
 ---
 # Vectr
 
-(Latest release: 2016-08-20 @ 14:30EST)
+(Latest release: 2016-08-19 @ 13:00EST)
 
 ![VectrUI](/images/vectr/sshot.png)
 
