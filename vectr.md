@@ -4,7 +4,7 @@ title: "Vectr"
 ---
 # Vectr
 
-(Latest release: 2016-08-19 @ 13:00EST)
+(Latest release: 2016-08-23 @ 22:00EST)
 
 ![VectrUI](/images/vectr/sshot.png)
 
@@ -31,7 +31,7 @@ It is configured using VectrUI and has no on-chip programming capabilities.
 Vectr is a Chrome App (currently unsigned) and has a few steps for installation while we're still in beta.
 
 * Install the Arduino IDE version 1.6.7+. [Windows](http://arduino.cc/download_handler.php?f=/arduino-1.6.7-windows.exe) and [Mac OS X](http://arduino.cc/download_handler.php?f=/arduino-1.6.7-macosx.zip)
-* Download the [Vectr Source](/firmwares/vectr.16.08.21.zip) file and extract it to a directory somewhere on your computer.
+* Download the [Vectr Source (v0.3.4)](/firmwares/vectr.16.08.23.zip) file and extract it to a directory somewhere on your computer.
 * In the Chrome address bar type in ```chrome://extensions```.
 * Make sure the "Developer Mode" checkbox is checked.
     * ![Checkbox](/images/vectr/developermode.png)
@@ -74,7 +74,7 @@ To create a custom firmware with your modes:
 Under normal operations:
 
 * Hold less than 2 seconds - Wakes on release.
-* Hold between 2 and 4 seconds - Switches bundles and wakes on release. Flashes white at 2 seconds.
+* Hold between 2 and 4 seconds - Switches bundles and wakes on release. Flashes magenta at 2 seconds.
 * Hold 4 seconds or more - Locks and turns off light on release. Flashes red at 4 seconds.
 
 If light lock is enabled:
