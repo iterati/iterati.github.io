@@ -12,6 +12,8 @@ Vectr is a motion-reactive firmware for the OSM 2.0 and OSM 2.1 Microlights.
 
 It is configured using VectrUI and has no on-chip programming capabilities.
 
+Watch this video for a walkthrough of the installation procedure on the Mac (it's pretty much the same on PC):
+
 <iframe width="860" height="560" src="https://www.youtube.com/embed/B62LUWpwSpU" frameborder="0" allowfullscreen></iframe>
 
 
