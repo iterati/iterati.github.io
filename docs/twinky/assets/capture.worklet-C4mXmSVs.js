@@ -1,0 +1,1 @@
+class c extends AudioWorkletProcessor{block=new Float32Array(512);filled=0;process(l){const e=l[0],o=e.length?e[0].length:0;for(let t=0;t<o;t++){let s=0;for(const r of e)s+=r[t];this.block[this.filled++]=s/e.length,this.filled===512&&(this.port.postMessage(this.block,[this.block.buffer]),this.block=new Float32Array(512),this.filled=0)}return!0}}registerProcessor("capture",c);

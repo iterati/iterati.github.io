@@ -42,7 +42,7 @@ export const toys: Toy[] = [
     name: 'twinky',
     what: 'My animated Christmas tree lights.',
     status: 'being redesigned',
-    href: 'https://github.com/iterati/twinky',
+    href: '/twinky/',
   },
   {
     key: 'hypercube',
