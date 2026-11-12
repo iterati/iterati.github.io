@@ -43,7 +43,7 @@ export function routes(contentDir: string): Route[] {
     {
       ...at('/notes/'),
       title: 'Notes - iterati',
-      description: 'Notes from iterati.',
+      description: hello.line,
       page: { kind: 'notes', notes: list },
     },
     ...notes.map((note, i): Route => ({

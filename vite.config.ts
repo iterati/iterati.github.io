@@ -1,8 +1,16 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { createReadStream, existsSync, readFileSync } from 'node:fs';
 import react from '@vitejs/plugin-react';
 import type { Plugin } from 'vite';
 import { defineConfig } from 'vitest/config';
 import type * as Prerender from './src/build/prerender';
+
+const pictureTypes: Record<string, string> = {
+  '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.gif': 'image/gif',
+};
 
 // `pnpm dev` serves each route as the build prerenders it, so the dev page is the built page.
 function prerenderInDev(): Plugin {
@@ -12,6 +20,13 @@ function prerenderInDev(): Plugin {
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
         const url = (req.url ?? '/').split('?')[0];
+        // the notes' pictures, which the build copies to docs/notes/img/
+        if (url.startsWith('/notes/img/') && !url.includes('..') && existsSync(`content${url}`)) {
+          const type = pictureTypes[url.slice(url.lastIndexOf('.'))];
+          if (type) res.setHeader('Content-Type', type);
+          createReadStream(`content${url}`).pipe(res);
+          return;
+        }
         const own = url.endsWith('/') ? `public${url}index.html` : `public${url}`;
         if (!/(\/|\.html)$/.test(url) || existsSync(own)) return next();
         try {
