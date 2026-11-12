@@ -26,6 +26,6 @@ Commit `docs/` with the source: Pages serves it as it is (`docs/.nojekyll` keeps
 | `/bermuda/`                 | Bermuda itself           | `public/bermuda/`, its own build copied in untouched             |
 | `/404.html`                 | where old addresses land | `src/pages/NotFound.tsx`                                         |
 
-The previews' loops and stills are in `public/media/`; the marks are `public/logo.svg` (the header),
+The previews' stills are in `public/media/`; the marks are `public/logo.svg` (the header),
 `public/favicon.svg` and `public/mark.svg`. The build is `src/build/`: `content.ts` reads `content/`,
 `prerender.tsx` writes each route into `docs/`.

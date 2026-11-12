@@ -1,6 +1,6 @@
 import { hypercube, twinky } from '../disco/previews';
 import type { ToyKey } from '../words';
-import { CanvasLoop, Facets, Fade, Loop } from './Motion';
+import { CanvasLoop, Facets, Fade } from './Motion';
 
 const elements = ['rhodec', 's2-1', 's2-2', 's2-3'].map((n) => `/media/elements-${n}.webp`);
 const twinkyDark = () => twinky(true);
@@ -11,7 +11,13 @@ function Preview({ toy }: { toy: ToyKey }) {
     case 'bermuda':
       return (
         <div className="shot">
-          <Loop src="/media/bermuda-b3.webm" poster="/media/bermuda-look3.jpg" rate={0.6} />
+          <img
+            src="/media/bermuda-look3.jpg"
+            alt="Bermuda's Tapestry 3 look"
+            width={1280}
+            height={800}
+            loading="lazy"
+          />
         </div>
       );
     case 'elements':

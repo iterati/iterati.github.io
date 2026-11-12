@@ -205,7 +205,6 @@ a.toy:hover {
 .shot.light {
   background: #fff;
 }
-.shot video,
 .shot > img,
 .shot canvas {
   position: absolute;
@@ -384,7 +383,7 @@ footer a {
   position: relative;
   aspect-ratio: 16 / 10;
 }
-.screen video {
+.screen img {
   width: 100%;
   height: 100%;
   object-fit: cover;

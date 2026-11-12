@@ -1,5 +1,5 @@
 // Reads content/: notes/<date>-<slug>.md (front matter: title, date, toy, blurb; pictures in
-// notes/img/) and toys/<toy>.md (front matter: name, sub, intro, play, source, video, poster).
+// notes/img/) and toys/<toy>.md (front matter: name, sub, intro, play, source, poster).
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Note, ToyPage } from '../site';
@@ -70,7 +70,6 @@ export function readToys(contentDir: string): ToyPage[] {
       intro: data.intro || '',
       play: data.play || `/${key}/`,
       source: data.source || undefined,
-      video: data.video || '',
       poster: data.poster || '',
       columns: [],
       galleries: [],

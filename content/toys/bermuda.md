@@ -4,7 +4,6 @@ sub: a shader instrument
 intro: Bermuda draws patterns on the GPU, live: hexes, stars, pinwheels, rings. Each look is a stack of levels - a lattice, a shape, a twist, a colour - and any knob can ride a slow wave or a MIDI control.
 play: /bermuda/
 source: https://github.com/iterati/bermuda
-video: /media/bermuda-b0L.webm
 poster: /media/bermuda-look0.jpg
 ---
 

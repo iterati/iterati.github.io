@@ -31,30 +31,6 @@ export function Facets({ style }: { style?: CSSProperties }) {
   );
 }
 
-/** A recorded loop, played slow while on screen; held on its poster when still. */
-export function Loop({ src, poster, rate }: { src: string; poster: string; rate: number }) {
-  const ref = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    const v = ref.current;
-    if (!v || isStill()) return;
-    v.muted = true;
-    v.defaultPlaybackRate = v.playbackRate = rate;
-    return onScreen(v, (on) => (on ? v.play().catch(() => {}) : v.pause()));
-  }, [rate]);
-  return (
-    <video
-      ref={ref}
-      src={src}
-      poster={poster}
-      muted
-      loop
-      playsInline
-      preload="none"
-      aria-hidden="true"
-    />
-  );
-}
-
 /** Stills crossfading slowly while on screen. */
 export function Fade({ pictures, every }: { pictures: string[]; every: number }) {
   const ref = useRef<HTMLDivElement>(null);

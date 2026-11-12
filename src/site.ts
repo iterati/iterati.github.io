@@ -30,7 +30,6 @@ export interface ToyPage {
   play: string;
   /** The toy's code, when it is public. */
   source?: string;
-  video: string;
   poster: string;
   /** Text sections, side by side. */
   columns: { title: string; html: string }[];

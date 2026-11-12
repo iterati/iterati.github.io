@@ -1,4 +1,4 @@
-import { Facets, Loop } from '../components/Motion';
+import { Facets } from '../components/Motion';
 import type { ToyPage } from '../site';
 
 export function Toy({ toy }: { toy: ToyPage }) {
@@ -25,7 +25,13 @@ export function Toy({ toy }: { toy: ToyPage }) {
       </div>
       <Facets style={{ marginBottom: -1 }} />
       <div className="screen">
-        <Loop src={toy.video} poster={toy.poster} rate={0.7} />
+        <img
+          src={toy.poster}
+          alt={`${toy.name}, one of its looks`}
+          width={1280}
+          height={800}
+          loading="lazy"
+        />
       </div>
       <div className="two">
         {toy.columns.map((c, i) => (
