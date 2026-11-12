@@ -1,22 +1,16 @@
----
-layout: default
----
-
-<div class="home">
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <br>
-        <h3>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h3>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y %H:%m" }}</span>
-        <hr id="line">
-        <div class="content">
-        {{ post.excerpt }}
-        </div>
-        <br>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--app-head-->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="mask-icon" href="/mark.svg" color="#1b1a1f" />
+    <meta name="theme-color" content="#f4f1ea" />
+    <script type="module" src="/src/entry-client.tsx"></script>
+  </head>
+  <body>
+    <div id="root"><!--app-html--></div>
+    <!--app-data-->
+  </body>
+</html>
