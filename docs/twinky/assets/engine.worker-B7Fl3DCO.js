@@ -1,6 +1,6 @@
-var ge=Object.defineProperty,o=(e,n)=>ge(e,"name",{value:n,configurable:!0}),X=(e=>typeof require<"u"?require:typeof Proxy<"u"?new Proxy(e,{get:(n,t)=>(typeof require<"u"?require:n)[t]}):e)(function(e){if(typeof require<"u")return require.apply(this,arguments);throw Error('Dynamic require of "'+e+'" is not supported')}),ye=(()=>{for(var e=new Uint8Array(128),n=0;n<64;n++)e[n<26?n+65:n<52?n+71:n<62?n-4:n*4-205]=n;return t=>{for(var l=t.length,a=new Uint8Array((l-(t[l-1]=="=")-(t[l-2]=="="))*3/4|0),r=0,s=0;r<l;){var i=e[t.charCodeAt(r++)],f=e[t.charCodeAt(r++)],d=e[t.charCodeAt(r++)],p=e[t.charCodeAt(r++)];a[s++]=i<<2|f>>4,a[s++]=f<<4|d>>2,a[s++]=d<<6|p}return a}})();function M(e){return!isNaN(parseFloat(e))&&isFinite(e)}o(M,"_isNumber");function m(e){return e.charAt(0).toUpperCase()+e.substring(1)}o(m,"_capitalize");function R(e){return function(){return this[e]}}o(R,"_getter");var w=["isConstructor","isEval","isNative","isToplevel"],z=["columnNumber","lineNumber"],S=["fileName","functionName","source"],xe=["args"],ve=["evalOrigin"],T=w.concat(z,S,xe,ve);function h(e){if(e)for(var n=0;n<T.length;n++)e[T[n]]!==void 0&&this["set"+m(T[n])](e[T[n]])}o(h,"StackFrame");h.prototype={getArgs:o(function(){return this.args},"getArgs"),setArgs:o(function(e){if(Object.prototype.toString.call(e)!=="[object Array]")throw new TypeError("Args must be an Array");this.args=e},"setArgs"),getEvalOrigin:o(function(){return this.evalOrigin},"getEvalOrigin"),setEvalOrigin:o(function(e){if(e instanceof h)this.evalOrigin=e;else if(e instanceof Object)this.evalOrigin=new h(e);else throw new TypeError("Eval Origin must be an Object or StackFrame")},"setEvalOrigin"),toString:o(function(){var e=this.getFileName()||"",n=this.getLineNumber()||"",t=this.getColumnNumber()||"",l=this.getFunctionName()||"";return this.getIsEval()?e?"[eval] ("+e+":"+n+":"+t+")":"[eval]:"+n+":"+t:l?l+" ("+e+":"+n+":"+t+")":e+":"+n+":"+t},"toString")};h.fromString=o(function(e){var n=e.indexOf("("),t=e.lastIndexOf(")"),l=e.substring(0,n),a=e.substring(n+1,t).split(","),r=e.substring(t+1);if(r.indexOf("@")===0)var s=/@(.+?)(?::(\d+))?(?::(\d+))?$/.exec(r,""),i=s[1],f=s[2],d=s[3];return new h({functionName:l,args:a||void 0,fileName:i,lineNumber:f||void 0,columnNumber:d||void 0})},"StackFrame$$fromString");for(y=0;y<w.length;y++)h.prototype["get"+m(w[y])]=R(w[y]),h.prototype["set"+m(w[y])]=(function(e){return function(n){this[e]=!!n}})(w[y]);var y;for(x=0;x<z.length;x++)h.prototype["get"+m(z[x])]=R(z[x]),h.prototype["set"+m(z[x])]=(function(e){return function(n){if(!M(n))throw new TypeError(e+" must be a Number");this[e]=Number(n)}})(z[x]);var x;for(v=0;v<S.length;v++)h.prototype["get"+m(S[v])]=R(S[v]),h.prototype["set"+m(S[v])]=(function(e){return function(n){this[e]=String(n)}})(S[v]);var v,P=h;function G(){var e=/^\s*at .*(\S+:\d+|\(native\))/m,n=/^(eval@)?(\[native code])?$/;return{parse:o(function(t){if(t.stack&&t.stack.match(e))return this.parseV8OrIE(t);if(t.stack)return this.parseFFOrSafari(t);throw new Error("Cannot parse given Error object")},"ErrorStackParser$$parse"),extractLocation:o(function(t){if(t.indexOf(":")===-1)return[t];var l=/(.+?)(?::(\d+))?(?::(\d+))?$/,a=l.exec(t.replace(/[()]/g,""));return[a[1],a[2]||void 0,a[3]||void 0]},"ErrorStackParser$$extractLocation"),parseV8OrIE:o(function(t){var l=t.stack.split(`
-`).filter(function(a){return!!a.match(e)},this);return l.map(function(a){a.indexOf("(eval ")>-1&&(a=a.replace(/eval code/g,"eval").replace(/(\(eval at [^()]*)|(,.*$)/g,""));var r=a.replace(/^\s+/,"").replace(/\(eval code/g,"(").replace(/^.*?\s+/,""),s=r.match(/ (\(.+\)$)/);r=s?r.replace(s[0],""):r;var i=this.extractLocation(s?s[1]:r),f=s&&r||void 0,d=["eval","<anonymous>"].indexOf(i[0])>-1?void 0:i[0];return new P({functionName:f,fileName:d,lineNumber:i[1],columnNumber:i[2],source:a})},this)},"ErrorStackParser$$parseV8OrIE"),parseFFOrSafari:o(function(t){var l=t.stack.split(`
-`).filter(function(a){return!a.match(n)},this);return l.map(function(a){if(a.indexOf(" > eval")>-1&&(a=a.replace(/ line (\d+)(?: > eval line \d+)* > eval:\d+:\d+/g,":$1")),a.indexOf("@")===-1&&a.indexOf(":")===-1)return new P({functionName:a});var r=/((.*".+"[^@]*)?[^@]*)(?:@)/,s=a.match(r),i=s&&s[1]?s[1]:void 0,f=this.extractLocation(a.replace(r,""));return new P({functionName:i,fileName:f[0],lineNumber:f[1],columnNumber:f[2],source:a})},this)},"ErrorStackParser$$parseFFOrSafari")}}o(G,"ErrorStackParser");var be=new G,we=be,_=typeof process=="object"&&typeof process.versions=="object"&&typeof process.versions.node=="string"&&!process.browser,V=_&&typeof module<"u"&&typeof module.exports<"u"&&typeof X<"u"&&typeof __dirname<"u",ze=_&&!V,Se=typeof Deno<"u",H=!_&&!Se,ke=H&&typeof window=="object"&&typeof document=="object"&&typeof document.createElement=="function"&&"sessionStorage"in window&&typeof importScripts!="function",Ce=H&&typeof importScripts=="function"&&typeof self=="object";typeof navigator=="object"&&typeof navigator.userAgent=="string"&&navigator.userAgent.indexOf("Chrome")==-1&&navigator.userAgent.indexOf("Safari")>-1;var N=typeof read=="function"&&typeof load=="function",j,I,q,Y,B;async function U(){if(!_||(j=(await import("./__vite-browser-external-9wXp6ZBx.js")).default,Y=await import("./__vite-browser-external-9wXp6ZBx.js"),B=await import("./__vite-browser-external-9wXp6ZBx.js"),q=(await import("./__vite-browser-external-9wXp6ZBx.js")).default,I=await import("./__vite-browser-external-9wXp6ZBx.js"),D=I.sep,typeof X<"u"))return;let e=Y,n=await import("./__vite-browser-external-9wXp6ZBx.js"),t=await import("./__vite-browser-external-9wXp6ZBx.js"),l=await import("./__vite-browser-external-9wXp6ZBx.js"),a={fs:e,crypto:n,ws:t,child_process:l};globalThis.require=function(r){return a[r]}}o(U,"initNodeModules");function Q(e,n){return I.resolve(n||".",e)}o(Q,"node_resolvePath");function $(e,n){return n===void 0&&(n=location),new URL(e,n).toString()}o($,"browser_resolvePath");var E;_?E=Q:N?E=o(e=>e,"resolvePath"):E=$;var D;_||(D="/");function K(e,n){return e.startsWith("file://")&&(e=e.slice(7)),e.includes("://")?{response:fetch(e)}:{binary:B.readFile(e).then(t=>new Uint8Array(t.buffer,t.byteOffset,t.byteLength))}}o(K,"node_getBinaryResponse");function Z(e,n){if(e.startsWith("file://")&&(e=e.slice(7)),e.includes("://"))throw new Error("Shell cannot fetch urls");return{binary:Promise.resolve(new Uint8Array(readbuffer(e)))}}o(Z,"shell_getBinaryResponse");function J(e,n){let t=new URL(e,location);return{response:fetch(t,n?{integrity:n}:{})}}o(J,"browser_getBinaryResponse");var F;_?F=K:N?F=Z:F=J;async function ee(e,n){let{response:t,binary:l}=F(e,n);if(l)return l;let a=await t;if(!a.ok)throw new Error(`Failed to load '${e}': request failed.`);return new Uint8Array(await a.arrayBuffer())}o(ee,"loadBinaryFile");var k;if(ke)k=o(async e=>await import(e),"loadScript");else if(Ce)k=o(async e=>{try{globalThis.importScripts(e)}catch(n){if(n instanceof TypeError)await import(e);else throw n}},"loadScript");else if(_)k=ne;else if(N)k=load;else throw new Error("Cannot determine runtime environment");async function ne(e){e.startsWith("file://")&&(e=e.slice(7)),e.includes("://")?q.runInThisContext(await(await fetch(e)).text()):await import(j.pathToFileURL(e).href)}o(ne,"nodeLoadScript");async function te(e){if(_){await U();let n=await B.readFile(e,{encoding:"utf8"});return JSON.parse(n)}else if(N){let n=read(e);return JSON.parse(n)}else return await(await fetch(e)).json()}o(te,"loadLockFile");async function re(){if(V)return __dirname;let e;try{throw new Error}catch(l){e=l}let n=we.parse(e)[0].fileName;if(_&&!n.startsWith("file://")&&(n=`file://${n}`),ze){let l=await import("./__vite-browser-external-9wXp6ZBx.js");return(await import("./__vite-browser-external-9wXp6ZBx.js")).fileURLToPath(l.dirname(n))}let t=n.lastIndexOf(D);if(t===-1)throw new Error("Could not extract indexURL path from pyodide module location");return n.slice(0,t)}o(re,"calculateDirname");function se(e){return e.substring(0,e.lastIndexOf("/")+1)||globalThis.location?.toString()||"."}o(se,"calculateInstallBaseUrl");function ae(e){let n=e.FS,t=e.FS.filesystems.MEMFS,l=e.PATH,a={DIR_MODE:16895,FILE_MODE:33279,mount:o(function(r){if(!r.opts.fileSystemHandle)throw new Error("opts.fileSystemHandle is required");return t.mount.apply(null,arguments)},"mount"),syncfs:o(async(r,s,i)=>{try{let f=a.getLocalSet(r),d=await a.getRemoteSet(r),p=s?d:f,u=s?f:d;await a.reconcile(r,p,u),i(null)}catch(f){i(f)}},"syncfs"),getLocalSet:o(r=>{let s=Object.create(null);function i(p){return p!=="."&&p!==".."}o(i,"isRealDir");function f(p){return u=>l.join2(p,u)}o(f,"toAbsolute");let d=n.readdir(r.mountpoint).filter(i).map(f(r.mountpoint));for(;d.length;){let p=d.pop(),u=n.stat(p);n.isDir(u.mode)&&d.push.apply(d,n.readdir(p).filter(i).map(f(p))),s[p]={timestamp:u.mtime,mode:u.mode}}return{type:"local",entries:s}},"getLocalSet"),getRemoteSet:o(async r=>{let s=Object.create(null),i=await Ee(r.opts.fileSystemHandle);for(let[f,d]of i)f!=="."&&(s[l.join2(r.mountpoint,f)]={timestamp:d.kind==="file"?new Date((await d.getFile()).lastModified):new Date,mode:d.kind==="file"?a.FILE_MODE:a.DIR_MODE});return{type:"remote",entries:s,handles:i}},"getRemoteSet"),loadLocalEntry:o(r=>{let s=n.lookupPath(r).node,i=n.stat(r);if(n.isDir(i.mode))return{timestamp:i.mtime,mode:i.mode};if(n.isFile(i.mode))return s.contents=t.getFileDataAsTypedArray(s),{timestamp:i.mtime,mode:i.mode,contents:s.contents};throw new Error("node type not supported")},"loadLocalEntry"),storeLocalEntry:o((r,s)=>{if(n.isDir(s.mode))n.mkdirTree(r,s.mode);else if(n.isFile(s.mode))n.writeFile(r,s.contents,{canOwn:!0});else throw new Error("node type not supported");n.chmod(r,s.mode),n.utime(r,s.timestamp,s.timestamp)},"storeLocalEntry"),removeLocalEntry:o(r=>{var s=n.stat(r);n.isDir(s.mode)?n.rmdir(r):n.isFile(s.mode)&&n.unlink(r)},"removeLocalEntry"),loadRemoteEntry:o(async r=>{if(r.kind==="file"){let s=await r.getFile();return{contents:new Uint8Array(await s.arrayBuffer()),mode:a.FILE_MODE,timestamp:new Date(s.lastModified)}}else{if(r.kind==="directory")return{mode:a.DIR_MODE,timestamp:new Date};throw new Error("unknown kind: "+r.kind)}},"loadRemoteEntry"),storeRemoteEntry:o(async(r,s,i)=>{let f=r.get(l.dirname(s)),d=n.isFile(i.mode)?await f.getFileHandle(l.basename(s),{create:!0}):await f.getDirectoryHandle(l.basename(s),{create:!0});if(d.kind==="file"){let p=await d.createWritable();await p.write(i.contents),await p.close()}r.set(s,d)},"storeRemoteEntry"),removeRemoteEntry:o(async(r,s)=>{await r.get(l.dirname(s)).removeEntry(l.basename(s)),r.delete(s)},"removeRemoteEntry"),reconcile:o(async(r,s,i)=>{let f=0,d=[];Object.keys(s.entries).forEach(function(c){let g=s.entries[c],b=i.entries[c];(!b||n.isFile(g.mode)&&g.timestamp.getTime()>b.timestamp.getTime())&&(d.push(c),f++)}),d.sort();let p=[];if(Object.keys(i.entries).forEach(function(c){s.entries[c]||(p.push(c),f++)}),p.sort().reverse(),!f)return;let u=s.type==="remote"?s.handles:i.handles;for(let c of d){let g=l.normalize(c.replace(r.mountpoint,"/")).substring(1);if(i.type==="local"){let b=u.get(g),me=await a.loadRemoteEntry(b);a.storeLocalEntry(c,me)}else{let b=a.loadLocalEntry(c);await a.storeRemoteEntry(u,g,b)}}for(let c of p)if(i.type==="local")a.removeLocalEntry(c);else{let g=l.normalize(c.replace(r.mountpoint,"/")).substring(1);await a.removeRemoteEntry(u,g)}},"reconcile")};e.FS.filesystems.NATIVEFS_ASYNC=a}o(ae,"initializeNativeFS");var Ee=o(async e=>{let n=[];async function t(a){for await(let r of a.values())n.push(r),r.kind==="directory"&&await t(r)}o(t,"collect"),await t(e);let l=new Map;l.set(".",e);for(let a of n){let r=(await e.resolve(a)).join("/");l.set(r,a)}return l},"getFsHandles"),Fe=ye("AGFzbQEAAAABDANfAGAAAW9gAW8BfwMDAgECByECD2NyZWF0ZV9zZW50aW5lbAAAC2lzX3NlbnRpbmVsAAEKEwIHAPsBAPsbCwkAIAD7GvsUAAs="),Te=(async function(){if(!(globalThis.navigator&&(/iPad|iPhone|iPod/.test(navigator.userAgent)||navigator.platform==="MacIntel"&&typeof navigator.maxTouchPoints<"u"&&navigator.maxTouchPoints>1)))try{let e=await WebAssembly.compile(Fe);return await WebAssembly.instantiate(e)}catch(e){if(e instanceof WebAssembly.CompileError)return;throw e}})();async function oe(){let e=await Te;if(e)return e.exports;let n=Symbol("error marker");return{create_sentinel:o(()=>n,"create_sentinel"),is_sentinel:o(t=>t===n,"is_sentinel")}}o(oe,"getSentinelImport");function le(e){let n={noImageDecoding:!0,noAudioDecoding:!0,noWasmDecoding:!1,preRun:ce(e),print:e.stdout,printErr:e.stderr,onExit(t){n.exitCode=t},thisProgram:e._sysExecutable,arguments:e.args,API:{config:e},locateFile:o(t=>e.indexURL+t,"locateFile"),instantiateWasm:he(e.indexURL)};return n}o(le,"createSettings");function ie(e){return function(n){let t="/";try{n.FS.mkdirTree(e)}catch(l){console.error(`Error occurred while making a home directory '${e}':`),console.error(l),console.error(`Using '${t}' for a home directory instead`),e=t}n.FS.chdir(e)}}o(ie,"createHomeDirectory");function fe(e){return function(n){Object.assign(n.ENV,e)}}o(fe,"setEnvironment");function de(e){return e?[async n=>{n.addRunDependency("fsInitHook");try{await e(n.FS,{sitePackages:n.API.sitePackages})}finally{n.removeRunDependency("fsInitHook")}}]:[]}o(de,"callFsInitHook");function ue(e){let n=e.HEAPU32[e._Py_Version>>>2],t=n>>>24&255,l=n>>>16&255,a=n>>>8&255;return[t,l,a]}o(ue,"computeVersionTuple");function pe(e){let n=ee(e);return async t=>{t.API.pyVersionTuple=ue(t);let[l,a]=t.API.pyVersionTuple;t.FS.mkdirTree("/lib"),t.API.sitePackages=`/lib/python${l}.${a}/site-packages`,t.FS.mkdirTree(t.API.sitePackages),t.addRunDependency("install-stdlib");try{let r=await n;t.FS.writeFile(`/lib/python${l}${a}.zip`,r)}catch(r){console.error("Error occurred while installing the standard library:"),console.error(r)}finally{t.removeRunDependency("install-stdlib")}}}o(pe,"installStdlib");function ce(e){let n;return e.stdLibURL!=null?n=e.stdLibURL:n=e.indexURL+"python_stdlib.zip",[pe(n),ie(e.env.HOME),fe(e.env),ae,...de(e.fsInit)]}o(ce,"getFileSystemInitializationFuncs");function he(e){if(typeof WasmOffsetConverter<"u")return;let{binary:n,response:t}=F(e+"pyodide.asm.wasm"),l=oe();return function(a,r){return(async function(){a.sentinel=await l;try{let s;t?s=await WebAssembly.instantiateStreaming(t,a):s=await WebAssembly.instantiate(await n,a);let{instance:i,module:f}=s;r(i,f)}catch(s){console.warn("wasm instantiation failed!"),console.warn(s)}})(),{}}}o(he,"getInstantiateWasmFunc");var Oe="0.28.3";function C(e){return e===void 0||e.endsWith("/")?e:e+"/"}o(C,"withTrailingSlash");var L=Oe;async function _e(e={}){if(e.lockFileContents&&e.lockFileURL)throw new Error("Can't pass both lockFileContents and lockFileURL");await U();let n=e.indexURL||await re();n=C(E(n));let t=e;if(t.packageBaseUrl=C(t.packageBaseUrl),t.cdnUrl=C(t.packageBaseUrl??`https://cdn.jsdelivr.net/pyodide/v${L}/full/`),!e.lockFileContents){let u=e.lockFileURL??n+"pyodide-lock.json";t.lockFileContents=te(u),t.packageBaseUrl??=se(u)}t.indexURL=n,t.packageCacheDir&&(t.packageCacheDir=C(E(t.packageCacheDir)));let l={fullStdLib:!1,jsglobals:globalThis,stdin:globalThis.prompt?globalThis.prompt:void 0,args:[],env:{},packages:[],packageCacheDir:t.packageBaseUrl,enableRunUntilComplete:!0,checkAPIVersion:!0,BUILD_ID:"cc7a4bb4c6f36f12592fef0934292b5fddb0e313ca5dc4a5a9519bb7610c67e3"},a=Object.assign(l,t);a.env.HOME??="/home/pyodide",a.env.PYTHONINSPECT??="1";let r=le(a),s=r.API;if(s.lockFilePromise=Promise.resolve(t.lockFileContents),typeof _createPyodideModule!="function"){let u=`${a.indexURL}pyodide.asm.js`;await k(u)}let i;if(e._loadSnapshot){let u=await e._loadSnapshot;ArrayBuffer.isView(u)?i=u:i=new Uint8Array(u),r.noInitialRun=!0,r.INITIAL_MEMORY=i.length}let f=await _createPyodideModule(r);if(r.exitCode!==void 0)throw new f.ExitStatus(r.exitCode);if(e.pyproxyToStringRepr&&s.setPyProxyToStringMethod(!0),e.convertNullToNone&&s.setCompatNullToNone(!0),s.version!==L&&a.checkAPIVersion)throw new Error(`Pyodide version does not match: '${L}' <==> '${s.version}'. If you updated the Pyodide version, make sure you also updated the 'indexURL' parameter passed to loadPyodide.`);f.locateFile=u=>{throw u.endsWith(".so")?new Error(`Failed to find dynamic library "${u}"`):new Error(`Unexpected call to locateFile("${u}")`)};let d;i&&(d=s.restoreSnapshot(i));let p=s.finalizeBootstrap(d,e._snapshotDeserializer);return s.sys.path.insert(0,""),s._pyodide.set_excepthook(),await s.packageIndexReady,s.initializeStreams(a.stdin,a.stdout,a.stderr),p}o(_e,"loadPyodide");var Re={"browser.py":`"""twinky's engine in the simulator page, run by Pyodide in a worker when no twinky.py answers: the
+var ge=Object.defineProperty,o=(e,n)=>ge(e,"name",{value:n,configurable:!0}),G=(e=>typeof require<"u"?require:typeof Proxy<"u"?new Proxy(e,{get:(n,t)=>(typeof require<"u"?require:n)[t]}):e)(function(e){if(typeof require<"u")return require.apply(this,arguments);throw Error('Dynamic require of "'+e+'" is not supported')}),ye=(()=>{for(var e=new Uint8Array(128),n=0;n<64;n++)e[n<26?n+65:n<52?n+71:n<62?n-4:n*4-205]=n;return t=>{for(var l=t.length,a=new Uint8Array((l-(t[l-1]=="=")-(t[l-2]=="="))*3/4|0),r=0,s=0;r<l;){var i=e[t.charCodeAt(r++)],f=e[t.charCodeAt(r++)],d=e[t.charCodeAt(r++)],p=e[t.charCodeAt(r++)];a[s++]=i<<2|f>>4,a[s++]=f<<4|d>>2,a[s++]=d<<6|p}return a}})();function X(e){return!isNaN(parseFloat(e))&&isFinite(e)}o(X,"_isNumber");function _(e){return e.charAt(0).toUpperCase()+e.substring(1)}o(_,"_capitalize");function O(e){return function(){return this[e]}}o(O,"_getter");var w=["isConstructor","isEval","isNative","isToplevel"],z=["columnNumber","lineNumber"],k=["fileName","functionName","source"],be=["args"],ve=["evalOrigin"],F=w.concat(z,k,be,ve);function h(e){if(e)for(var n=0;n<F.length;n++)e[F[n]]!==void 0&&this["set"+_(F[n])](e[F[n]])}o(h,"StackFrame");h.prototype={getArgs:o(function(){return this.args},"getArgs"),setArgs:o(function(e){if(Object.prototype.toString.call(e)!=="[object Array]")throw new TypeError("Args must be an Array");this.args=e},"setArgs"),getEvalOrigin:o(function(){return this.evalOrigin},"getEvalOrigin"),setEvalOrigin:o(function(e){if(e instanceof h)this.evalOrigin=e;else if(e instanceof Object)this.evalOrigin=new h(e);else throw new TypeError("Eval Origin must be an Object or StackFrame")},"setEvalOrigin"),toString:o(function(){var e=this.getFileName()||"",n=this.getLineNumber()||"",t=this.getColumnNumber()||"",l=this.getFunctionName()||"";return this.getIsEval()?e?"[eval] ("+e+":"+n+":"+t+")":"[eval]:"+n+":"+t:l?l+" ("+e+":"+n+":"+t+")":e+":"+n+":"+t},"toString")};h.fromString=o(function(e){var n=e.indexOf("("),t=e.lastIndexOf(")"),l=e.substring(0,n),a=e.substring(n+1,t).split(","),r=e.substring(t+1);if(r.indexOf("@")===0)var s=/@(.+?)(?::(\d+))?(?::(\d+))?$/.exec(r,""),i=s[1],f=s[2],d=s[3];return new h({functionName:l,args:a||void 0,fileName:i,lineNumber:f||void 0,columnNumber:d||void 0})},"StackFrame$$fromString");for(y=0;y<w.length;y++)h.prototype["get"+_(w[y])]=O(w[y]),h.prototype["set"+_(w[y])]=(function(e){return function(n){this[e]=!!n}})(w[y]);var y;for(b=0;b<z.length;b++)h.prototype["get"+_(z[b])]=O(z[b]),h.prototype["set"+_(z[b])]=(function(e){return function(n){if(!X(n))throw new TypeError(e+" must be a Number");this[e]=Number(n)}})(z[b]);var b;for(v=0;v<k.length;v++)h.prototype["get"+_(k[v])]=O(k[v]),h.prototype["set"+_(k[v])]=(function(e){return function(n){this[e]=String(n)}})(k[v]);var v,L=h;function M(){var e=/^\s*at .*(\S+:\d+|\(native\))/m,n=/^(eval@)?(\[native code])?$/;return{parse:o(function(t){if(t.stack&&t.stack.match(e))return this.parseV8OrIE(t);if(t.stack)return this.parseFFOrSafari(t);throw new Error("Cannot parse given Error object")},"ErrorStackParser$$parse"),extractLocation:o(function(t){if(t.indexOf(":")===-1)return[t];var l=/(.+?)(?::(\d+))?(?::(\d+))?$/,a=l.exec(t.replace(/[()]/g,""));return[a[1],a[2]||void 0,a[3]||void 0]},"ErrorStackParser$$extractLocation"),parseV8OrIE:o(function(t){var l=t.stack.split(`
+`).filter(function(a){return!!a.match(e)},this);return l.map(function(a){a.indexOf("(eval ")>-1&&(a=a.replace(/eval code/g,"eval").replace(/(\(eval at [^()]*)|(,.*$)/g,""));var r=a.replace(/^\s+/,"").replace(/\(eval code/g,"(").replace(/^.*?\s+/,""),s=r.match(/ (\(.+\)$)/);r=s?r.replace(s[0],""):r;var i=this.extractLocation(s?s[1]:r),f=s&&r||void 0,d=["eval","<anonymous>"].indexOf(i[0])>-1?void 0:i[0];return new L({functionName:f,fileName:d,lineNumber:i[1],columnNumber:i[2],source:a})},this)},"ErrorStackParser$$parseV8OrIE"),parseFFOrSafari:o(function(t){var l=t.stack.split(`
+`).filter(function(a){return!a.match(n)},this);return l.map(function(a){if(a.indexOf(" > eval")>-1&&(a=a.replace(/ line (\d+)(?: > eval line \d+)* > eval:\d+:\d+/g,":$1")),a.indexOf("@")===-1&&a.indexOf(":")===-1)return new L({functionName:a});var r=/((.*".+"[^@]*)?[^@]*)(?:@)/,s=a.match(r),i=s&&s[1]?s[1]:void 0,f=this.extractLocation(a.replace(r,""));return new L({functionName:i,fileName:f[0],lineNumber:f[1],columnNumber:f[2],source:a})},this)},"ErrorStackParser$$parseFFOrSafari")}}o(M,"ErrorStackParser");var xe=new M,we=xe,m=typeof process=="object"&&typeof process.versions=="object"&&typeof process.versions.node=="string"&&!process.browser,H=m&&typeof module<"u"&&typeof module.exports<"u"&&typeof G<"u"&&typeof __dirname<"u",ze=m&&!H,ke=typeof Deno<"u",V=!m&&!ke,Se=V&&typeof window=="object"&&typeof document=="object"&&typeof document.createElement=="function"&&"sessionStorage"in window&&typeof importScripts!="function",Ce=V&&typeof importScripts=="function"&&typeof self=="object";typeof navigator=="object"&&typeof navigator.userAgent=="string"&&navigator.userAgent.indexOf("Chrome")==-1&&navigator.userAgent.indexOf("Safari")>-1;var N=typeof read=="function"&&typeof load=="function",j,I,q,Y,B;async function U(){if(!m||(j=(await import("./__vite-browser-external-9wXp6ZBx.js")).default,Y=await import("./__vite-browser-external-9wXp6ZBx.js"),B=await import("./__vite-browser-external-9wXp6ZBx.js"),q=(await import("./__vite-browser-external-9wXp6ZBx.js")).default,I=await import("./__vite-browser-external-9wXp6ZBx.js"),D=I.sep,typeof G<"u"))return;let e=Y,n=await import("./__vite-browser-external-9wXp6ZBx.js"),t=await import("./__vite-browser-external-9wXp6ZBx.js"),l=await import("./__vite-browser-external-9wXp6ZBx.js"),a={fs:e,crypto:n,ws:t,child_process:l};globalThis.require=function(r){return a[r]}}o(U,"initNodeModules");function K(e,n){return I.resolve(n||".",e)}o(K,"node_resolvePath");function Q(e,n){return n===void 0&&(n=location),new URL(e,n).toString()}o(Q,"browser_resolvePath");var E;m?E=K:N?E=o(e=>e,"resolvePath"):E=Q;var D;m||(D="/");function $(e,n){return e.startsWith("file://")&&(e=e.slice(7)),e.includes("://")?{response:fetch(e)}:{binary:B.readFile(e).then(t=>new Uint8Array(t.buffer,t.byteOffset,t.byteLength))}}o($,"node_getBinaryResponse");function Z(e,n){if(e.startsWith("file://")&&(e=e.slice(7)),e.includes("://"))throw new Error("Shell cannot fetch urls");return{binary:Promise.resolve(new Uint8Array(readbuffer(e)))}}o(Z,"shell_getBinaryResponse");function J(e,n){let t=new URL(e,location);return{response:fetch(t,n?{integrity:n}:{})}}o(J,"browser_getBinaryResponse");var T;m?T=$:N?T=Z:T=J;async function ee(e,n){let{response:t,binary:l}=T(e,n);if(l)return l;let a=await t;if(!a.ok)throw new Error(`Failed to load '${e}': request failed.`);return new Uint8Array(await a.arrayBuffer())}o(ee,"loadBinaryFile");var S;if(Se)S=o(async e=>await import(e),"loadScript");else if(Ce)S=o(async e=>{try{globalThis.importScripts(e)}catch(n){if(n instanceof TypeError)await import(e);else throw n}},"loadScript");else if(m)S=ne;else if(N)S=load;else throw new Error("Cannot determine runtime environment");async function ne(e){e.startsWith("file://")&&(e=e.slice(7)),e.includes("://")?q.runInThisContext(await(await fetch(e)).text()):await import(j.pathToFileURL(e).href)}o(ne,"nodeLoadScript");async function te(e){if(m){await U();let n=await B.readFile(e,{encoding:"utf8"});return JSON.parse(n)}else if(N){let n=read(e);return JSON.parse(n)}else return await(await fetch(e)).json()}o(te,"loadLockFile");async function re(){if(H)return __dirname;let e;try{throw new Error}catch(l){e=l}let n=we.parse(e)[0].fileName;if(m&&!n.startsWith("file://")&&(n=`file://${n}`),ze){let l=await import("./__vite-browser-external-9wXp6ZBx.js");return(await import("./__vite-browser-external-9wXp6ZBx.js")).fileURLToPath(l.dirname(n))}let t=n.lastIndexOf(D);if(t===-1)throw new Error("Could not extract indexURL path from pyodide module location");return n.slice(0,t)}o(re,"calculateDirname");function se(e){return e.substring(0,e.lastIndexOf("/")+1)||globalThis.location?.toString()||"."}o(se,"calculateInstallBaseUrl");function ae(e){let n=e.FS,t=e.FS.filesystems.MEMFS,l=e.PATH,a={DIR_MODE:16895,FILE_MODE:33279,mount:o(function(r){if(!r.opts.fileSystemHandle)throw new Error("opts.fileSystemHandle is required");return t.mount.apply(null,arguments)},"mount"),syncfs:o(async(r,s,i)=>{try{let f=a.getLocalSet(r),d=await a.getRemoteSet(r),p=s?d:f,u=s?f:d;await a.reconcile(r,p,u),i(null)}catch(f){i(f)}},"syncfs"),getLocalSet:o(r=>{let s=Object.create(null);function i(p){return p!=="."&&p!==".."}o(i,"isRealDir");function f(p){return u=>l.join2(p,u)}o(f,"toAbsolute");let d=n.readdir(r.mountpoint).filter(i).map(f(r.mountpoint));for(;d.length;){let p=d.pop(),u=n.stat(p);n.isDir(u.mode)&&d.push.apply(d,n.readdir(p).filter(i).map(f(p))),s[p]={timestamp:u.mtime,mode:u.mode}}return{type:"local",entries:s}},"getLocalSet"),getRemoteSet:o(async r=>{let s=Object.create(null),i=await Ee(r.opts.fileSystemHandle);for(let[f,d]of i)f!=="."&&(s[l.join2(r.mountpoint,f)]={timestamp:d.kind==="file"?new Date((await d.getFile()).lastModified):new Date,mode:d.kind==="file"?a.FILE_MODE:a.DIR_MODE});return{type:"remote",entries:s,handles:i}},"getRemoteSet"),loadLocalEntry:o(r=>{let s=n.lookupPath(r).node,i=n.stat(r);if(n.isDir(i.mode))return{timestamp:i.mtime,mode:i.mode};if(n.isFile(i.mode))return s.contents=t.getFileDataAsTypedArray(s),{timestamp:i.mtime,mode:i.mode,contents:s.contents};throw new Error("node type not supported")},"loadLocalEntry"),storeLocalEntry:o((r,s)=>{if(n.isDir(s.mode))n.mkdirTree(r,s.mode);else if(n.isFile(s.mode))n.writeFile(r,s.contents,{canOwn:!0});else throw new Error("node type not supported");n.chmod(r,s.mode),n.utime(r,s.timestamp,s.timestamp)},"storeLocalEntry"),removeLocalEntry:o(r=>{var s=n.stat(r);n.isDir(s.mode)?n.rmdir(r):n.isFile(s.mode)&&n.unlink(r)},"removeLocalEntry"),loadRemoteEntry:o(async r=>{if(r.kind==="file"){let s=await r.getFile();return{contents:new Uint8Array(await s.arrayBuffer()),mode:a.FILE_MODE,timestamp:new Date(s.lastModified)}}else{if(r.kind==="directory")return{mode:a.DIR_MODE,timestamp:new Date};throw new Error("unknown kind: "+r.kind)}},"loadRemoteEntry"),storeRemoteEntry:o(async(r,s,i)=>{let f=r.get(l.dirname(s)),d=n.isFile(i.mode)?await f.getFileHandle(l.basename(s),{create:!0}):await f.getDirectoryHandle(l.basename(s),{create:!0});if(d.kind==="file"){let p=await d.createWritable();await p.write(i.contents),await p.close()}r.set(s,d)},"storeRemoteEntry"),removeRemoteEntry:o(async(r,s)=>{await r.get(l.dirname(s)).removeEntry(l.basename(s)),r.delete(s)},"removeRemoteEntry"),reconcile:o(async(r,s,i)=>{let f=0,d=[];Object.keys(s.entries).forEach(function(c){let g=s.entries[c],x=i.entries[c];(!x||n.isFile(g.mode)&&g.timestamp.getTime()>x.timestamp.getTime())&&(d.push(c),f++)}),d.sort();let p=[];if(Object.keys(i.entries).forEach(function(c){s.entries[c]||(p.push(c),f++)}),p.sort().reverse(),!f)return;let u=s.type==="remote"?s.handles:i.handles;for(let c of d){let g=l.normalize(c.replace(r.mountpoint,"/")).substring(1);if(i.type==="local"){let x=u.get(g),_e=await a.loadRemoteEntry(x);a.storeLocalEntry(c,_e)}else{let x=a.loadLocalEntry(c);await a.storeRemoteEntry(u,g,x)}}for(let c of p)if(i.type==="local")a.removeLocalEntry(c);else{let g=l.normalize(c.replace(r.mountpoint,"/")).substring(1);await a.removeRemoteEntry(u,g)}},"reconcile")};e.FS.filesystems.NATIVEFS_ASYNC=a}o(ae,"initializeNativeFS");var Ee=o(async e=>{let n=[];async function t(a){for await(let r of a.values())n.push(r),r.kind==="directory"&&await t(r)}o(t,"collect"),await t(e);let l=new Map;l.set(".",e);for(let a of n){let r=(await e.resolve(a)).join("/");l.set(r,a)}return l},"getFsHandles"),Te=ye("AGFzbQEAAAABDANfAGAAAW9gAW8BfwMDAgECByECD2NyZWF0ZV9zZW50aW5lbAAAC2lzX3NlbnRpbmVsAAEKEwIHAPsBAPsbCwkAIAD7GvsUAAs="),Fe=(async function(){if(!(globalThis.navigator&&(/iPad|iPhone|iPod/.test(navigator.userAgent)||navigator.platform==="MacIntel"&&typeof navigator.maxTouchPoints<"u"&&navigator.maxTouchPoints>1)))try{let e=await WebAssembly.compile(Te);return await WebAssembly.instantiate(e)}catch(e){if(e instanceof WebAssembly.CompileError)return;throw e}})();async function oe(){let e=await Fe;if(e)return e.exports;let n=Symbol("error marker");return{create_sentinel:o(()=>n,"create_sentinel"),is_sentinel:o(t=>t===n,"is_sentinel")}}o(oe,"getSentinelImport");function le(e){let n={noImageDecoding:!0,noAudioDecoding:!0,noWasmDecoding:!1,preRun:ce(e),print:e.stdout,printErr:e.stderr,onExit(t){n.exitCode=t},thisProgram:e._sysExecutable,arguments:e.args,API:{config:e},locateFile:o(t=>e.indexURL+t,"locateFile"),instantiateWasm:he(e.indexURL)};return n}o(le,"createSettings");function ie(e){return function(n){let t="/";try{n.FS.mkdirTree(e)}catch(l){console.error(`Error occurred while making a home directory '${e}':`),console.error(l),console.error(`Using '${t}' for a home directory instead`),e=t}n.FS.chdir(e)}}o(ie,"createHomeDirectory");function fe(e){return function(n){Object.assign(n.ENV,e)}}o(fe,"setEnvironment");function de(e){return e?[async n=>{n.addRunDependency("fsInitHook");try{await e(n.FS,{sitePackages:n.API.sitePackages})}finally{n.removeRunDependency("fsInitHook")}}]:[]}o(de,"callFsInitHook");function ue(e){let n=e.HEAPU32[e._Py_Version>>>2],t=n>>>24&255,l=n>>>16&255,a=n>>>8&255;return[t,l,a]}o(ue,"computeVersionTuple");function pe(e){let n=ee(e);return async t=>{t.API.pyVersionTuple=ue(t);let[l,a]=t.API.pyVersionTuple;t.FS.mkdirTree("/lib"),t.API.sitePackages=`/lib/python${l}.${a}/site-packages`,t.FS.mkdirTree(t.API.sitePackages),t.addRunDependency("install-stdlib");try{let r=await n;t.FS.writeFile(`/lib/python${l}${a}.zip`,r)}catch(r){console.error("Error occurred while installing the standard library:"),console.error(r)}finally{t.removeRunDependency("install-stdlib")}}}o(pe,"installStdlib");function ce(e){let n;return e.stdLibURL!=null?n=e.stdLibURL:n=e.indexURL+"python_stdlib.zip",[pe(n),ie(e.env.HOME),fe(e.env),ae,...de(e.fsInit)]}o(ce,"getFileSystemInitializationFuncs");function he(e){if(typeof WasmOffsetConverter<"u")return;let{binary:n,response:t}=T(e+"pyodide.asm.wasm"),l=oe();return function(a,r){return(async function(){a.sentinel=await l;try{let s;t?s=await WebAssembly.instantiateStreaming(t,a):s=await WebAssembly.instantiate(await n,a);let{instance:i,module:f}=s;r(i,f)}catch(s){console.warn("wasm instantiation failed!"),console.warn(s)}})(),{}}}o(he,"getInstantiateWasmFunc");var Re="0.28.3";function C(e){return e===void 0||e.endsWith("/")?e:e+"/"}o(C,"withTrailingSlash");var A=Re;async function me(e={}){if(e.lockFileContents&&e.lockFileURL)throw new Error("Can't pass both lockFileContents and lockFileURL");await U();let n=e.indexURL||await re();n=C(E(n));let t=e;if(t.packageBaseUrl=C(t.packageBaseUrl),t.cdnUrl=C(t.packageBaseUrl??`https://cdn.jsdelivr.net/pyodide/v${A}/full/`),!e.lockFileContents){let u=e.lockFileURL??n+"pyodide-lock.json";t.lockFileContents=te(u),t.packageBaseUrl??=se(u)}t.indexURL=n,t.packageCacheDir&&(t.packageCacheDir=C(E(t.packageCacheDir)));let l={fullStdLib:!1,jsglobals:globalThis,stdin:globalThis.prompt?globalThis.prompt:void 0,args:[],env:{},packages:[],packageCacheDir:t.packageBaseUrl,enableRunUntilComplete:!0,checkAPIVersion:!0,BUILD_ID:"cc7a4bb4c6f36f12592fef0934292b5fddb0e313ca5dc4a5a9519bb7610c67e3"},a=Object.assign(l,t);a.env.HOME??="/home/pyodide",a.env.PYTHONINSPECT??="1";let r=le(a),s=r.API;if(s.lockFilePromise=Promise.resolve(t.lockFileContents),typeof _createPyodideModule!="function"){let u=`${a.indexURL}pyodide.asm.js`;await S(u)}let i;if(e._loadSnapshot){let u=await e._loadSnapshot;ArrayBuffer.isView(u)?i=u:i=new Uint8Array(u),r.noInitialRun=!0,r.INITIAL_MEMORY=i.length}let f=await _createPyodideModule(r);if(r.exitCode!==void 0)throw new f.ExitStatus(r.exitCode);if(e.pyproxyToStringRepr&&s.setPyProxyToStringMethod(!0),e.convertNullToNone&&s.setCompatNullToNone(!0),s.version!==A&&a.checkAPIVersion)throw new Error(`Pyodide version does not match: '${A}' <==> '${s.version}'. If you updated the Pyodide version, make sure you also updated the 'indexURL' parameter passed to loadPyodide.`);f.locateFile=u=>{throw u.endsWith(".so")?new Error(`Failed to find dynamic library "${u}"`):new Error(`Unexpected call to locateFile("${u}")`)};let d;i&&(d=s.restoreSnapshot(i));let p=s.finalizeBootstrap(d,e._snapshotDeserializer);return s.sys.path.insert(0,""),s._pyodide.set_excepthook(),await s.packageIndexReady,s.initializeStreams(a.stdin,a.stdout,a.stderr),p}o(me,"loadPyodide");var Oe={"browser.py":`"""twinky's engine in the simulator page, run by Pyodide in a worker when no twinky.py answers: the
 rotation on the simulated cone as twinky --sim starts it, a frame at a time on the clock --sim plays
 on, each frame as the server sends it, and the remote's commands. It and what it imports reach for no
 device, socket, thread or TUI: those stay in device.py, server.py and twinky.py."""
@@ -386,6 +386,36 @@ def randomize_feature(fidx):
 def pauseplay(a):
     a.pause_change = not a.pause_change
 
+# the walk's: Pace and Reach stepped, Stay and a feature's pin flipped, Back and Nudge
+
+def walk_pace(step):
+    def func(a):
+        a.walk.pace.change(step)
+    return func
+
+def walk_reach(step):
+    def func(a):
+        a.walk.reach.change(step)
+    return func
+
+def toggle_stay(a):
+    a.walk.stay.change()
+
+def toggle_pin(fidx):
+    def func(a):
+        # Music is no pattern's, so the walk never moves it
+        if fidx < len(a.pattern.features):
+            a.walk.pins ^= {fidx}
+    return func
+
+def walk_back(a):
+    a.walk.back(a)
+
+def nudge(a):
+    # as the walk would: never while a change runs
+    if not a.transitioning:
+        a.walk.step(a)
+
 def spin_ring(angle):
     def func(a):
         a.ring_angle = angle
@@ -433,7 +463,7 @@ def load_pattern(pattern: WiredPattern):
     return pattern
 
 def start_patterns() -> list[WiredPattern]:
-    """The rotation: the ten patterns, the six hints, the ten effects and a pattern for each look in
+    """The rotation: the ten patterns, the three hints, the ten effects and a pattern for each look in
     looks/, each with its save."""
     return [load_pattern(pattern) for pattern in [
         BasicBitch(),
@@ -468,6 +498,16 @@ def remote_command(message: dict):
         return save_music
     if command == "spin":
         return spin_ring(message["angle"])
+    if command == "pace":
+        return walk_pace(message["step"])
+    if command == "reach":
+        return walk_reach(message["step"])
+    if command == "stay":
+        return toggle_stay
+    if command == "back":
+        return walk_back
+    if command == "nudge":
+        return nudge
     if command == "randomize" and "feature" not in message:
         return randomize_pattern
     pattern = message["pattern"]
@@ -475,6 +515,8 @@ def remote_command(message: dict):
     control = None  # change's and set's: the control's place and name
     if command == "randomize":
         func = randomize_feature(fidx)
+    elif command == "pin":
+        func = toggle_pin(fidx)
     elif command == "change":
         control = (message["control"], message["name"])
         func = change_option(fidx, message["control"], message["step"])
@@ -930,8 +972,9 @@ class SpiralFeature(Feature):
 class SpiralTopologyFeature(Feature):
     def __init__(self,
                  toggleable=True,
-                 force_curve=False):
-        self._repeats = Control("Repeats", INTS26)
+                 force_curve=False,
+                 repeats: list[Option]=INTS26):
+        self._repeats = Control("Repeats", repeats)
         self._mirrored = ToggleControl("Mirrored")
         self._enabled = ToggleControl("Enabled")
         self._value = Control("Twists", [Option(str(v), v) for v in [
@@ -2093,6 +2136,7 @@ from music import BeatClock, Sound
 from param import getv, Curve
 from streamer import Streamer, StreamerValue, getv_streamers
 from utils import coverage
+from walk import Walk
 
 # A light's color as it goes to the tree: W, R, G and B, each 0 to 255. Frames are mixed in these.
 WRGB = tuple[float, float, float, float]
@@ -2206,6 +2250,8 @@ class Blender:
         pattern.randomize()
         self.run = Run(pattern, 0.0)
         self.next_pattern = self._pick_next()
+        # the autopilot, stopped by pause_change
+        self.walk = Walk()
         self.change: Change | None = None
         self.frame: list[WRGB] | None = None
         self.glide_from: list[WRGB] | None = None
@@ -2254,6 +2300,7 @@ class Blender:
         self._t = t
         self.run = Run(self.pattern, t)
         self.change = None
+        self.walk.last_step = t
         self.running = True
 
     def _listen(self, t: float):
@@ -2531,7 +2578,7 @@ class Blender:
         if self.change is not None:
             left = self.change.start + self.change.length - self._t
         else:
-            left = self.run.start + self.pattern_length - self._t
+            left = self.walk.left(self)
         if self.pause_change:
             if self.change is not None:
                 return f"(PAUSED) -{left:.2f}"
@@ -2545,6 +2592,7 @@ class Blender:
         if next is not None:
             self.next_pattern = self.patterns[next]
         self.next_pattern.randomize()
+        self.walk.pins.clear()
         source: Run | list[WRGB] = self.run
         if self.frame is not None and (self.change is not None or self.next_pattern is self.pattern):
             # a switch in the middle of a change, or to the pattern on show: fade from the frame on
@@ -2576,15 +2624,15 @@ class Blender:
     def render(self, t: float) -> list[WRGB]:
         self._listen(t)
         self._t = t
-        if (self.change is None
-                and not self.pause_change
-                and t >= self.run.start + self.pattern_length
-                and (not self.lands_on_bars or (self.on_beat is not None and self.on_beat[0] % 4 == 0))):
-            self.start_transition(bars=self.lands_on_bars)
+        if self.change is None and not self.pause_change and self.walk.due(self):
+            self.walk.step(self)
         if self.change is not None and t >= self.change.start + self.change.length:
             self.run = self.change.run
             self.change = None
             self.next_pattern = self._pick_next()
+            # the pins were the last pattern's, and the walk's next step counts from here
+            self.walk.pins.clear()
+            self.walk.last_step = t
 
         if self.change is None:
             frame = self._render(self.run, t)
@@ -2638,6 +2686,10 @@ covers the light and its colour in Color's terms. Then the Blender asks for each
 the effect gives it those layers and an off one making up the rest, mixed in light as WRGB the way
 the other patterns' are, so transitions and glides work on them as they do.
 
+Each develops over the minute rather than holding one look: one of its knobs sweeps as a Curved
+knob of control.py's patterns does (a hint's Sweep), Curved, from its rest to its value and back each
+Period of the run's clock, in seconds; Comets' and Ripples' look moves on through their own state.
+
 Grain raw hardens the soft edges, a light in or out; only the rainbow palettes turn with the base
 hue's 66 s clock. With Music on, a beat and the bands drive each effect's knobs as its notes say; off,
 they play as set."""
@@ -2646,6 +2698,9 @@ import random
 
 from colors import BaseColor, Color
 from control import BlendFeature, Control, Feature, Option, WiredPattern
+from hints import HintFeature, Sweep
+from param import getv
+from utils import mk_ramp
 
 # Hues on xled_plus's 8col circle: blue 0, cyan 1/8, green 2/8, yellow 3/8, orange 4/8, red 5/8,
 # magenta 6/8, purple 7/8
@@ -2665,6 +2720,12 @@ RAW_EDGE = 0.35
 BAND_GLIDE = 0.3
 SWELL_RISE = 0.15
 SWELL_FALL = 0.35
+# A swept knob's Curve and Period as an effect starts: a sine in and out over about half a minute
+SWEEP_CURVE = "sineIO"
+SWEEP_PERIOD = "32"
+# How far a swept share runs at its far end: Aurora's Surge, Fireworks' Build, the Lava lamp's Heat
+# and Lightning's Storm
+SHARES = [("1/2", 1/2), ("3/4", 3/4), ("1", 1)]
 
 
 # --- shared pieces ---------------------------------------------------------------------------
@@ -2686,6 +2747,10 @@ def lerp_h(a, b, m):
     """A hue m of the way from a to b, the short way round."""
     d = ((b - a + 0.5) % 1) - 0.5
     return (a + d * m) % 1
+
+def mix(a, b, m):
+    """A colour m of the way from a to b, its hue the short way round."""
+    return (a[0] + (b[0] - a[0]) * m, lerp_h(a[1], b[1], m), a[2] + (b[2] - a[2]) * m, a[3] + (b[3] - a[3]) * m)
 
 def turned(color, hue):
     """A colour turned round the wheel by hue."""
@@ -2815,7 +2880,8 @@ def surface_radius(points, slices=10):
 class Effect(BaseColor):
     """One effect's state and knobs, and the base color that hands each light its layers."""
     name = ""
-    # (control name, [(option name, value)], the option it starts on)
+    # (control name, [(option name, value)], the option it starts on), and for a knob that sweeps, its
+    # rest and, unless mk_bump, its shape
     knobs: list = []
 
     def __init__(self):
@@ -2901,19 +2967,32 @@ class Effect(BaseColor):
         return out
 
 class EffectFeature(Feature):
-    """An effect's knobs, each a control starting on its option."""
+    """An effect's knobs, each a control starting on its option, a swept one a Sweep's four."""
     def __init__(self, effect: Effect):
         self.effect = effect
+        self.sweeps = []
         controls = []
-        for name, options, start in effect.knobs:
-            control = Control(name, [Option(n, v) for n, v in options])
+        for name, options, start, *swept in effect.knobs:
+            if swept:
+                sweep = Sweep(name, [Option(n, v) for n, v in options], *swept)
+                sweep.curve.set([o.name for o in sweep.curve.options].index(SWEEP_CURVE))
+                sweep.period.set([o.name for o in sweep.period.options].index(SWEEP_PERIOD))
+                self.sweeps.append(sweep)
+                control = sweep.control
+                controls += sweep.controls
+            else:
+                control = Control(name, [Option(n, v) for n, v in options])
+                controls.append(control)
             control.set([n for n, _ in options].index(start))
-            controls.append(control)
         super(EffectFeature, self).__init__(effect.name, controls)
+
+    # a sweep's Curve and Period only while it's Curved, as a hint's
+    visible_controls = HintFeature.visible_controls
 
     @property
     def value(self):
-        self.effect.knob = {c.name: c.value for c in self.controls}
+        # a swept knob's value is its Sweep's, a Curve on the run's clock while it's Curved
+        self.effect.knob = {c.name: c.value for c in self.controls} | {s.control.name: s.value for s in self.sweeps}
         return {"base_color": self.effect}
 
 class EffectPattern(WiredPattern):
@@ -2935,15 +3014,21 @@ AURORA_PALETTES = {
     "ice": (CYAN, BLUE),
 }
 
+# The surge's curtains' lower edges, burning white-green
+SURGE_EDGE = (0.8, GREEN, 0.4, -0.2)
+
 class Aurora(Effect):
-    """Curtains of green and violet that drift and fold up the tree, from 3D noise. The beat swells
-    the brightness; the low band drives Speed, the high band the violet share."""
+    """Curtains of green and violet that drift and fold up the tree, from 3D noise, in a substorm:
+    faint, slow and wide at rest, they build to a surge of quick, fine, rippling folds, bright, their
+    lower edges burning white-green, and calm again, as Surge sweeps. The beat swells the brightness;
+    the low band drives Speed, the high band the violet share."""
     name = "Aurora"
     knobs = [
         ("Speed", [("slow", 0.05), ("gentle", 0.09), ("lively", 0.16)], "gentle"),
         ("Folds", [("wide", 2.2), ("medium", 3.4), ("fine", 5.0)], "medium"),
         ("Palette", [(n, n) for n in AURORA_PALETTES], "green-violet"),
         ("Softness", [("crisp", 0.22), ("soft", 0.38)], "soft"),
+        ("Surge", SHARES, "1", 0.0),
     ]
 
     def reset(self):
@@ -2954,12 +3039,14 @@ class Aurora(Effect):
     def lights(self, t, dt):
         k = self.knob
         music = self.sound is not None
-        self.drift += dt * (banded(k["Speed"], self.low) if music else k["Speed"])
-        d, f = self.drift, k["Folds"]
+        # the surge comes on late in the build and passes quickly
+        surge = getv(k["Surge"], t) ** 2
+        self.drift += dt * (banded(k["Speed"], self.low) if music else k["Speed"]) * (0.45 + 5 * surge)
+        d, f = self.drift, k["Folds"] * (0.75 + 0.9 * surge)
         lo, hi = AURORA_PALETTES[k["Palette"]]
-        soft = k["Softness"]
+        soft = k["Softness"] * (0.8 + 0.4 * surge)
         violet = 0.6 * (self.high - 0.5) if music else 0.0
-        bright = 1 + 0.3 * self.swell
+        bright = 0.45 + 0.9 * surge + 0.3 * self.swell
         out = []
         for x, y, z in self.points:
             # out to the surface at every height alike, so the narrow top folds as much as the base
@@ -2972,10 +3059,12 @@ class Aurora(Effect):
             if sheet <= 0:
                 out.append(())
                 continue
-            rays = self.rays(x * 7, y * 2.0 - d * 2.5, z * 7)
+            rays = self.rays(x * 7, y * 2.0 - d * 4, z * 7)
             cover = sheet * (0.45 + 0.55 * rays) * (0.6 + 0.4 * smoothstep(0.0, 0.35, y))
             m = min(1.0, max(0.0, 0.15 + 0.9 * y + 0.6 * (rays - 0.5) + violet))
-            out.append(((min(1.0, cover * bright), FULL(lerp_h(lo, hi, m))),))
+            edge = surge * smoothstep(0.75, 1.0, ridge) * (1 - y)
+            color = mix(FULL(lerp_h(lo, hi, m)), SURGE_EDGE, min(1.0, edge * 1.5))
+            out.append(((min(1.0, cover * bright), color),))
         return out
 
 FIREFLY_COLORS = {
@@ -2984,12 +3073,22 @@ FIREFLY_COLORS = {
     "amber": (0.2, YELLOW + 0.07, 1.0, 0.0),
 }
 
+# The swarm: the flies at Count's rest, how many it takes to fall into step and to blink all as one
+# wave, how hard a fly is pulled into step, a turn a second, and the share of its blink a fly is lit
+FEW_FLIES = 4
+STEP_FROM = 30
+STEP_AT = 60
+PULL = 2.0
+BLINK = 0.45
+
 class Fireflies(Effect):
-    """A few soft warm lights blink on and fade, wandering in small clusters. A firefly lights on the
-    beat; the high band sets how many glow at once."""
+    """A swarm of soft warm lights, each blinking in its own time and wandering a little: as Count
+    sweeps it grows from a few to its Count, the flies falling into step until they blink together
+    in a wave round the tree, and it scatters again. A firefly lights on the beat; the high band sets
+    how many there are."""
     name = "Fireflies"
     knobs = [
-        ("Count", [("few", 6), ("some", 12), ("many", 20)], "some"),
+        ("Count", [("some", 60), ("many", 90), ("swarm", 120)], "swarm", FEW_FLIES),
         ("Pace", [("lazy", 1.6), ("gentle", 1.0)], "gentle"),
         ("Colour", [(n, n) for n in FIREFLY_COLORS], "amber"),
         ("Size", [("small", 0.055), ("soft", 0.075)], "soft"),
@@ -2997,51 +3096,48 @@ class Fireflies(Effect):
 
     def reset(self):
         self.noise = Noise3()
-        self.flies = []
-        self.clusters = [(random.uniform(0.15, 0.75), random.uniform(0, 2 * math.pi)) for _ in range(3)]
-
-    def _fly(self, start):
-        pace = self.knob["Pace"]
-        return {
-            "cluster": random.randrange(3),
+        # enough for a swarm swelled by a loud high band, the first ones joining first
+        self.flies = [{
+            "y": random.uniform(0.05, 0.92),
+            "angle": random.uniform(0, 2 * math.pi),
+            "phase": random.random(),
+            "own": random.uniform(0.8, 1.25),
             "seed": random.uniform(0, 100),
-            "start": start,
-            "rise": 0.6 * pace,
-            "hold": 0.5 * pace,
-            "fall": 1.3 * pace,
-        }
+        } for _ in range(180)]
+        self.wave = 0.0
 
     def lights(self, t, dt):
         k = self.knob
-        count = banded(k["Count"], self.high) if self.sound is not None else k["Count"]
-        life = 2.4 * k["Pace"]
-        # each fly rises, holds and fades; about count glowing at once
-        self.flies = [f for f in self.flies if t < f["start"] + f["rise"] + f["hold"] + f["fall"]]
-        rate = count / life
-        while len(self.flies) < count * 1.5 and random.random() < rate * dt:
-            self.flies.append(self._fly(t))
-        if not self.flies or (self.beat is not None and len(self.flies) < count * 1.5):
-            self.flies.append(self._fly(t))
+        count = getv(k["Count"], t)
+        if self.sound is not None:
+            count = banded(count, self.high)
+        # alone a fly blinks at its own rate; the more there are, the harder each is pulled toward the
+        # wave's phase at its angle
+        blink = 1.6 * k["Pace"]
+        self.wave += dt / blink
+        pull = PULL * smoothstep(STEP_FROM, STEP_AT, count) * dt
         color = FIREFLY_COLORS[k["Colour"]]
-        size2 = k["Size"] ** 2
+        size, size2 = k["Size"], k["Size"] ** 2
+        # a dark fly of the swarm lights on the beat
+        dark = [f for f in self.flies[:int(count)] if f["phase"] >= BLINK]
+        if self.beat is not None and dark:
+            random.choice(dark)["phase"] = 0.0
         layers = [[] for _ in self.points]
-        for f in self.flies:
-            age = t - f["start"]
-            if age < f["rise"]:
-                b = smoothstep(0, f["rise"], age)
-            elif age < f["rise"] + f["hold"]:
-                b = 1.0
-            else:
-                b = 1.0 - smoothstep(0, f["fall"], age - f["rise"] - f["hold"])
-            # the cluster drifts slowly; its flies wander round it
-            cy, ca = self.clusters[f["cluster"]]
+        for j, f in enumerate(self.flies):
+            target = self.wave + f["angle"] / (2 * math.pi)
+            f["phase"] = (f["phase"] + dt / (blink * f["own"]) + pull * ((((target - f["phase"]) + 0.5) % 1) - 0.5)) % 1
+            # a fly past the count fades out, so the swarm grows and thins smoothly
+            joined = min(1.0, count - j)
+            if joined <= 0 or f["phase"] >= BLINK:
+                continue
+            b = joined * math.sin(math.pi * f["phase"] / BLINK) ** 2
+            if b <= 0.01:
+                continue
             s = f["seed"]
-            ca += 0.6 * math.sin(t * 0.05 + f["cluster"])
-            cy += 0.08 * math.sin(t * 0.07 + 2 * f["cluster"])
-            wy = cy + 0.14 * (self.noise(s, t * 0.15, 0) - 0.5)
-            wa = ca + 1.4 * (self.noise(0, s, t * 0.15) - 0.5)
+            wy = f["y"] + 0.05 * (self.noise(s, t * 0.15, 0) - 0.5)
+            wa = f["angle"] + 0.6 * (self.noise(0, s, t * 0.12) - 0.5)
             px, py, pz = self.on_surface(min(0.95, max(0.03, wy)), wa, 0.85)
-            for i in self.grid.near(px, py, pz, k["Size"]):
+            for i in self.grid.near(px, py, pz, size):
                 x, y, z = self.points[i]
                 c = b * bump((x - px) ** 2 + (y - py) ** 2 + (z - pz) ** 2, size2)
                 if c > 0:
@@ -3055,23 +3151,39 @@ FIREWORK_PALETTES = {
     "blue-white": [FULL(BLUE), COOL_WHITE],
 }
 
+# The finale: its rockets all at once, the seconds of dark after it, and the warm flash a burst
+# lights the whole tree with
+VOLLEY = 7
+PAUSE = 5.0
+FLASH = (0.6, YELLOW, 0.3, -0.4)
+# A spark's size
+SPARK = 0.065
+
 class Fireworks(Effect):
     """A spark climbs, bursts into a sphere of colour on the cone's surface, and falls with fading
-    trails. A rocket goes up on the beat, Rate the most there can be; the low band sets the burst's
-    Size."""
+    trails, each burst lighting the whole tree for a moment. As Build sweeps the show builds, the
+    rockets coming quicker and bursting bigger, to a finale of many at once as the build ends, then a
+    pause while the next starts. A rocket goes up on the beat, Rate the most there can be as the show starts; the
+    low band sets the burst's Size."""
     name = "Fireworks"
     knobs = [
         ("Rate", [("rare", 4.0), ("some", 2.5), ("busy", 1.5)], "some"),
         ("Size", [("small", 0.18), ("medium", 0.25), ("large", 0.33)], "medium"),
         ("Palette", [(n, n) for n in FIREWORK_PALETTES], RAINBOW),
         ("Trails", [("short", 0.45), ("long", 0.9)], "short"),
+        ("Build", SHARES, "1", 0.0, mk_ramp),
     ]
 
     def reset(self):
+        # a finale's hundreds of sparks each look through cells their own size
+        self.grid = Grid(self.points, cell=SPARK)
         self.trail = Trail(len(self.points), attack=0.45)
         self.rockets = []
         self.sparks = []
         self.next_launch = 0.3
+        self.build = 0.0
+        self.finale = False  # whether a finale is due, on the next beat with the music
+        self.flash = 0.0
 
     def _colors(self):
         palette = FIREWORK_PALETTES[self.knob["Palette"]]
@@ -3092,20 +3204,32 @@ class Fireworks(Effect):
     def lights(self, t, dt):
         k = self.knob
         self.trail.fade(dt, k["Trails"])
-        if self.due(self.next_launch):
-            self.next_launch = t + k["Rate"] * random.uniform(0.7, 1.3)
-            self.rockets.append({
-                "start": t,
-                "angle": random.uniform(0, 2 * math.pi),
-                "top": random.uniform(0.45, 0.8),
-                "climb": random.uniform(1.5, 1.9),
-            })
+        build = getv(k["Build"], t)
+        # the build falling back to its rest ends the show: the finale, then the pause
+        self.finale |= build < self.build / 2
+        self.build = build
+        if self.due(t if self.finale else self.next_launch):
+            if self.finale:
+                self.next_launch = t + PAUSE
+            else:
+                self.next_launch = t + k["Rate"] * (1 - 0.8 * build) * random.uniform(0.7, 1.3)
+            for _ in range(VOLLEY if self.finale else 1):
+                self.rockets.append({
+                    "start": t,
+                    "angle": random.uniform(0, 2 * math.pi),
+                    "top": random.uniform(0.45, 0.8),
+                    "climb": random.uniform(1.5, 1.9),
+                })
+            self.finale = False
         size = banded(k["Size"], self.low) if self.sound is not None else k["Size"]
+        size *= 1 + 0.4 * build
+        self.flash *= math.exp(-dt / 0.25)
         heads = []
         for rocket in list(self.rockets):
             age = (t - rocket["start"]) / rocket["climb"]
             if age >= 1:
                 self.rockets.remove(rocket)
+                self.flash = min(1.0, self.flash + 0.5)
                 cx, cy, cz = self.on_surface(rocket["top"], rocket["angle"], 0.95)
                 colors = self._colors()
                 n = 40
@@ -3142,13 +3266,14 @@ class Fireworks(Effect):
             # each spark comes up over a few frames from the burst, then fades as it falls
             fade = smoothstep(0, 0.12, age) * (1 - age / spark["life"]) ** 1.2
             heads.append((p, fade, spark["color"]))
-        size2 = 0.065 ** 2
+        size2 = SPARK ** 2
         for (px, py, pz), b, color in heads:
-            for i in self.grid.near(px, py, pz, 0.065):
+            for i in self.grid.near(px, py, pz, SPARK):
                 x, y, z = self.points[i]
                 c = b * bump((x - px) ** 2 + (y - py) ** 2 + (z - pz) ** 2, size2)
                 self.trail.deposit(i, c, color)
-        return [[layer] if (layer := self.trail.layer(i)) else [] for i in range(len(self.points))]
+        flash = [(0.18 * self.flash, FLASH)] if self.flash > 0.02 else []
+        return [[layer] + flash if (layer := self.trail.layer(i)) else flash for i in range(len(self.points))]
 
 RIPPLE_PALETTES = {
     "water": [FULL(BLUE), FULL(CYAN), FULL(CYAN - 0.06), FULL(BLUE + 0.97)],
@@ -3156,22 +3281,31 @@ RIPPLE_PALETTES = {
     "moonlight": [COOL_WHITE, (0.3, BLUE, 0.6, -0.2), WARM_WHITE],
 }
 
+# How much of a light a ring's paint covers once the ring has passed it, and how quickly a ring
+# repaints a light half its width behind its middle, in seconds
+PAINT = 0.4
+REPAINT = 0.1
+
 class Ripples(Effect):
-    """Rings spread through the tree from a random point, like rain on a pond, crossing and mixing.
-    A drop falls on the beat; the bands' level sets the ring's Width."""
+    """Rings spread through the tree from a random point, like drops on a pond, crossing and mixing,
+    each repainting the tree behind it in its colour, so the tree's colour changes drop by drop. A
+    drop falls on the beat; the bands' level sets the ring's Width."""
     name = "Ripples"
     knobs = [
-        ("Rate", [("drizzle", 0.6), ("rain", 1.1), ("shower", 2.0)], "shower"),
-        ("Speed", [("slow", 0.16), ("medium", 0.26)], "slow"),
-        ("Width", [("fine", 0.06), ("soft", 0.1)], "fine"),
+        ("Rate", [("drizzle", 0.25), ("rain", 0.45), ("shower", 0.8)], "rain"),
+        ("Speed", [("slow", 0.16), ("medium", 0.26)], "medium"),
+        ("Width", [("fine", 0.06), ("soft", 0.1)], "soft"),
         ("Palette", [(n, n) for n in RIPPLE_PALETTES], "water"),
     ]
-    # how far a ring spreads
-    reach = 0.4
+    # how far a ring spreads: right across the tree
+    reach = 0.9
 
     def reset(self):
         self.drops = []
         self.next_drop = 0.0
+        # each light's paint, and how much of it the paint covers
+        self.paint = [WARM_WHITE] * len(self.points)
+        self.painted = [0.0] * len(self.points)
 
     def lights(self, t, dt):
         k = self.knob
@@ -3193,31 +3327,39 @@ class Ripples(Effect):
             # the ring comes up from nothing at the drop, and thins out as it spreads
             amp = smoothstep(0, 0.3, age) * (1 - min(1.0, front / reach)) ** 0.8
             lo, hi = max(0.0, front - width), front + width
-            for i in self.grid.near(cx, cy, cz, hi):
-                x, y, z = self.points[i]
+            for i, (x, y, z) in enumerate(self.points):
                 d = math.sqrt((x - cx) ** 2 + (y - cy) ** 2 + (z - cz) ** 2)
                 if lo <= d <= hi:
-                    c = amp * bump((d - front) ** 2, width * width)
-                    if c > 0.003:
-                        layers[i].append((c, color))
-        return layers
+                    if d < front:
+                        # the ring repaints the tree behind its middle, however far it has spread
+                        m = 1 - math.exp(-bump((d - front + width / 2) ** 2, width * width / 4) * dt / REPAINT)
+                        self.paint[i] = color if self.painted[i] == 0 else mix(self.paint[i], color, m)
+                        self.painted[i] += (PAINT - self.painted[i]) * m
+                    ring = amp * bump((d - front) ** 2, width * width)
+                    if ring > 0.003:
+                        layers[i].append((ring, color))
+        return [light + [(c, self.paint[i])] if (c := self.painted[i]) > 0.004 else light for i, light in enumerate(layers)]
 
+# Each palette's wax, cool and hot, and the glow behind it
 LAVA_PALETTES = {
-    "lava": ([FULL(RED), FULL(ORANGE), FULL(RED - 0.04)], FULL(PURPLE)),
-    "plasma": ([FULL(MAGENTA), FULL(BLUE), FULL(PURPLE)], FULL(CYAN)),
-    "ocean": ([FULL(CYAN), FULL(BLUE), FULL(GREEN - 0.04)], FULL(BLUE + 0.95)),
-    "sunset": ([FULL(ORANGE), FULL(MAGENTA + 0.05), FULL(YELLOW)], FULL(PURPLE)),
+    "lava": (RED, YELLOW - 0.02, FULL(PURPLE)),
+    "plasma": (BLUE, MAGENTA, FULL(CYAN)),
+    "ocean": (BLUE, GREEN - 0.04, FULL(BLUE + 0.95)),
+    "sunset": (MAGENTA + 0.05, YELLOW, FULL(PURPLE)),
 }
 
 class LavaLamp(Effect):
-    """Slow coloured blobs (3D metaballs) rise, merge and split. The beat swells the blobs; the low
-    band drives Speed."""
+    """Coloured blobs (3D metaballs) rise, merge and split, the lamp heating and cooling as Heat
+    sweeps: cool, a few big slow blobs in the palette's deep colour merge and sink; hot, the wax rises
+    fast and splits into many small ones, glowing in its bright colour. The beat swells the blobs; the
+    low band drives Speed."""
     name = "Lava lamp"
     knobs = [
-        ("Blobs", [("3", 3), ("5", 5), ("7", 7)], "5"),
+        ("Blobs", [("3", 3), ("5", 5), ("7", 7)], "7"),
         ("Speed", [("drowsy", 0.5), ("slow", 1.0), ("steady", 1.6)], "slow"),
         ("Palette", [(n, n) for n in LAVA_PALETTES], "lava"),
         ("Softness", [("firm", 0.3), ("soft", 0.55)], "soft"),
+        ("Heat", SHARES, "1", 0.0),
     ]
 
     def reset(self):
@@ -3227,119 +3369,160 @@ class LavaLamp(Effect):
             "angle": random.uniform(0, 2 * math.pi),
             "spin": random.uniform(-0.12, 0.12),
             "size": random.uniform(0.12, 0.17),
-            "color": j,
-        } for j in range(7)]
+        } for _ in range(7)]
         self.clock = 0.0
 
     def lights(self, t, dt):
         k = self.knob
-        self.clock += dt * (banded(k["Speed"], self.low) if self.sound is not None else k["Speed"])
-        colors, background = LAVA_PALETTES[k["Palette"]]
+        heat = getv(k["Heat"], t)
+        speed = banded(k["Speed"], self.low) if self.sound is not None else k["Speed"]
+        self.clock += dt * speed * (0.5 + 2.5 * heat)
+        cool, hot, background = LAVA_PALETTES[k["Palette"]]
         soft = k["Softness"]
+        # Blobs of them hot, under half as many cool
+        count = k["Blobs"] * (0.4 + 0.6 * heat)
         swell = 1 + 0.15 * self.swell
         centres = []
-        for blob in self.blobs[:k["Blobs"]]:
+        for j, blob in enumerate(self.blobs):
+            # a blob past the count shrinks away, so a split or a merge glides
+            grow = 1 - smoothstep(count - 0.5, count + 0.5, j)
+            if grow <= 0:
+                continue
             # each blob rises and sinks the tree's height at its own rate, so they pass and meet
             y = 0.5 - 0.5 * math.cos(blob["phase"] + blob["rate"] * 2 * math.pi * self.clock)
             y = -0.05 + 1.1 * y
             a = blob["angle"] + blob["spin"] * self.clock * 2 * math.pi
             r = self.surface(min(1.0, max(0.0, y))) * 0.55
-            # smaller up where the tree is narrow
-            size = swell * blob["size"] * (0.55 + 0.45 * (1 - min(1.0, max(0.0, y))))
-            centres.append((r * math.cos(a), y, r * math.sin(a), size * size, colors[blob["color"] % len(colors)]))
+            # bigger cool, and smaller up where the tree is narrow
+            size = swell * grow * blob["size"] * (1.5 - 0.8 * heat) * (0.55 + 0.45 * (1 - min(1.0, max(0.0, y))))
+            # the hotter, the further toward the hot colour, some blobs further than others
+            centres.append((r * math.cos(a), y, r * math.sin(a), size * size, heat * (0.6 + 0.4 * j / 6)))
         out = []
         for x, y, z in self.points:
-            field = 0.0
-            parts = []
-            for cx, cy, cz, s2, color in centres:
+            field = toward = 0.0
+            for cx, cy, cz, s2, hotter in centres:
                 f = s2 / ((x - cx) ** 2 + (y - cy) ** 2 + (z - cz) ** 2 + 1e-4)
                 field += f
-                parts.append((f, color))
+                toward += f * hotter
             cover = smoothstep(1 - soft, 1 + soft, field)
             layers = [(0.08 * (1 - cover), background)]
             if cover > 0:
-                layers += [(cover * f / field, color) for f, color in parts if f / field > 0.02]
+                # the blobs' colours, all between cool and hot, mixed as one, each as much as it fills
+                layers.append((cover, FULL(lerp_h(cool, hot, toward / field))))
             out.append(layers)
         return out
 
 COMET_PALETTES = {
     "ice": [(0.4, CYAN, 0.6, 0.0), (0.3, BLUE, 0.8, 0.0), (0.4, CYAN - 0.04, 0.5, 0.0)],
-    RAINBOW: [FULL(MAGENTA), FULL(GREEN), FULL(ORANGE)],
+    RAINBOW: [FULL(MAGENTA), FULL(CYAN), FULL(ORANGE), FULL(GREEN), FULL(BLUE), FULL(YELLOW), FULL(RED)],
     "ember": [FULL(ORANGE), FULL(YELLOW), FULL(RED)],
 }
+# Each comet's speed against Speed: one quick and the rest slow
+COMET_RATES = (2.6, 0.7, 0.9, 1.1, 0.6, 1.4, 0.8)
+# A head's size, squared
+HEAD2 = 0.005
 
 class Comets(Effect):
-    """Two or three comets orbit the cone at different heights and speeds, leaving trails. The beat
-    gives the comets a push, a surge in Speed; the bands' level sets the Tail."""
+    """A storm of comets, up to seven at their own speeds, one quick and the rest slow, on tilted
+    orbits round the cone whose heights drift, their bright heads leaving long tails that glitter as
+    they fade. The beat gives the comets a push, a surge in Speed; the bands' level sets the Tail."""
     name = "Comets"
     knobs = [
-        ("Comets", [("1", 1), ("2", 2), ("3", 3)], "3"),
+        ("Comets", [(str(n), n) for n in (1, 2, 3, 5, 7)], "7"),
         ("Speed", [("slow", 0.1), ("medium", 0.16), ("quick", 0.24)], "medium"),
-        ("Tail", [("short", 0.5), ("medium", 1.0), ("long", 1.8)], "medium"),
-        ("Palette", [(n, n) for n in COMET_PALETTES], "ice"),
+        ("Tail", [("short", 0.5), ("medium", 1.0), ("long", 1.8)], "long"),
+        ("Palette", [(n, n) for n in COMET_PALETTES], RAINBOW),
     ]
 
     def reset(self):
-        self.trail = Trail(len(self.points), attack=0.3)
-        self.orbits = [
-            {"y": 0.22, "rate": 1.0, "angle": 0.0, "dir": 1, "bob": 0.07},
-            {"y": 0.5, "rate": 1.3, "angle": 2.1, "dir": -1, "bob": 0.05},
-            {"y": 0.72, "rate": 0.8, "angle": 4.2, "dir": 1, "bob": 0.04},
-        ]
-        self.turned = [0.0] * 3
+        self.trail = Trail(len(self.points), attack=0.6)
+        self.glitter = Noise3()
+        self.orbits = [{
+            "y": random.uniform(0.15, 0.8),
+            "rate": rate,
+            "angle": random.uniform(0, 2 * math.pi),
+            "dir": random.choice([-1, 1]),
+            "tilt": random.uniform(0.05, 0.2),
+        } for rate in COMET_RATES]
+        self.turned = [0.0] * len(self.orbits)
 
     def lights(self, t, dt):
         k = self.knob
         music = self.sound is not None
-        self.trail.fade(dt, (banded(k["Tail"], self.level) if music else k["Tail"]) * 0.6)
+        self.trail.fade(dt, (banded(k["Tail"], self.level) if music else k["Tail"]) * 0.8)
         speed = k["Speed"] * (1 + self.swell)
         colors = [self.drifted(color) for color in COMET_PALETTES[k["Palette"]]]
         heads = []
-        size2 = 0.07 ** 2
         for j, orbit in enumerate(self.orbits[:k["Comets"]]):
             self.turned[j] += dt * speed * orbit["rate"] * 2 * math.pi
             a = orbit["angle"] + orbit["dir"] * self.turned[j]
-            y = orbit["y"] + orbit["bob"] * math.sin(self.turned[j] * 1.5)
-            px, py, pz = self.on_surface(y, a, 0.92)
+            # tilted, so a comet climbs and dips as it goes round, and its orbit's height drifts
+            y = orbit["y"] + 0.12 * math.sin(t * 0.07 + j) + orbit["tilt"] * math.sin(a)
+            px, py, pz = self.on_surface(min(0.97, max(0.03, y)), a, 0.92)
             heads.append((px, py, pz))
-            for i in self.grid.near(px, py, pz, 0.07):
+            for i in self.grid.near(px, py, pz, 0.08):
                 x, yy, z = self.points[i]
-                self.trail.deposit(i, bump((x - px) ** 2 + (yy - py) ** 2 + (z - pz) ** 2, size2), colors[j])
+                self.trail.deposit(i, bump((x - px) ** 2 + (yy - py) ** 2 + (z - pz) ** 2, 0.08 ** 2), colors[j % len(colors)])
         out = []
         for i, (x, y, z) in enumerate(self.points):
             layers = []
             if (layer := self.trail.layer(i)):
-                layers.append(layer)
+                c, color = layer
+                # the fading tail glitters, in specks finer than the lights are apart
+                if c < 0.5:
+                    c *= 0.4 + 0.6 * smoothstep(0.3, 0.5, self.glitter(x * 40, y * 40 + t * 8, z * 40))
+                layers.append((c, color))
             # the head itself, whiter than its tail
             for px, py, pz in heads:
                 d2 = (x - px) ** 2 + (y - py) ** 2 + (z - pz) ** 2
-                if d2 < 0.0036:
-                    layers.append((0.5 * bump(d2, 0.0036), (0.9, CYAN, 0.2, -0.3)))
+                if d2 < HEAD2:
+                    layers.append((0.9 * bump(d2, HEAD2), (0.9, CYAN, 0.2, -0.3)))
             out.append(layers)
         return out
 
+# The fire's life: its Height as embers alone and in a full blaze, how high a flare-up leaps at the
+# blaze, and how long one takes to leap and to die down
+EMBERS = 0.1
+BLAZE = 0.85
+FLARE = 0.5
+FLARE_RISE = 0.25
+FLARE_FALL = 0.6
+
 class Hearth(Effect):
-    """A warm candle and ember flicker, brightest at the bottom and cooling to the top. The beat
-    flares the flames' Height; the low band sets Height, the high band the Embers."""
+    """A warm candle and ember flicker, brightest at the bottom and cooling to the top, living a
+    fire's life as Height sweeps: embers glowing alone, catching, a blaze with flare-ups every few
+    seconds and many embers, then dying back. The beat flares the flames' Height; the low band sets
+    Height, the high band the Embers."""
     name = "Hearth"
     knobs = [
-        ("Height", [("low", 0.4), ("fire", 0.6), ("blaze", 0.85)], "fire"),
+        ("Height", [("low", 0.4), ("fire", 0.6), ("blaze", 0.85)], "blaze", EMBERS),
         ("Flicker", [("calm", 0.45), ("lively", 0.8)], "calm"),
-        ("Embers", [("none", 0.0), ("few", 2.5), ("many", 7.0)], "few"),
+        ("Embers", [("none", 0.0), ("few", 2.5), ("many", 7.0)], "many"),
     ]
 
     def reset(self):
         self.noise = Noise3()
         self.embers = []
         self.rise = 0.0
+        self.flare_at = -math.inf
+        self.flare = 0.0  # how high the last flare-up leapt
+        self.next_flare = 2.0
 
     def lights(self, t, dt):
         k = self.knob
-        height, embers = k["Height"], k["Embers"]
+        height = getv(k["Height"], t)
+        # 0 as embers, 1 at a blaze
+        life = min(1.0, max(0.0, (height - EMBERS) / (BLAZE - EMBERS)))
+        embers = k["Embers"] * (0.15 + 1.5 * life)
+        if t >= self.next_flare:
+            self.next_flare = t + random.uniform(2, 5)
+            self.flare_at, self.flare = t, FLARE * life
+        since = t - self.flare_at
+        height += self.flare * (since / FLARE_RISE if since < FLARE_RISE else math.exp(-(since - FLARE_RISE) / FLARE_FALL))
         if self.sound is not None:
             height = banded(height, self.low) * (1 + 0.2 * self.swell)
             embers = banded(embers, self.high)
-        self.rise += dt * k["Flicker"]
+        self.rise += dt * k["Flicker"] * (0.75 + 1.5 * life)
         if random.random() < embers * dt:
             self.embers.append({
                 "start": t,
@@ -3380,16 +3563,27 @@ class Hearth(Effect):
                     layers[i] = layers[i] + [(c * 0.9, FULL(ORANGE - 0.03))]
         return layers
 
+# The storm: a bolt's restrikes down its path after it, in seconds, how much a restrike brightens
+# what's left of its glow, and a flicker of sheet lightning in the clouds, how long it lasts and fades
+RESTRIKES = ((0.12, 0.3), (0.15,))
+RESTRIKE = 2.5
+SHEET_LIFE = 0.5
+SHEET_FADE = 0.12
+SHEET = (0.5, BLUE + 0.95, 0.4, -0.2)
+
 class Lightning(Effect):
-    """A dark storm with a sudden branching bolt down the tree, then an afterglow: one quick flash,
-    no strobing. A bolt strikes on a bar line, Interval the least time between; the low band lights
-    the clouds."""
+    """A dark storm with a sudden branching bolt down the tree, then an afterglow, building as Storm
+    sweeps: the storm comes closer, strikes coming from every Interval to every few seconds, each bolt
+    striking again down the same path, the clouds thickening and sheet lightning flickering in them,
+    then it passes. A bolt strikes on a bar line, Interval the least time between while the storm is
+    far; the low band lights the clouds."""
     name = "Lightning"
     knobs = [
         ("Interval", [("often", 4.5), ("sometimes", 8.0), ("rarely", 14.0)], "sometimes"),
         ("Branches", [("1", 1), ("2", 2), ("3", 3)], "2"),
         ("Afterglow", [("quick", 0.45), ("slow", 1.1)], "slow"),
         ("Sky", [("black", 0.0), ("clouds", 0.07)], "clouds"),
+        ("Storm", SHARES, "1", 0.0),
     ]
 
     def reset(self):
@@ -3398,6 +3592,8 @@ class Lightning(Effect):
         self.next_strike = 1.5
         self.flash = 0.0
         self.struck = None  # when the last bolt struck, on the run's clock
+        self.restrikes = []
+        self.sheets = []
 
     def _path(self, y, angle, stop):
         """A jagged line down the surface from height y to stop."""
@@ -3428,6 +3624,7 @@ class Lightning(Effect):
 
     def lights(self, t, dt):
         k = self.knob
+        near = getv(k["Storm"], t)
         self.trail.fade(dt, k["Afterglow"])
         # the bolt's glow cools from blue-white to violet as it fades
         for i, c in enumerate(self.trail.cover):
@@ -3435,12 +3632,23 @@ class Lightning(Effect):
                 w, h, s, l = self.trail.color[i]
                 self.trail.color[i] = (w * math.exp(-dt / 0.25), lerp_h(h, PURPLE, 1 - math.exp(-dt / 0.6)), min(1.0, s + dt * 1.5), l)
         if t >= self.next_strike and (not self.beating or (self.beat is not None and self.beat % 4 == 0)):
-            self.next_strike = t + k["Interval"] * random.uniform(0.8, 1.25)
+            self.next_strike = t + k["Interval"] * (1 - 0.8 * near) * random.uniform(0.8, 1.25)
             self.struck = t
             self._strike()
+            # the nearer the storm, the likelier a bolt strikes twice more
+            after = RESTRIKES[0] if random.random() < 0.5 + 0.5 * near else RESTRIKES[1]
+            self.restrikes += [t + at for at in after]
+        for at in [at for at in self.restrikes if t >= at]:
+            self.restrikes.remove(at)
+            self.trail.cover = [min(1.0, c * RESTRIKE) if c > 0.01 else c for c in self.trail.cover]
+            self.flash = 0.8
+        if random.random() < dt * (0.3 + 1.5 * near):
+            self.sheets.append((t, random.uniform(0, 2 * math.pi), random.uniform(0.6, 0.9)))
+        self.sheets = [sheet for sheet in self.sheets if t - sheet[0] < SHEET_LIFE]
         flash = self.flash
         self.flash *= math.exp(-dt / 0.12)
         sky = banded(k["Sky"], self.low) if self.sound is not None else k["Sky"]
+        sky *= 0.6 + 0.9 * near
         out = []
         for i, (x, y, z) in enumerate(self.points):
             layers = []
@@ -3452,6 +3660,13 @@ class Lightning(Effect):
                 c = sky * cloud + 0.12 * flash * (0.4 + 0.6 * cloud)
                 if c > 0.004:
                     layers.append((c, (0.2, BLUE + 0.95, 0.5, -0.2)))
+            # a sheet lights a patch of cloud round the trunk and fades
+            sheet = 0.0
+            for start, sa, sy in self.sheets:
+                da = abs(((math.atan2(z, x) - sa + math.pi) % (2 * math.pi)) - math.pi)
+                sheet += 0.35 * math.exp(-da * da / 0.4 - (y - sy) ** 2 / 0.02 - (t - start) / SHEET_FADE)
+            if sheet > 0.01:
+                layers.append((min(1.0, sheet), SHEET))
             out.append(layers)
         return out
 
@@ -3461,12 +3676,20 @@ DRIP_PALETTES = {
     "ocean": [FULL(BLUE), FULL(CYAN), FULL(GREEN - 0.03)],
 }
 
+# The pour: drips a second at Rate's rest, a trickle, how far each landing raises the pool, the
+# highest it rises and how long it takes to drain back to Pool, in seconds
+TRICKLE = 0.4
+POOL_RISE = 0.012
+POOL_FULL = 0.42
+POOL_DRAIN = 9.0
+
 class Drips(Effect):
-    """Paint drips run down from the top, pooling and changing colour at the bottom. A drip starts on
-    the beat; the bands' level sets Speed."""
+    """Paint drips run down from the top, pooling and changing colour at the bottom, in pours as
+    Rate sweeps: a trickle, then a rush of drips, the pool rising with them, then a trickle again
+    while it drains. A drip starts on the beat; the bands' level sets Speed."""
     name = "Drips"
     knobs = [
-        ("Rate", [("slow", 0.5), ("steady", 0.9), ("busy", 1.6)], "steady"),
+        ("Rate", [("slow", 0.5), ("steady", 0.9), ("busy", 1.6), ("pour", 6.0)], "pour", TRICKLE),
         ("Speed", [("ooze", 0.09), ("run", 0.16)], "run"),
         ("Palette", [(n, n) for n in DRIP_PALETTES], "paint box"),
         ("Pool", [("shallow", 0.1), ("deep", 0.2)], "shallow"),
@@ -3476,6 +3699,7 @@ class Drips(Effect):
         self.trail = Trail(len(self.points), attack=0.35)
         self.drips = []
         self.next_drip = 0.0
+        self.pool_top = self.knob["Pool"]
         first = DRIP_PALETTES[self.knob["Palette"]][0]
         self.pool = [0.35] * len(self.points)
         self.pool_color = [first] * len(self.points)
@@ -3485,11 +3709,13 @@ class Drips(Effect):
     def lights(self, t, dt):
         k = self.knob
         palette = DRIP_PALETTES[k["Palette"]]
-        pool_top = k["Pool"]
+        # the pool drains back to Pool between landings
+        self.pool_top += (k["Pool"] - self.pool_top) * (1 - math.exp(-dt / POOL_DRAIN))
+        pool_top = self.pool_top
         speed = banded(k["Speed"], self.level) if self.sound is not None else k["Speed"]
         self.trail.fade(dt, 1.6)
         if self.due(self.next_drip):
-            self.next_drip = t + random.expovariate(k["Rate"])
+            self.next_drip = t + random.expovariate(getv(k["Rate"], t))
             self.drips.append({
                 "start": t,
                 "y": random.uniform(0.88, 0.97),
@@ -3536,6 +3762,7 @@ class Drips(Effect):
         return out
 
     def _land(self, drip, pool_top):
+        self.pool_top = min(POOL_FULL, self.pool_top + POOL_RISE)
         # the drip's colour spreads round the pool from where it lands
         ax, az = math.cos(drip["angle"]), math.sin(drip["angle"])
         w0, h0, s0, l0 = drip["color"]
@@ -3557,13 +3784,20 @@ HEART_COLORS = {
     "warm white": (0.9, ORANGE, 0.6, -0.6),
 }
 
+# Exertion: the heart's rate resting and racing, and the colour it warms to as it quickens
+RESTING = 54
+RACING = 150
+WARMED = FULL(ORANGE)
+
 class Heartbeat(Effect):
-    """A double pulse from the tree's core outwards at Rate. While the music's tempo is sure the
-    pulse fires on its beat in place of Rate; the low band sets Reach."""
+    """A double pulse from the tree's core outwards at Rate, exerting itself as Rate sweeps: from
+    resting it climbs to racing and back, the colour warming toward orange (violet through red) and
+    the pulse reaching further as it quickens. While the music's tempo is sure the pulse fires on its
+    beat in place of Rate, as hard as the tempo; the low band sets Reach."""
     name = "Heartbeat"
     knobs = [
-        ("Rate", [("resting", 54), ("calm", 66), ("lively", 84), ("racing", 100)], "calm"),
-        ("Colour", [(n, n) for n in HEART_COLORS], "red"),
+        ("Rate", [("resting", RESTING), ("calm", 66), ("lively", 84), ("racing", RACING)], "racing", RESTING),
+        ("Colour", [(n, n) for n in HEART_COLORS], "violet"),
         ("Reach", [("core", 0.35), ("half", 0.55), ("whole", 0.85)], "whole"),
         ("Softness", [("crisp", 0.14), ("soft", 0.2)], "soft"),
     ]
@@ -3573,17 +3807,18 @@ class Heartbeat(Effect):
 
     def lights(self, t, dt):
         k = self.knob
-        rate = self.sound.bpm if self.beating else k["Rate"]
+        rate = self.sound.bpm if self.beating else getv(k["Rate"], t)
+        exertion = min(1.0, max(0.0, (rate - RESTING) / (RACING - RESTING)))
         # the phase runs at the rate, so a change of rate never jumps a pulse; a beat pulls it onto
         # the music's
         self.phase += dt * rate / 60
         if self.beat is not None:
             self.phase = round(self.phase)
-        reach, width = k["Reach"], k["Softness"]
+        reach, width = k["Reach"] * (0.45 + 0.55 * exertion), k["Softness"]
         if self.sound is not None:
             reach = banded(reach, self.low)
         speed = reach / 1.2
-        color = HEART_COLORS[k["Colour"]]
+        color = mix(HEART_COLORS[k["Colour"]], WARMED, exertion)
         beats = []
         n = math.floor(self.phase)
         for b in (n, n - 1):
@@ -3609,35 +3844,80 @@ EFFECTS = [Aurora, Fireflies, Fireworks, Ripples, LavaLamp, Comets, Hearth, Ligh
 `,"hints.py":`"""Hints of Bermuda's looks on the tree: at about 800 lights it cannot show Bermuda's pictures, so
 these are slow, soft-edged shapes in Bermuda's palettes (palette.py), moved by its modulators and
 their timing (motion.py), most of them using the angle round the trunk. Each light's brightness is
-how much of the shape covers it, so motion glides instead of stepping from light to light."""
+how much of the shape covers it, so motion glides instead of stepping from light to light. Their
+knobs sweep as the Curved knobs of control.py's patterns do, on the hint's clock, so a hint keeps
+changing over the minute."""
 import math
 
+from pytweening import easeOutBack
+
 from colors import BaseColor, Color
-from control import DIRECTIONS, BlendFeature, Control, Feature, Option, WiredPattern
-from motion import Modulator, Running, Target
-from palette import COSINES, Palette, oklch_to_linear, palette_at, stops_from_cosine
-from utils import coverage
+from control import (
+    CURVES,
+    DIRECTIONS,
+    INTS16,
+    BlendFeature,
+    Control,
+    Feature,
+    FlickerFeature,
+    FlitterFeature,
+    FluxFeature,
+    Option,
+    SparklesFeature,
+    SpinFeature,
+    SpiralTopologyFeature,
+    ToggleControl,
+    WiredPattern,
+)
+from motion import Modulator, Running, Target, wave
+from palette import COSINES, Palette, Vec3, oklch_to_linear, palette_at, stops_from_cosine
+from param import Curve, Param, getv
+from utils import coverage, mk_bounce, mk_bump
 
 # The stops a cosine preset is sampled at
 STOPS = 8
-# A sector's, band's or spiral arm's share of its slot, the rest dark between
+# A slice's share of its slot, the rest dark between
 FILL = 0.5
-# How far the wash and the palette drift dim at their wave's trough
+# How far the wash dims at its wave's trough
 DIP = 0.6
+# The wash's tide: how fast its palette climbs the tree (with Axis round, drifts round it), in
+# palettes a beat, how far it wobbles either way round the trunk (round, up the tree), as a share
+# of the palette, the wobble turning once in WOBBLE_PERIOD beats, and with Axis round, the
+# palette's turns round the trunk for a Span of 1
+CLIMB = 1/20
+WOBBLE = 0.3
+WOBBLE_PERIOD = 9
+ROUND = 2
+# Slices: with Axis leaned, the arms' turns round the trunk up the tree before their lean; with
+# Axis up, how far the rings tilt, in slots either way, for each slot of Lean; and how far the
+# palette runs up each slice
+TWIST = 1
+TILT = 1/4
+PALETTE_UP = 0.3
 # The hidden field: a star's outer radius, as a share of the lattice's spacing, how deep its points
-# are cut, its soft edge (of the base's radius), the share of Twinkles a light sparkles in, and how
-# sharp a sparkle is
+# are cut, its soft edge (of the base's radius), the share of Twinkles a light sparkles in and how
+# sharp a sparkle is, hidden, the sharpness the stars stand solid at, the share of Twinkles a light
+# fades in over as the share grows, and how much faster the field turns once revealed
 STAR = 0.34
 STAR_CUT = 0.45
 STAR_EDGE = 0.08
-SPARKLES = 0.5
+SPARKLES = 0.25
 SPARKLE = 4
+SOLID = 1/2
+SHARE_EDGE = 0.2
+FASTER = 1
 # The beat wave's harmonics, for a hint's Wave control
 HARMONICS = (1, 2)
+# How long a hint's clock takes to draw onto the music's beat, in seconds
+LOCK = 1.0
+# A tick's step, as a share of its beat
+TICK = 0.35
 
 PALETTES = [Option(name, name) for name in COSINES]
 WAVES = [Option(name, name) for name in ["cos", "tri", "beat"]]
 BEATS = [Option(str(v), v) for v in [16, 32, 64]]
+# a swept knob's periods: in beats while music plays, so its turns land on bar lines, else seconds
+SWEEPS = [Option(str(v), v) for v in [16, 32, 48, 64]]
 # a soft edge's width, as a share of the lit part of a slot: at 1 a light is only full at its middle
 SOFTNESS = [Option(n, v) for n, v in [("1/2", 1/2), ("3/4", 3/4), ("1", 1)]]
 
@@ -3645,11 +3925,37 @@ def preset(name: str) -> Palette:
     return Palette(stops_from_cosine(name, STOPS))
 
 def slot(u: float, softness: float) -> tuple[float, int]:
-    """For a light at u, counted in slots (sectors round the trunk, bands up it, a spiral's arms), how
+    """For a light at u, counted in slots (slices round the trunk, up it or winding up it), how
     much of its slot's lit part covers it, its edges softness of it wide, and which slot it is in, the
     slots meeting halfway across the dark between."""
     k = math.floor(u + ((1 - FILL) / 2))
     return coverage(u - k, 0, FILL, softness * FILL, wrap=False), k
+
+def tick(clock: float) -> float:
+    """A clock that steps once a beat (a second without music) and holds: its whole beats, and the
+    step on its way, taking TICK of the beat and overshooting as it lands."""
+    n = math.floor(clock)
+    return n + easeOutBack(min(1.0, (clock - n) / TICK))
+
+class Sweep:
+    """A hint's or an effect's knob as the Curved knobs of control.py's patterns are: its control's
+    value, or Curved, a Curve each Period of its clock from rest to the value and back (as mk_bump),
+    with mk_bounce and a rest of 0, to the value, back through 0 to its negative and back, or with
+    mk_ramp, from rest to the value and straight back to rest."""
+    def __init__(self, name: str, options: list[Option], rest: float=0.0, shape=mk_bump):
+        self.control = Control(name, options)
+        self.curved = ToggleControl(f"{name} Curved")
+        self.curve = Control(f"{name} Curve", CURVES)
+        self.period = Control(f"{name} Period", SWEEPS)
+        self.controls = [self.control, self.curved, self.curve, self.period]
+        self.rest = rest
+        self.shape = shape
+
+    @property
+    def value(self) -> Param:
+        if not self.curved.value:
+            return self.control.value
+        return Curve(self.curve.value, self.shape(self.period.value, self.rest, self.control.value))
 
 class PaletteColor(Color):
     """A palette's colour as the tree takes it: OKLCh to linear R, G and B (the LEDs are linear PWM),
@@ -3671,9 +3977,10 @@ class PaletteColor(Color):
         return (self.w * 255, *(255 * c for c in rgb))
 
 class Hint(BaseColor):
-    """A hint's light, from its feature: as much of its palette's colour as its shape covers the
-    light, and off for the rest. The palette is the hint's own, off the base hue's clock, as a
-    BaseColor with blend off is."""
+    """A hint's light, from its feature: each of its layers' palette colour, at the layer's
+    lightness, as much as the layer covers the light, and off for the rest. The palette is the
+    hint's own, off the base hue's clock as a BaseColor with blend off is, unless the hint rides it:
+    then it turns with the base hue."""
     def __init__(self, feature: "HintFeature"):
         super(Hint, self).__init__()
         self.feature = feature
@@ -3682,179 +3989,202 @@ class Hint(BaseColor):
         self.feature.frame(beats, dt)
 
     def __call__(self, t: float, blend: float, spread: float, pixel_t: float, pixel_y: float, pixel):
-        cover, lch = self.feature.light(pixel_t % 1, pixel_y)
-        return [(cover, PaletteColor(lch), []), (1 - cover, Color(), [])]
+        out = []
+        total = 0.0
+        for cover, lch, l in self.feature.layers(pixel_t % 1, pixel_y):
+            if cover > 0:
+                color = PaletteColor(lch)
+                color.l = l
+                if self.feature.ride:
+                    color.h = blend
+                out.append((cover, color, []))
+                total += cover
+        return out + [(1 - total, Color(), [])]
 
 class HintFeature(Feature):
-    """A hint's controls and its shape: light gives, for a light at an angle round the trunk (0 to 1)
-    and a height, how much of the shape covers it (0 to 1) and its colour from the palette. Its
-    modulators run on each frame's beats: the beat clock's while music plays, else one a second. Its
-    value sets them from the controls and gives the same Hint each time, so their phases run on
-    through a change of control, as Bermuda's do."""
-    def __init__(self, name: str, controls: list[Control], runnings: list[Running]):
+    """A hint's controls and its shape: layers gives, for a light at an angle round the trunk (0 to
+    1) and a height, how much of each of the shape's layers covers it (their covers summing to 1 at
+    most), its colour from the palette and its lightness; one layer, light's, unless the hint gives
+    more. Its clock and its modulators run on each frame's beats: the beat clock's while music
+    plays, else one a second, and its sweeps on its clock. Its value sets them from the controls and
+    gives the same Hint each time, so their phases run on through a change of control, as
+    Bermuda's do."""
+    def __init__(self, name: str, controls: list[Control], runnings: list[Running], sweeps: list[Sweep] | None=None):
         super(HintFeature, self).__init__(name, controls)
         self.runnings = runnings
+        self.sweeps = sweeps if sweeps is not None else []
         self.palette = Palette([])
+        self.ride = False
+        self.clock = 0.0
+        self.dt = 0.0
         self.hint = Hint(self)
 
     def frame(self, beats: float, dt: float):
+        self.clock += beats
+        self.dt = dt
         for running in self.runnings:
             running.advance(beats, dt)
 
-    def light(self, x: float, y: float) -> tuple[float, tuple[float, float, float]]:
+    def lock(self, beat: float):
+        """Draws the clock onto the music's beat, its place in a bar, so a tick lands on a beat and a
+        sweep turns on a bar line."""
+        self.clock += (((beat - self.clock + 2) % 4) - 2) * (1 - math.exp(-self.dt / LOCK))
+
+    def light(self, x: float, y: float) -> tuple[float, Vec3]:
         raise NotImplementedError
+
+    def layers(self, x: float, y: float) -> list[tuple[float, Vec3, float]]:
+        cover, lch = self.light(x, y)
+        return [(cover, lch, 0.0)]
+
+    def visible_controls(self) -> list[Control]:
+        # a sweep's Curve and Period only while it's Curved
+        hidden = [c for sweep in self.sweeps if not sweep.curved.value for c in (sweep.curve, sweep.period)]
+        return [c for c in self.controls if c not in hidden]
 
     @property
     def value(self) -> dict:
         return {"base_color": self.hint}
 
 class WashFeature(HintFeature):
-    """The palette running up the tree, a wave of brightness travelling round it."""
+    """The palette running up the tree (or with Axis round, round the trunk, as Palette Drift's did),
+    a wave of brightness travelling across it, as a tide: its span and spread swept, the palette
+    climbing and wobbling, and with Ride, turning with the base hue."""
     def __init__(self):
         self._palette = Control("Palette", PALETTES)
+        self._axis = Control("Axis", [Option(n, n) for n in ["up", "round"]])
         self._period = Control("Period", BEATS)
-        self._span = Control("Span", [Option(n, v) for n, v in [("1/4", 1/4), ("1/2", 1/2), ("1", 1)]])
+        self._span = Sweep("Span", [Option(n, v) for n, v in [("1/4", 1/4), ("1/2", 1/2), ("1", 1)]], rest=3/2)
         self._wave = Control("Wave", WAVES)
-        self._spread = Control("Spread round", [Option(str(v), v) for v in [0, 1, 2, 3]])
+        self._spread = Sweep("Spread", [Option(str(v), v) for v in [0, 1, 2, 3]], rest=3)
+        self._ride = ToggleControl("Ride")
+        self.span: Param = 0.0
+        self.spread: Param = 0.0
+        self.swept = (0.0, 0.0)
         self.running = Running(Modulator("wash", "cos", 16, harmonics=HARMONICS), Target("brightness", 1))
         super(WashFeature, self).__init__("Wash", [
             self._palette,
+            self._axis,
             self._period,
-            self._span,
+            *self._span.controls,
             self._wave,
-            self._spread,
-        ], [self.running])
+            *self._spread.controls,
+            self._ride,
+        ], [self.running], [self._span, self._spread])
 
     @property
     def value(self):
         self.palette = preset(self._palette.value)
         self.running.m.period = self._period.value
         self.running.m.wave = self._wave.value
-        self.running.target.phase_spread = self._spread.value
+        self.span = self._span.value
+        self.spread = self._spread.value
+        self.ride = self._ride.value
         return super(WashFeature, self).value
 
-    def light(self, x, y):
-        return 1 - (DIP * (1 - self.running.at(x))), palette_at(self.palette, (y * self._span.value) - self.running.phase)
+    def frame(self, beats, dt):
+        super(WashFeature, self).frame(beats, dt)
+        self.swept = (getv(self.span, self.clock), getv(self.spread, self.clock))
 
-class SectorsFeature(HintFeature):
-    """Soft sectors round the trunk, each its own colour, spinning or swaying a sector either way."""
+    def layers(self, x, y):
+        span, spread = self.swept
+        clock = self.clock
+        phase = self.running.phase
+
+        def dim(level: float) -> float:
+            return 1 - (DIP * (1 - level))
+
+        if self._axis.value == "round":
+            # the palette round the trunk in whole turns, the two either side of its span's crossfaded
+            # so angle 0 is no edge, the wave travelling up the tree
+            turns = span * ROUND
+            k = math.floor(turns)
+            f = turns - k
+            index = -phase - (clock * CLIMB) + (WOBBLE * math.sin(2 * math.pi * (y + (clock / WOBBLE_PERIOD))))
+            brightness = dim(wave(self.running.m, phase + (spread * y)))
+            return [
+                (brightness * (1 - f), palette_at(self.palette, (k * x) + index), 0.0),
+                (brightness * f, palette_at(self.palette, ((k + 1) * x) + index), 0.0),
+            ]
+        # the wave round the trunk in whole turns of its spread, the two either side crossfaded
+        k = math.floor(spread)
+        f = spread - k
+        level = ((1 - f) * wave(self.running.m, phase + (k * x))) + (f * wave(self.running.m, phase + ((k + 1) * x)))
+        index = (y * span) - phase - (clock * CLIMB) + (WOBBLE * math.sin(2 * math.pi * (x + (clock / WOBBLE_PERIOD))))
+        return [(dim(level), palette_at(self.palette, index), 0.0)]
+
+class SlicesFeature(HintFeature):
+    """Soft slices of the palette, each its own colour: round the trunk (as sectors), up it (as
+    rings) or leaned (as arms winding up), turning round it or climbing it, gliding or ticking a step
+    a beat, and leaning, the rings tilting, one way and the other as they go."""
     def __init__(self):
         self._palette = Control("Palette", PALETTES)
+        self._axis = Control("Axis", [Option(n, n) for n in ["around", "up", "leaned"]])
         self._count = Control("Count", [Option(str(v), v) for v in range(2, 7)])
         self._period = Control("Period", BEATS)
         self._direction = Control("Direction", DIRECTIONS)
-        self._motion = Control("Motion", [Option(n, n) for n in ["spin", "sway"]])
+        self._motion = Control("Motion", [Option(n, n) for n in ["glide", "tick"]])
+        # slots of lean over the tree's height
+        self._lean = Sweep("Lean", [Option(str(v), v) for v in [1, 2, 4]], shape=mk_bounce)
         self._softness = Control("Softness", SOFTNESS)
-        self.running = Running(Modulator("turn", "ramp", 16), Target("turn", 1))
-        super(SectorsFeature, self).__init__("Sectors", [
+        self.lean: Param = 0.0
+        self.turn = 0.0  # the turn round the trunk, or with Axis up the climb up the tree
+        self.stepped = 0.0  # the clock as the turn last stepped on it, ticked or not
+        self.swept = 0.0
+        super(SlicesFeature, self).__init__("Slices", [
             self._palette,
+            self._axis,
             self._count,
             self._period,
             self._direction,
             self._motion,
+            *self._lean.controls,
             self._softness,
-        ], [self.running])
+        ], [], [self._lean])
 
     @property
     def value(self):
         self.palette = preset(self._palette.value)
-        self.running.m.period = self._period.value
-        # a spin is a ramp, a whole turn each period; a sway a cos, a sector either way
-        self.running.m.wave = "ramp" if self._motion.value == "spin" else "cos"
-        return super(SectorsFeature, self).value
-
-    def light(self, x, y):
-        count = self._count.value
-        if self._motion.value == "spin":
-            turn = self.running.at(0)
-        else:
-            turn = self.running.offset(0) / count
-        cover, k = slot(((x - (turn * self._direction.value)) % 1) * count, self._softness.value)
-        return cover, palette_at(self.palette, k / count)
-
-class BandsFeature(HintFeature):
-    """Rings up the tree that climb, fall, or rise and fall back, at the contour's drift."""
-    def __init__(self):
-        self._palette = Control("Palette", PALETTES)
-        self._bands = Control("Bands", [Option(str(v), v) for v in [2, 3, 4, 6]])
-        # radians a beat, as Bermuda's contour drift: a band climbs a band's spacing each 2π
-        self._drift = Control("Drift", [Option(str(v), v) for v in [0.25, 0.5, 1.0]])
-        self._direction = Control("Direction", [Option(n, n) for n in ["↑ ", "↓ ", "⇅ "]])
-        self._softness = Control("Softness", SOFTNESS)
-        self.drift = 0.0  # the bands' phase, in radians
-        self.running = Running(Modulator("bands", "cos", 16), Target("contour.drift", 1))
-        super(BandsFeature, self).__init__("Bands", [
-            self._palette,
-            self._bands,
-            self._drift,
-            self._direction,
-            self._softness,
-        ], [self.running])
-
-    @property
-    def value(self):
-        self.palette = preset(self._palette.value)
-        # rising and falling, a band's spacing either way, in the time the drift climbs one
-        self.running.m.period = 2 * math.pi / self._drift.value
-        return super(BandsFeature, self).value
+        self.lean = self._lean.value
+        return super(SlicesFeature, self).value
 
     def frame(self, beats, dt):
-        super(BandsFeature, self).frame(beats, dt)
-        self.drift = (self.drift + (self._drift.value * beats)) % (2 * math.pi)
+        super(SlicesFeature, self).frame(beats, dt)
+        # a whole turn each period, run on from where it is, so it moves on through a change of control
+        stepped = tick(self.clock) if self._motion.value == "tick" else self.clock
+        self.turn = (self.turn + ((stepped - self.stepped) * self._direction.value / self._period.value)) % 1
+        self.stepped = stepped
+        self.swept = getv(self.lean, self.clock)
 
     def light(self, x, y):
-        direction = self._direction.value
-        if direction == "⇅ ":
-            offset = self.running.offset(0)
+        turn, lean = self.turn, self.swept
+        count = self._count.value
+        axis = self._axis.value
+        if axis == "up":
+            u = (count * (y - turn)) + (lean * TILT * math.cos(2 * math.pi * x))
         else:
-            offset = (self.drift / (2 * math.pi)) * (1 if direction == "↑ " else -1)
-        bands = self._bands.value
-        cover, k = slot((y * bands) - offset, self._softness.value)
-        return cover, palette_at(self.palette, k / bands)
-
-class SpiralArmsFeature(HintFeature):
-    """Soft arms winding up the tree and turning round it, the palette running up each."""
-    def __init__(self):
-        self._palette = Control("Palette", PALETTES)
-        self._arms = Control("Arms", [Option(str(v), v) for v in [1, 2, 3]])
-        self._twist = Control("Twist", [Option(str(v), v) for v in [0.5, 1, 1.5, 2]])
-        self._period = Control("Period", BEATS)
-        self._direction = Control("Direction", DIRECTIONS)
-        self._softness = Control("Softness", SOFTNESS)
-        self.running = Running(Modulator("turn", "ramp", 16), Target("turn", 1))
-        super(SpiralArmsFeature, self).__init__("Spiral", [
-            self._palette,
-            self._arms,
-            self._twist,
-            self._period,
-            self._direction,
-            self._softness,
-        ], [self.running])
-
-    @property
-    def value(self):
-        self.palette = preset(self._palette.value)
-        self.running.m.period = self._period.value
-        return super(SpiralArmsFeature, self).value
-
-    def light(self, x, y):
-        arms = self._arms.value
-        turn = self.running.at(0) * self._direction.value
-        cover, k = slot(((x + (self._twist.value * y) - turn) % 1) * arms, self._softness.value)
-        return cover, palette_at(self.palette, (k / arms) + (y / 2))
+            twist = count * TWIST if axis == "leaned" else 0
+            u = (((x - turn) % 1) * count) + ((twist + lean) * y)
+        cover, k = slot(u, self._softness.value)
+        return cover, palette_at(self.palette, ((k % count) / count) + (y * PALETTE_UP))
 
 class HiddenFieldFeature(HintFeature):
-    """Sparse sparkles that trace a hidden field over a few seconds: a lattice of stars seen from above
-    the treetop, turning slowly. A light's place seen from above is its angle and height on the cone,
-    so the field has no seam and turns with the spin and the spin ring, and a light sparkles only
-    where a star covers it."""
+    """Sparkles that trace a hidden field: a lattice of stars seen from above the treetop, turning
+    slowly. As it's revealed the sparkles thicken and soften until the stars stand solid, turning
+    faster, then dissolve back into sparse sparkles. A light's place seen from above is its angle and
+    height on the cone, so the field has no seam and turns with the spin and the spin ring, and a
+    light sparkles only where a star covers it."""
     def __init__(self):
         self._palette = Control("Palette", PALETTES)
         self._points = Control("Points", [Option(str(v), v) for v in [4, 5, 6]])
         self._lattice = Control("Lattice", [Option(n, v) for n, v in [("1/4", 1/4), ("1/3", 1/3), ("1/2", 1/2)]])
         self._period = Control("Period", [Option(str(v), v) for v in [128, 256, 512]])
         self._twinkle = Control("Twinkle", [Option(str(v), v) for v in [4, 6, 8]])
-        self.beats = 0.0
+        # how far it's revealed at the sweep's far end: 1 the stars solid
+        self._reveal = Sweep("Reveal", [Option(n, v) for n, v in [("1/2", 1/2), ("3/4", 3/4), ("1", 1)]])
+        self.reveal: Param = 0.0
+        self.share = SPARKLES
+        self.sharp = SPARKLE
         self.running = Running(Modulator("turn", "ramp", 32), Target("turn", 1))
         super(HiddenFieldFeature, self).__init__("Hidden Field", [
             self._palette,
@@ -3862,19 +4192,33 @@ class HiddenFieldFeature(HintFeature):
             self._lattice,
             self._period,
             self._twinkle,
-        ], [self.running])
+            *self._reveal.controls,
+        ], [self.running], [self._reveal])
 
     @property
     def value(self):
         self.palette = preset(self._palette.value)
-        self.running.m.period = self._period.value
+        self.reveal = self._reveal.value
         return super(HiddenFieldFeature, self).value
 
     def frame(self, beats, dt):
+        revealed = getv(self.reveal, self.clock)
+        # past a share of 1 by its edge, so every light is fully on once revealed
+        self.share = SPARKLES + ((1 + SHARE_EDGE - SPARKLES) * revealed)
+        self.sharp = SPARKLE + ((SOLID - SPARKLE) * revealed)
+        self.running.m.period = self._period.value / (1 + (FASTER * revealed))
         super(HiddenFieldFeature, self).frame(beats, dt)
-        self.beats += beats
 
     def light(self, x, y):
+        # a light sparkles in some Twinkles, at a time in them its height picks, and is dark between;
+        # as the share grows, a light fades in over SHARE_EDGE of it
+        seed = (math.sin(y * 12345.678) * 43758.5453) % 1
+        twinkle = (self.clock / self._twinkle.value) + seed
+        pick = (math.sin((math.floor(twinkle) * 91.7) + (seed * 977.3)) * 43758.5453) % 1
+        on = min(1.0, (self.share - pick) / SHARE_EDGE)
+        if on <= 0:
+            return 0.0, (0.0, 0.0, 0.0)
+        sparkle = on * (math.sin(math.pi * (twinkle % 1)) ** self.sharp)
         a = 2 * math.pi * (x - self.running.at(0))
         px, pz = (1 - y) * math.cos(a), (1 - y) * math.sin(a)
         # the nearest point of a hexagonal lattice spacing apart, by its column and row
@@ -3895,84 +4239,44 @@ class HiddenFieldFeature(HintFeature):
         rho = math.hypot(dx, dz) / spacing
         edge = STAR * (1 - (STAR_CUT * (0.5 - (0.5 * math.cos(self._points.value * math.atan2(dz, dx))))))
         inside = min(1.0, max(0.0, (((edge - rho) * spacing) / STAR_EDGE) + 0.5))
-        # a light sparkles in some Twinkles, at a time in them its height picks, and is dark between
-        seed = (math.sin(y * 12345.678) * 43758.5453) % 1
-        twinkle = (self.beats / self._twinkle.value) + seed
-        if (math.sin((math.floor(twinkle) * 91.7) + (seed * 977.3)) * 43758.5453) % 1 >= SPARKLES:
-            return 0.0, (0.0, 0.0, 0.0)
-        sparkle = math.sin(math.pi * (twinkle % 1)) ** SPARKLE
         # each star its own colour, the golden ratio's steps apart along the palette
         return inside * sparkle, palette_at(self.palette, ((c * 0.381966) + (r * 0.618034)) % 1)
 
-class PaletteDriftFeature(HintFeature):
-    """The palette drifting round the trunk at the palette's time, a wave of brightness travelling
-    up the tree."""
+class HintPattern(WiredPattern):
+    """A hint, his layers as his patterns compose them (Spiral, Spin, Flicker, Flitter, Flux and
+    Sparkles) and Blend. His layers start off, Spiral's Repeats at 1 and unmirrored, so the hint's
+    own look is in charge until the walk or Random turns them up. While the music's tempo is sure,
+    the hint's clock is drawn onto the beat."""
+    def __init__(self, feature: HintFeature):
+        super(HintPattern, self).__init__(feature.name)
+        spiral = SpiralTopologyFeature(repeats=INTS16)
+        spin = SpinFeature()
+        flicker = FlickerFeature(max_v=1/2)
+        flitter = FlitterFeature(max_v=1/2)
+        flux = FluxFeature(max_v=1/2)
+        sparkles = SparklesFeature(flux=flux)
+        for toggle in [spiral._mirrored, spiral._enabled, spin._enabled, flicker._enabled, flitter._enabled,
+                       flux._enabled, sparkles._enabled]:
+            toggle.set(1)  # Off
+        self.features = [feature, spiral, spin, flicker, flitter, flux, sparkles, BlendFeature()]
+
+    def step(self, t, pixels, sound, beating, beat, hue):
+        if beating:
+            self.features[0].lock(sound.beat)
+
+class Wash(HintPattern):
     def __init__(self):
-        self._palette = Control("Palette", PALETTES)
-        self._repeats = Control("Repeats", [Option(str(v), v) for v in [1, 2, 3]])
-        # cycles of the palette a beat, as Bermuda's palette time
-        self._time = Control("Time", [Option(n, v) for n, v in [("1/64", 1/64), ("1/32", 1/32), ("1/16", 1/16)]])
-        self._direction = Control("Direction", DIRECTIONS)
-        self._wave = Control("Wave", WAVES)
-        self._spread = Control("Spread up", [Option(n, v) for n, v in [("1/2", 1/2), ("1", 1), ("2", 2)]])
-        self.colour = 0.0  # the palette's running index
-        self.running = Running(Modulator("drift", "cos", 16, harmonics=HARMONICS), Target("brightness", 1))
-        super(PaletteDriftFeature, self).__init__("Palette Drift", [
-            self._palette,
-            self._repeats,
-            self._time,
-            self._direction,
-            self._wave,
-            self._spread,
-        ], [self.running])
+        super(Wash, self).__init__(WashFeature())
 
-    @property
-    def value(self):
-        self.palette = preset(self._palette.value)
-        # the wave takes as long to travel up the tree as the palette takes to drift round once
-        self.running.m.period = 1 / self._time.value
-        self.running.m.wave = self._wave.value
-        self.running.target.phase_spread = self._spread.value
-        return super(PaletteDriftFeature, self).value
-
-    def frame(self, beats, dt):
-        super(PaletteDriftFeature, self).frame(beats, dt)
-        self.colour = (self.colour + (self._time.value * self._direction.value * beats)) % 1
-
-    def light(self, x, y):
-        return 1 - (DIP * (1 - self.running.at(y))), palette_at(self.palette, (self._repeats.value * x) + self.colour)
-
-class Wash(WiredPattern):
+class Slices(HintPattern):
     def __init__(self):
-        super(Wash, self).__init__("Wash")
-        self.features = [WashFeature(), BlendFeature()]
+        super(Slices, self).__init__(SlicesFeature())
 
-class Sectors(WiredPattern):
+class HiddenField(HintPattern):
     def __init__(self):
-        super(Sectors, self).__init__("Sectors")
-        self.features = [SectorsFeature(), BlendFeature()]
+        super(HiddenField, self).__init__(HiddenFieldFeature())
 
-class Bands(WiredPattern):
-    def __init__(self):
-        super(Bands, self).__init__("Bands")
-        self.features = [BandsFeature(), BlendFeature()]
-
-class Spiral(WiredPattern):
-    def __init__(self):
-        super(Spiral, self).__init__("Spiral")
-        self.features = [SpiralArmsFeature(), BlendFeature()]
-
-class HiddenField(WiredPattern):
-    def __init__(self):
-        super(HiddenField, self).__init__("Hidden Field")
-        self.features = [HiddenFieldFeature(), BlendFeature()]
-
-class PaletteDrift(WiredPattern):
-    def __init__(self):
-        super(PaletteDrift, self).__init__("Palette Drift")
-        self.features = [PaletteDriftFeature(), BlendFeature()]
-
-HINTS = [Wash, Sectors, Bands, Spiral, HiddenField, PaletteDrift]
+HINTS = [Wash, Slices, HiddenField]
 `,"layout.py":`import json
 import logging
 import math
@@ -4922,6 +5226,15 @@ def mk_bounce(period, s, e=None):
         (period,        s),
     ]
 
+def mk_ramp(period, s, e=None):
+    if e is None:
+        e = s
+        s = 0
+    return [
+        (0,      s),
+        (period, e),
+    ]
+
 def coverage(x, start, end, edge, wrap=True):
     """How much of a light at x, seen as a box \`edge\` wide, the span from start to end covers.
     With wrap, the span is an angle round the trunk."""
@@ -4930,12 +5243,135 @@ def coverage(x, start, end, edge, wrap=True):
     for shift in (-1, 0, 1) if wrap else (0,):
         covered += max(0.0, min(hi, end + shift) - max(lo, start + shift))
     return min(1.0, covered / edge)
+`,"walk.py":`"""The walk, the Blender's autopilot: every so often one control of one feature steps to an option near
+its own and the tree glides there; now and then a whole feature rerolls, and rarely the pattern changes.
+Its live controls are Pace, Reach, Stay, a pin on each of the pattern's features, Back and Nudge."""
+from collections import deque
+import math
+import random
+
+from control import Control, Feature, Option, ToggleControl, WiredPattern
+
+# the seconds between steps, or while the music's beat is sure, the bars
+PACES = [Option(n, v) for n, v in [
+    ("slow", (8.0, 8)),
+    ("easy", (4.0, 4)),
+    ("brisk", (2.0, 2)),
+    ("fast", (1.0, 1)),
+]]
+# how many options away a step may go; at jump, the old autopilot: a freshly randomized pattern every
+# pattern_length seconds
+REACHES = [Option(n, v) for n, v in [
+    ("near", 1),
+    ("far", 3),
+    ("any", math.inf),
+    ("jump", None),
+]]
+# the share of steps that reroll a whole feature, and that change the pattern
+REROLL = 0.1
+CHANGE = 0.03
+# the steps Back can undo
+BACK_STEPS = 10
+
+def movable(feature: Feature) -> list[int]:
+    """The feature's visible controls a step can move, by their index among the visible ones."""
+    return [i for i, c in enumerate(feature.visible_controls()) if len(c.options) > 1]
+
+class Walk:
+    def __init__(self):
+        self.pace = Control("Pace", PACES)
+        self.pace.set(1)
+        self.reach = Control("Reach", REACHES)
+        self.stay = ToggleControl("Stay")
+        self.stay.set(1)  # Off
+        self.pins: set[int] = set()  # the pattern on show's features the walk holds still, by index
+        # where each step left from: the pattern, its picks by name, whether it was saved and whether
+        # changed since
+        self.back_steps: deque[tuple[WiredPattern, dict, bool, bool]] = deque(maxlen=BACK_STEPS)
+        self.last_step = 0.0
+
+    @property
+    def jumping(self) -> bool:
+        return self.reach.value is None
+
+    def due(self, b) -> bool:
+        """Whether the walk steps on the Blender's frame now. At jump, as the old autopilot, a minute
+        from the pattern's start, in drive from a bar line; else Pace's seconds from the last step, or
+        while the beat is sure, on every so many bar lines."""
+        if self.jumping:
+            since = self.last_step if self.stay.value else b.run.start
+            return (b._t >= since + b.pattern_length
+                    and (not b.lands_on_bars or (b.on_beat is not None and b.on_beat[0] % 4 == 0)))
+        seconds, bars = self.pace.value
+        if b.beating:
+            return b.on_beat is not None and b.on_beat[0] % (4 * bars) == 0
+        return b._t >= self.last_step + seconds
+
+    def left(self, b) -> float:
+        """The seconds to the walk's next step."""
+        if self.jumping:
+            since = self.last_step if self.stay.value else b.run.start
+            return since + b.pattern_length - b._t
+        seconds, bars = self.pace.value
+        if b.beating:
+            beats = 4 * bars
+            return (beats - (b.sound.beat % beats)) * 60 / b.sound.bpm
+        return self.last_step + seconds - b._t
+
+    def step(self, b):
+        """One step on the Blender: the pattern's change, unless Stay is on; else on a pattern not
+        saved, one control of one unpinned feature moved by Reach, or a share of the time the whole
+        feature rerolled, gliding there. At jump, the pattern's change, or with Stay every unpinned
+        feature rerolled."""
+        self.last_step = b._t
+        pattern = b.pattern
+        roll = None if self.jumping else random.random()
+        if not self.stay.value and (roll is None or roll < CHANGE):
+            self.back_steps.append((pattern, pattern._to_dict(), pattern.configured, pattern.dirty))
+            b.start_transition(bars=b.lands_on_bars)
+            return
+        if pattern.configured:
+            return
+        features = [fidx for fidx, f in enumerate(pattern.features) if fidx not in self.pins and movable(f)]
+        if not features:
+            return
+        self.back_steps.append((pattern, pattern._to_dict(), pattern.configured, pattern.dirty))
+        if roll is None:
+            for fidx in features:
+                pattern.features[fidx].randomize()
+            pattern.update()
+        elif CHANGE <= roll < CHANGE + REROLL:
+            pattern.features[random.choice(features)].randomize()
+            pattern.update()
+        else:
+            fidx = random.choice(features)
+            cidx = random.choice(movable(pattern.features[fidx]))
+            control = pattern.features[fidx].visible_controls()[cidx]
+            now = control.selected_idx
+            step = random.choice([k - now for k in range(len(control.options)) if 0 < abs(k - now) <= self.reach.value])
+            pattern.change(fidx, cidx, step)
+        b.glide()
+
+    def back(self, b):
+        """Undoes the last step kept: the pattern it left from, back on show if it isn't, with its
+        controls and its mark as they were."""
+        if not self.back_steps:
+            return
+        pattern, picks, configured, dirty = self.back_steps.pop()
+        on_show = b.change.run.pattern if b.change is not None else b.pattern
+        if pattern is not on_show:
+            b.start_transition(b.patterns.index(pattern))
+        pattern._from_dict(picks)
+        pattern.configured = configured
+        pattern.dirty = dirty
+        if pattern is on_show:
+            b.glide()
 `,"wire.py":`"""What twinky sends a page, from the server or the page's own engine (browser.py) alike: the layout
 as it connects, a message a frame, and the remote's state."""
 import json
 import struct
 
-from control import Feature, ToggleControl
+from control import Control, Feature, ToggleControl
 
 # a feature's toggle by one of these names is its On switch, on the remote's card header
 SWITCHES = ["Enabled", "On"]
@@ -4955,28 +5391,35 @@ def frame_message(number: int, frame: bytes) -> bytes:
     """A frame's bytes as a page gets them: its number (4 bytes, little-endian), then W, R, G, B a light."""
     return struct.pack("<I", number) + frame
 
+def control_state(control: Control) -> dict:
+    return {"name": control.name, "options": [o.name for o in control.options], "pick": control.selected_idx}
+
 def feature_state(feature: Feature) -> dict:
     controls = feature.visible_controls()
     switches = [i for i, c in enumerate(controls) if isinstance(c, ToggleControl) and c.name in SWITCHES]
     return {
         "name": feature.name,
         "switch": switches[0] if switches else None,  # its index in controls
-        "controls": [
-            {"name": c.name, "options": [o.name for o in c.options], "pick": c.selected_idx}
-            for c in controls
-        ],
+        "controls": [control_state(c) for c in controls],
     }
 
 def remote_state(blender) -> dict:
     """What the remote shows: the patterns, the current one with its mark and the change running, its
     features with their visible controls and the Music feature after them, as the TUI lists them, the
-    pause and the spin ring's angle."""
+    walk's knobs, the pause and the spin ring's angle."""
     return {
         "patterns": [p.name for p in blender.patterns],
         "pattern": blender.pattern.name,
         "mark": blender.mark,
         "to": blender.change.run.pattern.name if blender.change is not None else None,
         "features": [feature_state(f) for f in blender.pattern.features + [blender.music]],
+        "walk": {
+            "pace": control_state(blender.walk.pace),
+            "reach": control_state(blender.walk.reach),
+            "stay": blender.walk.stay.value,
+            "pins": sorted(blender.walk.pins),  # the pinned features' indices in features
+            "back": bool(blender.walk.back_steps),  # a step for Back to undo
+        },
         "paused": blender.pause_change,
         "ring": blender.ring_angle,
     }
@@ -6201,6 +6644,6 @@ def hsl_color(h, s, l):
     t1 = s * t1
     t2 = s * t2 + ll * (1.0 - s)
     return rgb_color(r * t1 + t2, g * t1 + t2, b * t1 + t2)
-`};const A="/twinky";function Ne(e){for(const[n,t]of Object.entries(Re)){const l=`${A}/${n}`;e.FS.mkdirTree(l.slice(0,l.lastIndexOf("/"))),e.FS.writeFile(l,t)}return e.runPython(`import os, sys
-sys.path.insert(0, ${JSON.stringify(A)})
-os.chdir(${JSON.stringify(A)})`),e.pyimport("browser")}function Pe(e){const n=e.toJs();return e.destroy(),n.buffer}const O=e=>self.postMessage(e,{transfer:typeof e=="string"?[]:[e]}),W=e=>O(JSON.stringify({error:e.message}));try{const e=await _e({indexURL:new URL("../pyodide/",self.location.href).href}),n=Ne(e).Engine();self.onmessage=r=>{try{n.command(r.data)}catch(s){console.error(s)}},O(n.layout);const t=n.frame;n.init();let l=Date.now()/1e3+t;const a=()=>{try{O(Pe(n.step()));const i=n.changed_state();i!==void 0&&O(i)}catch(i){return W(i)}const r=Date.now()/1e3,s=l-r;l=s<-t?r+t:l+t,setTimeout(a,Math.max(s,0)*1e3)};a()}catch(e){W(e)}
+`};const P="/twinky";function Ne(e){for(const[n,t]of Object.entries(Oe)){const l=`${P}/${n}`;e.FS.mkdirTree(l.slice(0,l.lastIndexOf("/"))),e.FS.writeFile(l,t)}return e.runPython(`import os, sys
+sys.path.insert(0, ${JSON.stringify(P)})
+os.chdir(${JSON.stringify(P)})`),e.pyimport("browser")}function Le(e){const n=e.toJs();return e.destroy(),n.buffer}const R=e=>self.postMessage(e,{transfer:typeof e=="string"?[]:[e]}),W=e=>R(JSON.stringify({error:e.message}));try{const e=await me({indexURL:new URL("../pyodide/",self.location.href).href}),n=Ne(e).Engine();self.onmessage=r=>{try{n.command(r.data)}catch(s){console.error(s)}},R(n.layout);const t=n.frame;n.init();let l=Date.now()/1e3+t;const a=()=>{try{R(Le(n.step()));const i=n.changed_state();i!==void 0&&R(i)}catch(i){return W(i)}const r=Date.now()/1e3,s=l-r;l=s<-t?r+t:l+t,setTimeout(a,Math.max(s,0)*1e3)};a()}catch(e){W(e)}
